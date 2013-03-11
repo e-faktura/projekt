@@ -1,0 +1,5 @@
+﻿Options FollowSymLinks
+
+RewriteEngine On
+
+RewriteRule ^([0-9a-zA-Z]+)/?$ index.php?page=$1 [L]
