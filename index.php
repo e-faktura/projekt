@@ -1,6 +1,9 @@
-<?php
-require_once("config.php");
+﻿<?php
+require_once ("config.php");
 
-echo "Hello World";
+echo "<pre>";
 
+print_r(DatabaseManager::getConnection());
+
+echo "</pre>";
 ?>
