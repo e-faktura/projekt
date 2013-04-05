@@ -51,8 +51,8 @@ class FakturyController extends AppController {
 		$typy = $this->Faktura->Typ->find('list');
 		$statusy = $this->Faktura->Status->find('list');
 		$klienci = $this->Faktura->Klient->find('list');
-		$sposobPlatnoscis = $this->Faktura->SposobPlatnosci->find('list');
-		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobPlatnoscis'));
+		$sposobyplatnosci = $this->Faktura->SposobPlatnosci->find('list');
+		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyplatnosci'));
 	}
 
 /**
@@ -81,8 +81,8 @@ class FakturyController extends AppController {
 		$typy = $this->Faktura->Typ->find('list');
 		$statusy = $this->Faktura->Status->find('list');
 		$klienci = $this->Faktura->Klient->find('list');
-		$sposobPlatnoscis = $this->Faktura->SposobPlatnosci->find('list');
-		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobPlatnoscis'));
+		$sposobyplatnosci = $this->Faktura->SposobPlatnosci->find('list');
+		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyplatnosci'));
 	}
 
 /**
