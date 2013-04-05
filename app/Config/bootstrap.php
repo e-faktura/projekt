@@ -71,10 +71,13 @@ Cache::config('default', array('engine' => 'File'));
 			'produkty' => 'produkt',
 			'role' => 'rola',
 			'sposoby_platnosci' => 'sposob_platnosci',
+			'sposobyplatnosci' => 'sposobplatnosci',
 			'statusy' => 'status',
 			'typy' => 'typ',
 			'ustawienia' => 'ustawienie',
 			'uzytkownicy' => 'uzytkownik',
+			'sposoby' => 'sposob',
+			'platnosci' => 'platnosc'
 		),
 		'uninflected' => array(
 			'vat'
@@ -90,10 +93,14 @@ Cache::config('default', array('engine' => 'File'));
 			'produkt' => 'produkty',
 			'rola' => 'role',
 			'sposob_platnosci' => 'sposoby_platnosci',
+			'sposobplatnosci' => 'sposobyplatnosci',
 			'status' => 'statusy',
 			'typ' => 'typy',
 			'ustawienie' => 'ustawienia',
-			'uzytkownik' => 'uzytkownicy'),
+			'uzytkownik' => 'uzytkownicy',
+			'sposob' => 'sposoby',
+			'platnosc' => 'platnosci'
+		),
 		'uninflected' => array(
 			'vat'
 		)

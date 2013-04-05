@@ -1,19 +1,19 @@
-<div class="sposobPlatnoscis view">
-<h2><?php  echo __('Sposob Platnosci'); ?></h2>
+<div class="sposobyplatnosci view">
+<h2><?php  echo __('Sposobplatnosci'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
-			<?php echo h($sposobPlatnosci['SposobPlatnosci']['id']); ?>
+			<?php echo h($sposobplatnosci['Sposobplatnosci']['id']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Parent Sposob Platnosci'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($sposobPlatnosci['ParentSposobPlatnosci']['id'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $sposobPlatnosci['ParentSposobPlatnosci']['id'])); ?>
+			<?php echo $this->Html->link($sposobplatnosci['ParentSposobPlatnosci']['id'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $sposobplatnosci['ParentSposobPlatnosci']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
-			<?php echo h($sposobPlatnosci['SposobPlatnosci']['nazwa']); ?>
+			<?php echo h($sposobplatnosci['Sposobplatnosci']['nazwa']); ?>
 			&nbsp;
 		</dd>
 	</dl>
@@ -21,10 +21,10 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Sposob Platnosci'), array('action' => 'edit', $sposobPlatnosci['SposobPlatnosci']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Sposob Platnosci'), array('action' => 'delete', $sposobPlatnosci['SposobPlatnosci']['id']), null, __('Are you sure you want to delete # %s?', $sposobPlatnosci['SposobPlatnosci']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Sposob Platnoscis'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Sposob Platnosci'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Edit Sposobplatnosci'), array('action' => 'edit', $sposobplatnosci['Sposobplatnosci']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Delete Sposobplatnosci'), array('action' => 'delete', $sposobplatnosci['Sposobplatnosci']['id']), null, __('Are you sure you want to delete # %s?', $sposobplatnosci['Sposobplatnosci']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('List Sposobyplatnosci'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Sposobplatnosci'), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Sposoby Platnosci'), array('controller' => 'sposoby_platnosci', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Parent Sposob Platnosci'), array('controller' => 'sposoby_platnosci', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Faktury'), array('controller' => 'faktury', 'action' => 'index')); ?> </li>
@@ -33,7 +33,7 @@
 </div>
 <div class="related">
 	<h3><?php echo __('Related Faktury'); ?></h3>
-	<?php if (!empty($sposobPlatnosci['Faktura'])): ?>
+	<?php if (!empty($sposobplatnosci['Faktura'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
@@ -50,7 +50,7 @@
 	</tr>
 	<?php
 		$i = 0;
-		foreach ($sposobPlatnosci['Faktura'] as $faktura): ?>
+		foreach ($sposobplatnosci['Faktura'] as $faktura): ?>
 		<tr>
 			<td><?php echo $faktura['id']; ?></td>
 			<td><?php echo $faktura['parent_id']; ?></td>
@@ -80,7 +80,7 @@
 </div>
 <div class="related">
 	<h3><?php echo __('Related Sposoby Platnosci'); ?></h3>
-	<?php if (!empty($sposobPlatnosci['ChildSposobPlatnosci'])): ?>
+	<?php if (!empty($sposobplatnosci['ChildSposobPlatnosci'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php echo __('Id'); ?></th>
@@ -90,7 +90,7 @@
 	</tr>
 	<?php
 		$i = 0;
-		foreach ($sposobPlatnosci['ChildSposobPlatnosci'] as $childSposobPlatnosci): ?>
+		foreach ($sposobplatnosci['ChildSposobPlatnosci'] as $childSposobPlatnosci): ?>
 		<tr>
 			<td><?php echo $childSposobPlatnosci['id']; ?></td>
 			<td><?php echo $childSposobPlatnosci['parent_id']; ?></td>

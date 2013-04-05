@@ -1,7 +1,7 @@
-<div class="sposobPlatnoscis form">
-<?php echo $this->Form->create('SposobPlatnosci'); ?>
+<div class="sposobyplatnosci form">
+<?php echo $this->Form->create('Sposobplatnosci'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Sposob Platnosci'); ?></legend>
+		<legend><?php echo __('Add Sposobplatnosci'); ?></legend>
 	<?php
 		echo $this->Form->input('parent_id');
 		echo $this->Form->input('nazwa');
@@ -13,7 +13,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Sposob Platnoscis'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Sposobyplatnosci'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Sposoby Platnosci'), array('controller' => 'sposoby_platnosci', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Parent Sposob Platnosci'), array('controller' => 'sposoby_platnosci', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Faktury'), array('controller' => 'faktury', 'action' => 'index')); ?> </li>
