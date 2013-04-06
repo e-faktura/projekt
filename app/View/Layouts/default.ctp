@@ -20,7 +20,7 @@
 $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
 ?>
 <!DOCTYPE html>
-<html>
+<html>	
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
@@ -29,19 +29,35 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-
-		echo $this->Html->css('cake.generic');
+		echo $this->Html->css('cake.generic');	
+		echo $this->Html->css('bootstrap');
+		echo $this->Html->css('bootstrap-responsive');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-	?>
+	?>			
 </head>
 <body>
-	<div id="container">
-		<div id="header">
-			<h1><?php echo $this->Html->link($cakeDescription, 'http://cakephp.org'); ?></h1>
-		</div>
+    <div class="container">
+      <div class="masthead">
+        <h3 class="muted" "><font id="logo_e">e</font><font id="logo_text">-Faktura</font></h3>
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="container">
+              <ul class="nav">
+                <li class="active"><a href="/projekt">Home</a></li>
+                <li><a href="/projekt/faktury">Faktury</a></li>
+                <li><a href="/projekt/klienci">Kontrachenci</a></li>
+                <li><a href="/projekt/produkty">Magazyn</a></li>
+                <li><a href="#">Ustawienia</a></li>
+                <li><a href="#">Kontakt</a></li>
+              </ul>
+            </div>
+          </div>
+        </div><!-- /.navbar -->
+      </div>
+
 		<div id="content">
 
 			<?php echo $this->Session->flash(); ?>
