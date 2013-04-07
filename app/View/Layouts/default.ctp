@@ -17,10 +17,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework');
+$cakeDescription = __d('cake_dev', 'e-faktura');
 ?>
 <!DOCTYPE html>
-<html>	
+<html>
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
@@ -46,12 +46,29 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="/projekt">Home</a></li>
-                <li><a href="/projekt/faktury">Faktury</a></li>
-                <li><a href="/projekt/klienci">Kontrachenci</a></li>
-                <li><a href="/projekt/produkty">Magazyn</a></li>
+		<?php
+		if (strpos($title_for_layout,"Home") === 0 )
+		echo '<li class="active"><a href="/projekt">Home</a></li>';
+		else
+		echo '<li><a href="/projekt">Home</a></li>';
+
+		if (strpos($title_for_layout,"Faktury") === 0 )
+		echo '<li class="active"><a href="/projekt/faktury">Faktury</a></li>';
+		else
+		echo '<li><a href="/projekt/faktury">Faktury</a></li>';
+		if (strpos($title_for_layout,"Klienci") === 0 )
+                echo '<li class="active"><a href="/projekt/klienci">Kontrahenci</a></li>';
+		else
+                echo '<li><a href="/projekt/klienci">Kontrahenci</a></li>';
+
+		if (strpos($title_for_layout,"Produkty") === 0 )
+                echo '<li class="active"><a href="/projekt/produkty">Magazyn</a></li>';
+		else
+                echo '<li><a href="/projekt/produkty">Magazyn</a></li>';
+		?>
                 <li><a href="#">Ustawienia</a></li>
                 <li><a href="#">Kontakt</a></li>
+
               </ul>
             </div>
           </div>
@@ -59,7 +76,6 @@ $cakeDescription = __d('cake_dev', 'CakePHP: the rapid development php framework
       </div>
 
 		<div id="content">
-
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
