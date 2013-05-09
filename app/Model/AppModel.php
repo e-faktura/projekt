@@ -22,7 +22,7 @@
  */
 
 App::uses('Model', 'Model');
-
+App::uses('PlValidation','Localized.Validation');
 /**
  * Application model for Cake.
  *
