@@ -15,7 +15,7 @@ class Produkt extends AppModel {
  *
  * @var array
  */
-	// public $validate = array(
+	public $validate = array(
 	// 	'parent_id' => array(
 	// 		'numeric' => array(
 	// 			'rule' => array('numeric'),
@@ -26,16 +26,60 @@ class Produkt extends AppModel {
 	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
 	// 		),
 	// 	),
-	// 	'nazwa' => array(
-	// 		'notempty' => array(
-	// 			'rule' => array('notempty'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
+		'nazwa' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Nazwa nie może być pusta.',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'cena_netto' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Cena nie może być pusta.',
+				// 'allowEmpty' => true,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'dodatnia' => array(
+				'rule' => array('comparison','>=',0),
+				'message' => 'Cena musi być większa lub równa 0.',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'decimal' => array(
+				'rule' => array('decimal',2),
+				'message' => 'Wartość jest niepoprawna.',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'ilosc' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Ilość nie może być pusta.',
+				// 'allowEmpty' => true,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'dodatnia' => array(
+				'rule' => array('comparison','>=',0),
+				'message' => 'Ilość musi być większa lub równa 0.',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	// 	'vat_id' => array(
 	// 		'numeric' => array(
 	// 			'rule' => array('numeric'),
@@ -46,7 +90,7 @@ class Produkt extends AppModel {
 	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
 	// 		),
 	// 	),
-	// );
+	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
