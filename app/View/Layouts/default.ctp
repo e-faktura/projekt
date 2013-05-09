@@ -29,51 +29,61 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 	</title>
 	<?php
 		echo $this->Html->meta('icon');
-		echo $this->Html->css('cake.generic');	
+		echo $this->Html->css('cake.generic');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('bootstrap-responsive');
+		echo $this->Html->css('efaktura');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-	?>			
+	?>
 </head>
 <body>
-    <div class="container">
-      <div class="masthead">
-        <h3 class="muted" "><font id="logo_e">e</font><font id="logo_text">-Faktura</font></h3>
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav">
-		<?php
-		if (strpos($title_for_layout,"Home") === 0 )
-		echo '<li class="active"><a href="/projekt">Home</a></li>';
-		else
-		echo '<li><a href="/projekt">Home</a></li>';
+	<div class="container">
+		<div class="masthead">
+			
+			<h3 class="muted">
+				<span id="logo_e">e</span><span id="logo_text">-Faktura</span>
+			</h3>
+			
+			<div class="navbar">
+				<div class="navbar-inner">
+					<div class="container">
+						<ul class="nav">
+							<?php
+								echo '<li';
+								if ( strpos($title_for_layout, 'Home') === 0 )
+									echo ' class="active"';
+								echo '>'.$this->Html->link(__('Home'), '/').'</li>';
+								
+								echo '<li';
+								if ( $this->params['controller'] == 'faktury' )
+									echo ' class="active"';
+								echo '>'.$this->Html->link('Faktury', array('controller' => 'faktury')).'</li>';
+								
+								echo '<li';
+								if ( $this->params['controller'] == 'klienci' )
+									echo ' class="active"';
+								echo '>'.$this->Html->link('Klienci', array('controller' => 'klienci')).'</li>';
 
-		if (strpos($title_for_layout,"Faktury") === 0 )
-		echo '<li class="active"><a href="/projekt/faktury">Faktury</a></li>';
-		else
-		echo '<li><a href="/projekt/faktury">Faktury</a></li>';
-		if (strpos($title_for_layout,"Klienci") === 0 )
-                echo '<li class="active"><a href="/projekt/klienci">Kontrahenci</a></li>';
-		else
-                echo '<li><a href="/projekt/klienci">Kontrahenci</a></li>';
+								echo '<li';
+								if ( $this->params['controller'] == 'produkty' )
+									echo ' class="active"';
+								echo '>'.$this->Html->link('Produkty', array('controller' => 'produkty')).'</li>';
+								
+								echo '<li';
+								if ( $this->params['controller'] == 'ustawienia' )
+									echo ' class="active"';
+								echo '>'.$this->Html->link('Ustawienia', array('controller' => 'ustawienia')).'</li>';
+							?>
+							<li><a href="#">Kontakt</a></li>
 
-		if (strpos($title_for_layout,"Produkty") === 0 )
-                echo '<li class="active"><a href="/projekt/produkty">Magazyn</a></li>';
-		else
-                echo '<li><a href="/projekt/produkty">Magazyn</a></li>';
-		?>
-                <li><a href="#">Ustawienia</a></li>
-                <li><a href="#">Kontakt</a></li>
-
-              </ul>
-            </div>
-          </div>
-        </div><!-- /.navbar -->
-      </div>
+						</ul>
+					</div>
+				</div>
+			</div><!-- /.navbar -->
+		</div>
 
 		<div id="content">
 			<?php echo $this->Session->flash(); ?>
@@ -81,12 +91,7 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-			<?php echo $this->Html->link(
-					$this->Html->image('cake.power.gif', array('alt' => $cakeDescription, 'border' => '0')),
-					'http://www.cakephp.org/',
-					array('target' => '_blank', 'escape' => false)
-				);
-			?>
+			
 		</div>
 	</div>
 	<?php echo $this->element('sql_dump'); ?>
