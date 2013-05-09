@@ -4,7 +4,6 @@
 		<legend><?php echo __('Edit Produkt'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('cena_netto');
 		echo $this->Form->input('ilosc');

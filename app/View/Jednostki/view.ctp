@@ -6,11 +6,6 @@
 			<?php echo h($jednostka['Jednostka']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Jednostka'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($jednostka['ParentJednostka']['id'], array('controller' => 'jednostki', 'action' => 'view', $jednostka['ParentJednostka']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
 			<?php echo h($jednostka['Jednostka']['nazwa']); ?>

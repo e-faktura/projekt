@@ -3,7 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add Faktura'); ?></legend>
 	<?php
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('numer');
 		echo $this->Form->input('data_wystawienia');
 		echo $this->Form->input('data_sprzedazy');

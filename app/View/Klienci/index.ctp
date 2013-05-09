@@ -3,7 +3,6 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('parent_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th><?php echo $this->Paginator->sort('adres'); ?></th>
 			<th><?php echo $this->Paginator->sort('nip'); ?></th>
@@ -14,9 +13,6 @@
 	<?php foreach ($klienci as $klient): ?>
 	<tr>
 		<td><?php echo h($klient['Klient']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($klient['ParentKlient']['id'], array('controller' => 'klienci', 'action' => 'view', $klient['ParentKlient']['id'])); ?>
-		</td>
 		<td><?php echo h($klient['Klient']['nazwa']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['adres']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['nip']); ?>&nbsp;</td>

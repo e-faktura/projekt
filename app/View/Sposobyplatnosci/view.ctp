@@ -6,11 +6,6 @@
 			<?php echo h($sposobplatnosci['Sposobplatnosci']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Sposob Platnosci'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($sposobplatnosci['ParentSposobPlatnosci']['id'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $sposobplatnosci['ParentSposobPlatnosci']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
 			<?php echo h($sposobplatnosci['Sposobplatnosci']['nazwa']); ?>

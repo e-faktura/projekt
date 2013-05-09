@@ -6,11 +6,6 @@
 			<?php echo h($vat['Vat']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Vat'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($vat['ParentVat']['id'], array('controller' => 'vat', 'action' => 'view', $vat['ParentVat']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
 			<?php echo h($vat['Vat']['nazwa']); ?>

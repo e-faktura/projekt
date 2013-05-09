@@ -6,11 +6,6 @@
 			<?php echo h($faktura['Faktura']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Faktura'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($faktura['ParentFaktura']['id'], array('controller' => 'faktury', 'action' => 'view', $faktura['ParentFaktura']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Numer'); ?></dt>
 		<dd>
 			<?php echo h($faktura['Faktura']['numer']); ?>

@@ -6,11 +6,6 @@
 			<?php echo h($typ['Typ']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Typ'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($typ['ParentTyp']['id'], array('controller' => 'typy', 'action' => 'view', $typ['ParentTyp']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
 			<?php echo h($typ['Typ']['nazwa']); ?>

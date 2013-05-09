@@ -3,7 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add Status'); ?></legend>
 	<?php
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('nazwa');
 	?>
 	</fieldset>

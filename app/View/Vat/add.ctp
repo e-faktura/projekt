@@ -3,7 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add Vat'); ?></legend>
 	<?php
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('wartosc');
 	?>

@@ -3,7 +3,6 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('parent_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th><?php echo $this->Paginator->sort('cena_netto'); ?></th>
 			<th><?php echo $this->Paginator->sort('ilosc'); ?></th>
@@ -13,9 +12,6 @@
 	<?php foreach ($produkty as $produkt): ?>
 	<tr>
 		<td><?php echo h($produkt['Produkt']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($produkt['ParentProdukt']['id'], array('controller' => 'produkty', 'action' => 'view', $produkt['ParentProdukt']['id'])); ?>
-		</td>
 		<td><?php echo h($produkt['Produkt']['nazwa']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['cena_netto']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['ilosc']); ?>&nbsp;</td>

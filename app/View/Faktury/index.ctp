@@ -3,7 +3,6 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('parent_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('numer'); ?></th>
 			<th><?php echo $this->Paginator->sort('data_wystawienia'); ?></th>
 			<th><?php echo $this->Paginator->sort('data_sprzedazy'); ?></th>
@@ -17,9 +16,6 @@
 	<?php foreach ($faktury as $faktura): ?>
 	<tr>
 		<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($faktura['ParentFaktura']['id'], array('controller' => 'faktury', 'action' => 'view', $faktura['ParentFaktura']['id'])); ?>
-		</td>
 		<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
 		<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
 		<td><?php echo h($faktura['Faktura']['data_sprzedazy']); ?>&nbsp;</td>

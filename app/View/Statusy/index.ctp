@@ -3,16 +3,12 @@
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('parent_id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($statusy as $status): ?>
 	<tr>
 		<td><?php echo h($status['Status']['id']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($status['ParentStatus']['id'], array('controller' => 'statusy', 'action' => 'view', $status['ParentStatus']['id'])); ?>
-		</td>
 		<td><?php echo h($status['Status']['nazwa']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $status['Status']['id'])); ?>

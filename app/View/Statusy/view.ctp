@@ -6,11 +6,6 @@
 			<?php echo h($status['Status']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Status'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($status['ParentStatus']['id'], array('controller' => 'statusy', 'action' => 'view', $status['ParentStatus']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
 			<?php echo h($status['Status']['nazwa']); ?>

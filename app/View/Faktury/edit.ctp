@@ -4,7 +4,6 @@
 		<legend><?php echo __('Edit Faktura'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('numer');
 		echo $this->Form->input('data_wystawienia');
 		echo $this->Form->input('data_sprzedazy');

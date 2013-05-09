@@ -3,7 +3,6 @@
 	<fieldset>
 		<legend><?php echo __('Add Klient'); ?></legend>
 	<?php
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('adres');
 		echo $this->Form->input('nip');

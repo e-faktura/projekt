@@ -4,7 +4,6 @@
 		<legend><?php echo __('Edit Sposobplatnosci'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('parent_id');
 		echo $this->Form->input('nazwa');
 	?>
 	</fieldset>

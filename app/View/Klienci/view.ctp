@@ -6,11 +6,6 @@
 			<?php echo h($klient['Klient']['id']); ?>
 			&nbsp;
 		</dd>
-		<dt><?php echo __('Parent Klient'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($klient['ParentKlient']['id'], array('controller' => 'klienci', 'action' => 'view', $klient['ParentKlient']['id'])); ?>
-			&nbsp;
-		</dd>
 		<dt><?php echo __('Nazwa'); ?></dt>
 		<dd>
 			<?php echo h($klient['Klient']['nazwa']); ?>
