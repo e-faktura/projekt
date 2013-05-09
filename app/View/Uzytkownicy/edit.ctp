@@ -7,7 +7,7 @@
 		echo $this->Form->input('rola_id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('login');
-		echo $this->Form->input('haslo');
+		echo $this->Form->input('haslo', array( 'label' => 'Hasło' ));
 		echo $this->Form->input('email');
 	?>
 	</fieldset>

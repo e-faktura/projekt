@@ -6,7 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('adres');
-		echo $this->Form->input('nip');
+		echo $this->Form->input('nip', array( 'label' => 'NIP' ));
 		echo $this->Form->input('email');
 		echo $this->Form->input('telefon');
 	?>

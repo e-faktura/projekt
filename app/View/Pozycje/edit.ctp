@@ -6,7 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('faktura_id');
 		echo $this->Form->input('produkt_id');
-		echo $this->Form->input('ilosc');
+		echo $this->Form->input('ilosc', array( 'label' => 'Ilość' ));
 		echo $this->Form->input('jednostka_id');
 	?>
 	</fieldset>

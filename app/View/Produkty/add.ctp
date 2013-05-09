@@ -4,8 +4,8 @@
 		<legend><?php echo __('Add Produkt'); ?></legend>
 	<?php
 		echo $this->Form->input('nazwa');
-		echo $this->Form->input('cena_netto');
-		echo $this->Form->input('ilosc');
+		echo $this->Form->input('cena_netto', array( 'label' => 'Cena netto' ));
+		echo $this->Form->input('ilosc', array( 'label' => 'Ilość' ));
 		echo $this->Form->input('vat_id');
 	?>
 	</fieldset>
