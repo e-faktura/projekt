@@ -5,7 +5,7 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
-		echo $this->Form->input('wartosc', array( 'label' => 'Wartość' ));
+		echo $this->Form->input('wartosc', array( 'label' => 'Wartość', 'default' => '0.00' ));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

@@ -5,13 +5,13 @@
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('numer');
-		echo $this->Form->input('data_wystawienia', array( 'label' => 'Data wystawienia' ));
-		echo $this->Form->input('data_sprzedazy', array( 'label' => 'Data sprzedaży' ));
+		echo $this->Form->input('data_wystawienia', array( 'label' => 'Data wystawienia', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '' ));
+		echo $this->Form->input('data_sprzedazy', array( 'label' => 'Data sprzedaży', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '' ));
 		echo $this->Form->input('typ_id');
 		echo $this->Form->input('status_id');
 		echo $this->Form->input('klient_id');
 		echo $this->Form->input('sposob_platnosci_id');
-		echo $this->Form->input('termin_platnosci', array( 'label' => 'Termin płatności' ));
+		echo $this->Form->input('termin_platnosci', array( 'label' => 'Termin płatności', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '' ));
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
