@@ -63,7 +63,7 @@ class DATABASE_CONFIG {
 		'password' => 'efaktura',
 		'database' => 'efaktura',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8',
 	);
 
 	public $test = array(
@@ -74,6 +74,6 @@ class DATABASE_CONFIG {
 		'password' => 'efaktura',
 		'database' => 'efaktura',
 		'prefix' => '',
-		//'encoding' => 'utf8',
+		'encoding' => 'utf8',
 	);
 }
