@@ -47,13 +47,13 @@ class Typ extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentTyp' => array(
-			'className' => 'Typ',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		// 'ParentTyp' => array(
+		// 	'className' => 'Typ',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// )
 	);
 
 /**
@@ -75,19 +75,19 @@ class Typ extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ChildTyp' => array(
-			'className' => 'Typ',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		// 'ChildTyp' => array(
+		// 	'className' => 'Typ',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// )
 	);
 
 }

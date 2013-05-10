@@ -47,13 +47,13 @@ class Jednostka extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentJednostka' => array(
-			'className' => 'Jednostka',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		// 'ParentJednostka' => array(
+		// 	'className' => 'Jednostka',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// )
 	);
 
 /**
@@ -62,19 +62,19 @@ class Jednostka extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'ChildJednostka' => array(
-			'className' => 'Jednostka',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
+		// 'ChildJednostka' => array(
+		// 	'className' => 'Jednostka',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// ),
 		'Pozycja' => array(
 			'className' => 'Pozycja',
 			'foreignKey' => 'jednostka_id',

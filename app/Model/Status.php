@@ -47,13 +47,13 @@ class Status extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentStatus' => array(
-			'className' => 'Status',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		// 'ParentStatus' => array(
+		// 	'className' => 'Status',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// )
 	);
 
 /**
@@ -75,19 +75,19 @@ class Status extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ChildStatus' => array(
-			'className' => 'Status',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		// 'ChildStatus' => array(
+		// 	'className' => 'Status',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// )
 	);
 
 }

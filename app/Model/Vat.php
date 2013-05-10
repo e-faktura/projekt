@@ -65,13 +65,13 @@ class Vat extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentVat' => array(
-			'className' => 'Vat',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		// 'ParentVat' => array(
+		// 	'className' => 'Vat',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// )
 	);
 
 /**
@@ -93,19 +93,19 @@ class Vat extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ChildVat' => array(
-			'className' => 'Vat',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		// 'ChildVat' => array(
+		// 	'className' => 'Vat',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// )
 	);
 
 }

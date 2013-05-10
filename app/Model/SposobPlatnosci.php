@@ -47,13 +47,13 @@ class SposobPlatnosci extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentSposobPlatnosci' => array(
-			'className' => 'SposobPlatnosci',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		// 'ParentSposobPlatnosci' => array(
+		// 	'className' => 'SposobPlatnosci',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// )
 	);
 
 /**
@@ -75,19 +75,19 @@ class SposobPlatnosci extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ChildSposobPlatnosci' => array(
-			'className' => 'SposobPlatnosci',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		// 'ChildSposobPlatnosci' => array(
+		// 	'className' => 'SposobPlatnosci',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// )
 	);
 
 }

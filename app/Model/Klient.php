@@ -87,13 +87,13 @@ class Klient extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentKlient' => array(
-			'className' => 'Klient',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		)
+		// 'ParentKlient' => array(
+		// 	'className' => 'Klient',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// )
 	);
 
 /**
@@ -115,19 +115,19 @@ class Klient extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ChildKlient' => array(
-			'className' => 'Klient',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		// 'ChildKlient' => array(
+		// 	'className' => 'Klient',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// )
 	);
 
 }
