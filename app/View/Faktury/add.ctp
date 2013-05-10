@@ -4,7 +4,7 @@
 <div class="faktury form">
 	<?php echo $this->Form->create('Faktura'); ?>
 		<fieldset>
-			<legend><?php echo __('Add Faktura'); ?></legend>
+			<legend>Nowa faktura</legend>
 		<?php
 			echo $this->Form->input('numer', array( 'default' => $numer, 'disabled' => true ));
 			echo $this->Form->input('data_wystawienia', array( 'label' => 'Data wystawienia', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '', 'orderYear' => 'asc', 'minYear' => (((int)date('Y')) - 5 ), 'maxYear' => (((int)date('Y')) + 5 ) ));
@@ -32,14 +32,14 @@
 			</tr>
 			<tr>
 				<td>1.</td>
-				<td><?php echo $this->Form->input('produkt'); ?></td>
-				<td><?php echo $this->Form->input('ilosc'); ?></td>
-				<td><?php echo $this->Form->input('jednostka'); ?></td>
-				<td><?php echo $this->Form->input('cena_netto'); ?></td>
-				<td><?php echo $this->Form->input('vat'); ?></td>
-				<td><?php echo $this->Form->input('kwota_netto'); ?></td>
-				<td><?php echo $this->Form->input('kwota_vat'); ?></td>
-				<td><?php echo $this->Form->input('kwota_brutto'); ?></td>
+				<td><?php echo $this->Form->input('produkt', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('ilosc', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('jednostka', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('cena_netto', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('vat', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('kwota_netto', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('kwota_vat', array( 'label' => false )); ?></td>
+				<td><?php echo $this->Form->input('kwota_brutto', array( 'label' => false )); ?></td>
 			</tr>
 		</table>
 	

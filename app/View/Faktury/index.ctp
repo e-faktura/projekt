@@ -1,44 +1,39 @@
 <div class="faktury index">
 	<h2><?php echo __('Faktury'); ?></h2>
+	
+	<?php echo $this->Html->link('Nowa faktura', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	
 	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('numer'); ?></th>
-			<th><?php echo $this->Paginator->sort('data_wystawienia'); ?></th>
-			<th><?php echo $this->Paginator->sort('data_sprzedazy'); ?></th>
-			<th><?php echo $this->Paginator->sort('typ_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('status_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('klient_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('sposob_platnosci_id'); ?></th>
-			<th><?php echo $this->Paginator->sort('termin_platnosci'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($faktury as $faktura): ?>
-	<tr>
-		<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
-		<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
-		<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
-		<td><?php echo h($faktura['Faktura']['data_sprzedazy']); ?>&nbsp;</td>
-		<td>
-			<?php echo $this->Html->link($faktura['Typ']['nazwa'], array('controller' => 'typy', 'action' => 'view', $faktura['Typ']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($faktura['Status']['nazwa'], array('controller' => 'statusy', 'action' => 'view', $faktura['Status']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($faktura['Klient']['nazwa'], array('controller' => 'klienci', 'action' => 'view', $faktura['Klient']['id'])); ?>
-		</td>
-		<td>
-			<?php echo $this->Html->link($faktura['SposobPlatnosci']['nazwa'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $faktura['SposobPlatnosci']['id'])); ?>
-		</td>
-		<td><?php echo h($faktura['Faktura']['termin_platnosci']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $faktura['Faktura']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $faktura['Faktura']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $faktura['Faktura']['id']), null, __('Are you sure you want to delete # %s?', $faktura['Faktura']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
+		<tr>
+				<th><?php echo $this->Paginator->sort('id'); ?></th>
+				<th><?php echo $this->Paginator->sort('numer'); ?></th>
+				<th><?php echo $this->Paginator->sort('data_wystawienia'); ?></th>
+				<th><?php echo $this->Paginator->sort('data_sprzedazy'); ?></th>
+				<th><?php echo $this->Paginator->sort('typ_id'); ?></th>
+				<th><?php echo $this->Paginator->sort('status_id'); ?></th>
+				<th><?php echo $this->Paginator->sort('klient_id'); ?></th>
+				<th><?php echo $this->Paginator->sort('sposob_platnosci_id'); ?></th>
+				<th><?php echo $this->Paginator->sort('termin_platnosci'); ?></th>
+				<th class="actions"><?php echo __('Actions'); ?></th>
+		</tr>
+		<?php foreach ($faktury as $faktura): ?>
+			<tr>
+				<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
+				<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
+				<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
+				<td><?php echo h($faktura['Faktura']['data_sprzedazy']); ?>&nbsp;</td>
+				<td><?php echo h($faktura['Typ']['nazwa']); ?></td>
+				<td><?php echo h($faktura['Status']['nazwa']); ?></td>
+				<td><?php echo h($faktura['Klient']['nazwa']); ?></td>
+				<td><?php echo h($faktura['SposobPlatnosci']['nazwa']); ?></td>
+				<td><?php echo h($faktura['Faktura']['termin_platnosci']); ?>&nbsp;</td>
+				<td class="actions">
+					<?php echo $this->Html->link(__('View'), array('action' => 'view', $faktura['Faktura']['id'])); ?>
+					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $faktura['Faktura']['id'])); ?>
+					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $faktura['Faktura']['id']), null, __('Are you sure you want to delete # %s?', $faktura['Faktura']['id'])); ?>
+				</td>
+			</tr>
+		<?php endforeach; ?>
 	</table>
 	<p>
 	<?php

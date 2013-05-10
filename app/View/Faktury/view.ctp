@@ -23,22 +23,22 @@
 		</dd>
 		<dt><?php echo __('Typ'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($faktura['Typ']['id'], array('controller' => 'typy', 'action' => 'view', $faktura['Typ']['id'])); ?>
+			<?php echo h($faktura['Typ']['nazwa']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Status'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($faktura['Status']['id'], array('controller' => 'statusy', 'action' => 'view', $faktura['Status']['id'])); ?>
+			<?php echo h($faktura['Status']['nazwa']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Klient'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($faktura['Klient']['id'], array('controller' => 'klienci', 'action' => 'view', $faktura['Klient']['id'])); ?>
+			<?php echo h($faktura['Klient']['nazwa']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Sposob Platnosci'); ?></dt>
 		<dd>
-			<?php echo $this->Html->link($faktura['SposobPlatnosci']['id'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $faktura['SposobPlatnosci']['id'])); ?>
+			<?php echo h($faktura['SposobPlatnosci']['nazwa']); ?>
 			&nbsp;
 		</dd>
 		<dt><?php echo __('Termin Platnosci'); ?></dt>
@@ -69,87 +69,32 @@
 		<li><?php echo $this->Html->link(__('New Pozycja'), array('controller' => 'pozycje', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
-<div class="related">
-	<h3><?php echo __('Related Faktury'); ?></h3>
-	<?php if (!empty($faktura['ChildFaktura'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Parent Id'); ?></th>
-		<th><?php echo __('Numer'); ?></th>
-		<th><?php echo __('Data Wystawienia'); ?></th>
-		<th><?php echo __('Data Sprzedazy'); ?></th>
-		<th><?php echo __('Typ Id'); ?></th>
-		<th><?php echo __('Status Id'); ?></th>
-		<th><?php echo __('Klient Id'); ?></th>
-		<th><?php echo __('Sposob Platnosci Id'); ?></th>
-		<th><?php echo __('Termin Platnosci'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($faktura['ChildFaktura'] as $childFaktura): ?>
-		<tr>
-			<td><?php echo $childFaktura['id']; ?></td>
-			<td><?php echo $childFaktura['parent_id']; ?></td>
-			<td><?php echo $childFaktura['numer']; ?></td>
-			<td><?php echo $childFaktura['data_wystawienia']; ?></td>
-			<td><?php echo $childFaktura['data_sprzedazy']; ?></td>
-			<td><?php echo $childFaktura['typ_id']; ?></td>
-			<td><?php echo $childFaktura['status_id']; ?></td>
-			<td><?php echo $childFaktura['klient_id']; ?></td>
-			<td><?php echo $childFaktura['sposob_platnosci_id']; ?></td>
-			<td><?php echo $childFaktura['termin_platnosci']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'faktury', 'action' => 'view', $childFaktura['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'faktury', 'action' => 'edit', $childFaktura['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'faktury', 'action' => 'delete', $childFaktura['id']), null, __('Are you sure you want to delete # %s?', $childFaktura['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
 
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Child Faktura'), array('controller' => 'faktury', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
-</div>
 <div class="related">
-	<h3><?php echo __('Related Pozycje'); ?></h3>
+	<h3>Pozycje</h3>
+
 	<?php if (!empty($faktura['Pozycja'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Faktura Id'); ?></th>
-		<th><?php echo __('Produkt Id'); ?></th>
-		<th><?php echo __('Ilosc'); ?></th>
-		<th><?php echo __('Jednostka Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
+		<th>Lp.</th>
+		<th>Produkt</th>
+		<th>Ilosc</th>
+		<th>Jednostka</th>
+		<th>Cena netto</th>
+		<th>Cena brutto</th>
 	</tr>
 	<?php
-		$i = 0;
+		$i = 1;
 		foreach ($faktura['Pozycja'] as $pozycja): ?>
 		<tr>
-			<td><?php echo $pozycja['id']; ?></td>
-			<td><?php echo $pozycja['faktura_id']; ?></td>
-			<td><?php echo $pozycja['produkt_id']; ?></td>
+			<td><?php echo $i++; ?></td>
+			<td><?php echo $pozycja['Produkt']['nazwa']; ?></td>
 			<td><?php echo $pozycja['ilosc']; ?></td>
-			<td><?php echo $pozycja['jednostka_id']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'pozycje', 'action' => 'view', $pozycja['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'pozycje', 'action' => 'edit', $pozycja['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'pozycje', 'action' => 'delete', $pozycja['id']), null, __('Are you sure you want to delete # %s?', $pozycja['id'])); ?>
-			</td>
+			<td><?php echo $pozycja['Jednostka']['nazwa']; ?></td>
+			<td><?php echo $pozycja['Produkt']['cena_netto'] ?></td>
+			<td><?php echo $pozycja['Produkt']['cena_brutto'] ?></td>
 		</tr>
 	<?php endforeach; ?>
 	</table>
 <?php endif; ?>
-
-	<div class="actions">
-		<ul>
-			<li><?php echo $this->Html->link(__('New Pozycja'), array('controller' => 'pozycje', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
 </div>
