@@ -94,19 +94,23 @@ class Produkt extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
+	public $virtualFields = array(
+		'cena_brutto' => 'ROUND((Produkt.cena_netto * Vat.wartosc) + Produkt.cena_netto, 2)'
+	);
+
 /**
  * belongsTo associations
  *
  * @var array
  */
 	public $belongsTo = array(
-		'ParentProdukt' => array(
-			'className' => 'Produkt',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
+		// 'ParentProdukt' => array(
+		// 	'className' => 'Produkt',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => array('ParentProdukt.id !=' => 0),
+		// 	'fields' => '',
+		// 	'order' => ''
+		// ),
 		'Vat' => array(
 			'className' => 'Vat',
 			'foreignKey' => 'vat_id',
@@ -135,19 +139,23 @@ class Produkt extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		),
-		'ChildProdukt' => array(
-			'className' => 'Produkt',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		)
+		// 'ChildProdukt' => array(
+		// 	'className' => 'Produkt',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// )
 	);
-
+	
+	// public function __construct($id = false, $table = null, $ds = null) {
+	// 	parent::__construct($id, $table, $ds);
+	// 	$this->virtualFields['cena_brutto'] = sprintf('ROUND((%s.cena_netto * Vat.wartosc) + %s.cena_netto, 2)', $this->alias, $this->alias);
+	// }
 }

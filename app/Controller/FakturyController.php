@@ -47,8 +47,7 @@ class FakturyController extends AppController {
 				$this->Session->setFlash(__('The faktura could not be saved. Please, try again.'));
 			}
 		}
-		
-		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => 1));
+				
 		$ost_fakt = $this->Faktura->find('first', array(
 			'order' => array('Faktura.'. $this->Faktura->primaryKey => 'desc')
 		));

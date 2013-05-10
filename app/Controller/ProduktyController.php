@@ -47,7 +47,7 @@ class ProduktyController extends AppController {
 				$this->Session->setFlash(__('The produkt could not be saved. Please, try again.'));
 			}
 		}
-		$parentProdukts = $this->Produkt->ParentProdukt->find('list');
+		// $parentProdukts = $this->Produkt->ParentProdukt->find('list');
 		$vat = $this->Produkt->Vat->find('list');
 		$this->set(compact('parentProdukts', 'vat'));
 	}
@@ -74,7 +74,7 @@ class ProduktyController extends AppController {
 			$options = array('conditions' => array('Produkt.' . $this->Produkt->primaryKey => $id));
 			$this->request->data = $this->Produkt->find('first', $options);
 		}
-		$parentProdukts = $this->Produkt->ParentProdukt->find('list');
+		// $parentProdukts = $this->Produkt->ParentProdukt->find('list');
 		$vat = $this->Produkt->Vat->find('list');
 		$this->set(compact('parentProdukts', 'vat'));
 	}

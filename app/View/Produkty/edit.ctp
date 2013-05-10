@@ -6,6 +6,7 @@
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('cena_netto', array( 'label' => 'Cena netto', 'default' => '0.00' ));
+		echo $this->Form->input('cena_brutto', array( 'label' => 'Cena brutto', 'default' => '0.00', 'disabled' => true ));
 		echo $this->Form->input('ilosc', array( 'label' => 'Ilość', 'default' => '0' ));
 		echo $this->Form->input('vat_id');
 	?>

@@ -5,6 +5,7 @@
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th><?php echo $this->Paginator->sort('cena_netto'); ?></th>
+			<th><?php echo $this->Paginator->sort('cena_brutto'); ?></th>
 			<th><?php echo $this->Paginator->sort('ilosc'); ?></th>
 			<th><?php echo $this->Paginator->sort('vat_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
@@ -14,9 +15,10 @@
 		<td><?php echo h($produkt['Produkt']['id']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['nazwa']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['cena_netto']); ?>&nbsp;</td>
+		<td><?php echo h($produkt['Produkt']['cena_brutto']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['ilosc']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($produkt['Vat']['id'], array('controller' => 'vat', 'action' => 'view', $produkt['Vat']['id'])); ?>
+			<?php echo $this->Html->link($produkt['Vat']['nazwa'], array('controller' => 'vat', 'action' => 'view', $produkt['Vat']['id'])); ?>
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $produkt['Produkt']['id'])); ?>
