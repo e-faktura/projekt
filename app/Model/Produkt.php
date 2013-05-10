@@ -96,9 +96,9 @@ class Produkt extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
-	public $virtualFields = array(
-		'cena_brutto' => 'ROUND((Produkt.cena_netto * Vat.wartosc) + Produkt.cena_netto, 2)'
-	);
+	// public $virtualFields = array(
+	// 	'cena_brutto' => 'ROUND((Produkt.cena_netto * Vat.wartosc) + Produkt.cena_netto, 2)'
+	// );
 
 /**
  * belongsTo associations
@@ -155,9 +155,33 @@ class Produkt extends AppModel {
 		// 	'counterQuery' => ''
 		// )
 	);
+		
+	public function afterFind($results, $primary = false) {
+		
+		if( $primary === false ){
+			if ( isset($results['vat_id']) && !empty($results['vat_id']) ){
+				
+				$Vat = ClassRegistry::init('Vat');
+				$v = $Vat->find('first', array('recursive' => 0, 'conditions' => array('Vat.' . $Vat->primaryKey => $results['vat_id'])));
+				
+				$results['cena_brutto'] = round(((float)$results['cena_netto']) * (((float)$v['Vat']['wartosc']) + 1), 2);
+			}
+		} else {
+			foreach ( $results as $key => $val ){
+				if( isset($val['Produkt']['vat_id']) && !empty($val['Produkt']['vat_id']) && isset($val['Vat']['wartosc']) ){
+					$results[$key]['Produkt']['cena_brutto'] = round(((float)$val['Produkt']['cena_netto']) * (((float)$val['Vat']['wartosc']) + 1), 2);
+				}
+			}
+		}
+		
+		return $results;
+	}
+	
 	
 	// public function __construct($id = false, $table = null, $ds = null) {
 	// 	parent::__construct($id, $table, $ds);
 	// 	$this->virtualFields['cena_brutto'] = sprintf('ROUND((%s.cena_netto * Vat.wartosc) + %s.cena_netto, 2)', $this->alias, $this->alias);
 	// }
+	
+	
 }
