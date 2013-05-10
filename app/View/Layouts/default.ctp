@@ -93,9 +93,11 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 			<?php echo $this->fetch('content'); ?>
 		</div>
 		<div id="footer">
-			
+			&copy; 2013 e-Faktura
 		</div>
 	</div>
-	<?php echo $this->element('sql_dump'); ?>
+	<?php
+		// echo $this->element('sql_dump');
+	?>
 </body>
 </html>

@@ -90,3 +90,22 @@ body {
 	border-right: 0;
 	border-radius: 0 3px 3px 0;
 }
+
+div.form, div.index, div.view {
+	float: none;
+	border: none;
+	width: auto;
+}
+
+div.actions {
+	display: none;
+}
+
+dd {
+	margin-left: 10em;
+}
+
+dt, dd {
+	line-height: 2em;
+}
+
