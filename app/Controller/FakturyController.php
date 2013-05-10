@@ -47,12 +47,32 @@ class FakturyController extends AppController {
 				$this->Session->setFlash(__('The faktura could not be saved. Please, try again.'));
 			}
 		}
+		
+		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => 1));
+		$ost_fakt = $this->Faktura->find('first', array(
+			'order' => array('Faktura.'. $this->Faktura->primaryKey => 'desc')
+		));
+		
+		if( !empty($ost_fakt) ){
+			list($n,$m,$y) = explode('/',$ost_fakt['Faktura']['numer']);
+			
+			if( $m != date('m') ) $numer = 1;
+			else $numer = ((int)$n) + 1;
+			
+			$numer = $numer.'/'.date('m').'/'.date('Y');
+			
+		} else {
+			$numer = '1/'.date('m').'/'.date('Y');
+		}
+		
+		
+		
 		$parentFakturas = $this->Faktura->ParentFaktura->find('list');
 		$typy = $this->Faktura->Typ->find('list');
 		$statusy = $this->Faktura->Status->find('list');
 		$klienci = $this->Faktura->Klient->find('list');
 		$sposobyPlatnosci = $this->Faktura->SposobPlatnosci->find('list');
-		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci'));
+		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci', 'numer'));
 	}
 
 /**
@@ -81,7 +101,7 @@ class FakturyController extends AppController {
 		$typy = $this->Faktura->Typ->find('list');
 		$statusy = $this->Faktura->Status->find('list');
 		$klienci = $this->Faktura->Klient->find('list');
-		$sposobyplatnosci = $this->Faktura->SposobPlatnosci->find('list');
+		$sposobyPlatnosci = $this->Faktura->SposobPlatnosci->find('list');
 		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyplatnosci'));
 	}
 

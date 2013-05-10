@@ -29,16 +29,24 @@ class Faktura extends AppModel {
 	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
 	// 		),
 	// 	),
-	// 	'numer' => array(
-	// 		'notempty' => array(
-	// 			'rule' => array('notempty'),
-	// 			//'message' => 'Your custom message here',
-	// 			//'allowEmpty' => false,
-	// 			//'required' => false,
-	// 			//'last' => false, // Stop validation after this rule
-	// 			//'on' => 'create', // Limit validation to 'create' or 'update' operations
-	// 		),
-	// 	),
+		'numer' => array(
+			'notempty' => array(
+				'rule' => array('notempty'),
+				'message' => 'Numer faktury nie może być pusty',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+			'unique' => array(
+				'rule' => array('isUnique'),
+				'message' => 'Numer faktury nie jest unikalny.',
+				//'allowEmpty' => false,
+				'required' => true,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 	// 	'data_wystawienia' => array(
 	// 		'datetime' => array(
 	// 			'rule' => array('datetime'),
