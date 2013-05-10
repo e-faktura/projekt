@@ -20,16 +20,16 @@
 		<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
 		<td><?php echo h($faktura['Faktura']['data_sprzedazy']); ?>&nbsp;</td>
 		<td>
-			<?php echo $this->Html->link($faktura['Typ']['id'], array('controller' => 'typy', 'action' => 'view', $faktura['Typ']['id'])); ?>
+			<?php echo $this->Html->link($faktura['Typ']['nazwa'], array('controller' => 'typy', 'action' => 'view', $faktura['Typ']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($faktura['Status']['id'], array('controller' => 'statusy', 'action' => 'view', $faktura['Status']['id'])); ?>
+			<?php echo $this->Html->link($faktura['Status']['nazwa'], array('controller' => 'statusy', 'action' => 'view', $faktura['Status']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($faktura['Klient']['id'], array('controller' => 'klienci', 'action' => 'view', $faktura['Klient']['id'])); ?>
+			<?php echo $this->Html->link($faktura['Klient']['nazwa'], array('controller' => 'klienci', 'action' => 'view', $faktura['Klient']['id'])); ?>
 		</td>
 		<td>
-			<?php echo $this->Html->link($faktura['SposobPlatnosci']['id'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $faktura['SposobPlatnosci']['id'])); ?>
+			<?php echo $this->Html->link($faktura['SposobPlatnosci']['nazwa'], array('controller' => 'sposoby_platnosci', 'action' => 'view', $faktura['SposobPlatnosci']['id'])); ?>
 		</td>
 		<td><?php echo h($faktura['Faktura']['termin_platnosci']); ?>&nbsp;</td>
 		<td class="actions">

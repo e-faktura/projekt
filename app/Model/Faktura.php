@@ -127,13 +127,13 @@ class Faktura extends AppModel {
  * @var array
  */
 	public $belongsTo = array(
-		'ParentFaktura' => array(
-			'className' => 'Faktura',
-			'foreignKey' => 'parent_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
-		),
+		// 'ParentFaktura' => array(
+		// 	'className' => 'Faktura',
+		// 	'foreignKey' => 'parent_id',
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => ''
+		// ),
 		'Typ' => array(
 			'className' => 'Typ',
 			'foreignKey' => 'typ_id',
@@ -170,19 +170,19 @@ class Faktura extends AppModel {
  * @var array
  */
 	public $hasMany = array(
-		'ChildFaktura' => array(
-			'className' => 'Faktura',
-			'foreignKey' => 'parent_id',
-			'dependent' => false,
-			'conditions' => '',
-			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
-		),
+		// 'ChildFaktura' => array(
+		// 	'className' => 'Faktura',
+		// 	'foreignKey' => 'parent_id',
+		// 	'dependent' => false,
+		// 	'conditions' => '',
+		// 	'fields' => '',
+		// 	'order' => '',
+		// 	'limit' => '',
+		// 	'offset' => '',
+		// 	'exclusive' => '',
+		// 	'finderQuery' => '',
+		// 	'counterQuery' => ''
+		// ),
 		'Pozycja' => array(
 			'className' => 'Pozycja',
 			'foreignKey' => 'faktura_id',

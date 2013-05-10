@@ -33,6 +33,8 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 		echo $this->Html->css('bootstrap');
 		echo $this->Html->css('bootstrap-responsive');
 		echo $this->Html->css('efaktura');
+		
+		echo $this->Html->script('jquery');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

@@ -64,14 +64,22 @@ class FakturyController extends AppController {
 			$numer = '1/'.date('m').'/'.date('Y');
 		}
 		
+		$this->loadModel('Produkt');
+		$produkty = $this->Produkt->find('list');
+		
+		$this->loadModel('Jednostka');
+		$jednostki = $this->Jednostka->find('list');
+		
+		$this->loadModel('Vat');
+		$vat = $this->Vat->find('list');
 		
 		
-		$parentFakturas = $this->Faktura->ParentFaktura->find('list');
+		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
 		$typy = $this->Faktura->Typ->find('list');
 		$statusy = $this->Faktura->Status->find('list');
 		$klienci = $this->Faktura->Klient->find('list');
 		$sposobyPlatnosci = $this->Faktura->SposobPlatnosci->find('list');
-		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci', 'numer'));
+		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci', 'numer', 'produkty', 'jednostki', 'vat'));
 	}
 
 /**
@@ -96,7 +104,7 @@ class FakturyController extends AppController {
 			$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
 			$this->request->data = $this->Faktura->find('first', $options);
 		}
-		$parentFakturas = $this->Faktura->ParentFaktura->find('list');
+		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
 		$typy = $this->Faktura->Typ->find('list');
 		$statusy = $this->Faktura->Status->find('list');
 		$klienci = $this->Faktura->Klient->find('list');
