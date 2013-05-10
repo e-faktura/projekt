@@ -9,7 +9,7 @@
 		echo $this->Form->input('typ_id');
 		echo $this->Form->input('status_id');
 		echo $this->Form->input('klient_id');
-		echo $this->Form->input('sposob_platnosci_id');
+		echo $this->Form->input('sposob_platnosci_id', array( 'label' => 'Sposób płatności'));
 		echo $this->Form->input('termin_platnosci', array( 'label' => 'Termin płatności', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '' ));
 	?>
 	</fieldset>

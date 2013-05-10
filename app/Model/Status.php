@@ -9,6 +9,8 @@ App::uses('AppModel', 'Model');
  */
 class Status extends AppModel {
 
+	public $displayField = 'nazwa';
+
 /**
  * Validation rules
  *

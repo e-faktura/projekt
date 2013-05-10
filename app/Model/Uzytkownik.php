@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  */
 class Uzytkownik extends AppModel {
 
+	public $displayField = 'nazwa';
+	
 /**
  * Validation rules
  *

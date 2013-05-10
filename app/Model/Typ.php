@@ -8,7 +8,9 @@ App::uses('AppModel', 'Model');
  * @property Typ $ChildTyp
  */
 class Typ extends AppModel {
-
+	
+	public $displayField = 'nazwa';
+	
 /**
  * Validation rules
  *
