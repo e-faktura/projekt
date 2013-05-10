@@ -60,22 +60,22 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 								echo '<li';
 								if ( $this->params['controller'] == 'faktury' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Faktury', array('controller' => 'faktury')).'</li>';
+								echo '>'.$this->Html->link('Faktury', array('controller' => 'faktury', 'action' => 'index')).'</li>';
 								
 								echo '<li';
 								if ( $this->params['controller'] == 'klienci' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Klienci', array('controller' => 'klienci')).'</li>';
+								echo '>'.$this->Html->link('Klienci', array('controller' => 'klienci', 'action' => 'index')).'</li>';
 
 								echo '<li';
 								if ( $this->params['controller'] == 'produkty' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Produkty', array('controller' => 'produkty')).'</li>';
+								echo '>'.$this->Html->link('Produkty', array('controller' => 'produkty', 'action' => 'index')).'</li>';
 								
 								echo '<li';
 								if ( $this->params['controller'] == 'ustawienia' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Ustawienia', array('controller' => 'ustawienia')).'</li>';
+								echo '>'.$this->Html->link('Ustawienia', array('controller' => 'ustawienia', 'action' => 'index')).'</li>';
 							?>
 							<li><a href="#">Kontakt</a></li>
 
