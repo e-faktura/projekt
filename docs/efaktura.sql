@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.1
+-- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost:6033
--- Generation Time: Mar 22, 2013 at 09:32 PM
--- Server version: 5.5.16
--- PHP Version: 5.3.8
+-- Host: 127.0.0.1
+-- Generation Time: May 10, 2013 at 07:49 PM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -81,8 +81,8 @@ INSERT INTO `jednostki` (`id`, `parent_id`, `nazwa`) VALUES
 (3, 0, 'kg'),
 (4, 0, 'l'),
 (5, 0, 'm'),
-(6, 0, 'm2'),
-(7, 0, 'm3');
+(6, 0, 'mÂ²'),
+(7, 0, 'mÂ³');
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `klienci` (
 --
 
 INSERT INTO `klienci` (`id`, `parent_id`, `nazwa`, `adres`, `nip`, `email`, `telefon`) VALUES
-(1, 0, 'Jan Kowalski', 'ul. Morska 2\r\n12-345 Gdañsk', '123-456-32-18', '', ''),
+(1, 0, 'Jan Kowalski', 'ul. Morska 2\r\n12-345 GdaÅ„sk', '123-456-32-18', '', ''),
 (2, 0, 'Marian Nowak', 'ul. Wojciechowska 24\r\n12-345 Gdynia', '', 'marian@nowak.pl', '123456789');
 
 -- --------------------------------------------------------
@@ -151,8 +151,8 @@ CREATE TABLE IF NOT EXISTS `produkty` (
 --
 
 INSERT INTO `produkty` (`id`, `parent_id`, `nazwa`, `cena_netto`, `ilosc`, `vat_id`) VALUES
-(1, 0, 'Jakiœ produkt', 2.55, 5, 1),
-(2, 0, 'Jakiœ inny produkt', 32.11, 4, 2);
+(1, 0, 'JakiÅ› produkt', 2.55, 5, 1),
+(2, 0, 'JakiÅ› inny produkt', 32.11, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `sposoby_platnosci` (
 --
 
 INSERT INTO `sposoby_platnosci` (`id`, `parent_id`, `nazwa`) VALUES
-(1, 0, 'Gotówka'),
+(1, 0, 'GotÃ³wka'),
 (2, 0, 'Przelew'),
 (3, 0, 'Inny');
 
@@ -208,8 +208,8 @@ CREATE TABLE IF NOT EXISTS `statusy` (
 --
 
 INSERT INTO `statusy` (`id`, `parent_id`, `nazwa`) VALUES
-(1, 0, 'Zap³acono'),
-(2, 0, 'Oczekiwanie na zap³atê');
+(1, 0, 'ZapÅ‚acono'),
+(2, 0, 'Oczekiwanie na zapÅ‚atÄ™');
 
 -- --------------------------------------------------------
 
@@ -232,9 +232,9 @@ CREATE TABLE IF NOT EXISTS `typy` (
 INSERT INTO `typy` (`id`, `parent_id`, `nazwa`) VALUES
 (1, 0, 'Faktura VAT'),
 (2, 0, 'Faktura proforma'),
-(3, 0, 'Faktura mar¿a'),
+(3, 0, 'Faktura marÅ¼a'),
 (4, 0, 'Faktura zaliczkowa'),
-(5, 0, 'Faktura koryguj¹ca');
+(5, 0, 'Faktura korygujÄ…ca');
 
 -- --------------------------------------------------------
 
@@ -291,7 +291,7 @@ INSERT INTO `vat` (`id`, `parent_id`, `nazwa`, `wartosc`) VALUES
 (3, 0, '7%', 0.07),
 (4, 0, '5%', 0.05),
 (5, 0, '4%', 0.04),
-(6, 0, '0%', 0.00);
+(6, 0, '0%', 0);
 
 
 GRANT USAGE ON * . * TO 'efaktura'@'localhost' IDENTIFIED BY 'efaktura' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
