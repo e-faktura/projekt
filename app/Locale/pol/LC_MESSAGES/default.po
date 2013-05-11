@@ -327,7 +327,7 @@ msgstr "Czy na pewno usunąć # %s?"
 
 #: View/Scaffolds/form.ctp:37
 msgid "List"
-msgstr "List"
+msgstr "Lista"
 
 #: View/Scaffolds/form.ctp:44
 #: View/Scaffolds/index.ctp:87
@@ -338,12 +338,12 @@ msgstr "List %s"
 #: View/Scaffolds/index.ctp:48
 #: View/Scaffolds/view.ctp:165
 msgid "View"
-msgstr "View"
+msgstr "Pokaż"
 
 #: View/Scaffolds/index.ctp:49
 #: View/Scaffolds/view.ctp:171
 msgid "Edit"
-msgstr "Edit"
+msgstr "Edytuj"
 
 #: View/Scaffolds/index.ctp:54
 #: View/Scaffolds/view.ctp:58;180
