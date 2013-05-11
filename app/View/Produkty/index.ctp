@@ -1,5 +1,8 @@
 <div class="produkty index">
 	<h2><?php echo __('Produkty'); ?></h2>
+	
+	<?php echo $this->Html->link('Nowy produkt', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>

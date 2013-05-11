@@ -7,6 +7,7 @@
 			<legend>Nowa faktura</legend>
 		<?php
 			echo $this->Form->input('numer', array( 'default' => $numer, 'disabled' => true ));
+			echo $this->Form->input('numer', array( 'default' => $numer, 'type' => 'hidden' ));
 			echo $this->Form->input('data_wystawienia', array( 'label' => 'Data wystawienia', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '', 'orderYear' => 'asc', 'minYear' => (((int)date('Y')) - 5 ), 'maxYear' => (((int)date('Y')) + 5 ) ));
 			echo $this->Form->input('data_sprzedazy', array( 'label' => 'Data sprzedaży', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '', 'orderYear' => 'asc', 'minYear' => (((int)date('Y')) - 5 ), 'maxYear' => (((int)date('Y')) + 5 ) ));
 			echo $this->Form->input('typ_id');
