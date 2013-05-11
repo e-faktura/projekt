@@ -47,7 +47,7 @@ class SposobyplatnosciController extends AppController {
 				$this->Session->setFlash(__('The sposobplatnosci could not be saved. Please, try again.'));
 			}
 		}
-		$parentSposobPlatnoscis = $this->Sposobplatnosci->ParentSposobPlatnosci->find('list');
+		// $parentSposobPlatnoscis = $this->Sposobplatnosci->ParentSposobPlatnosci->find('list');
 		$this->set(compact('parentSposobPlatnoscis'));
 	}
 
@@ -73,7 +73,7 @@ class SposobyplatnosciController extends AppController {
 			$options = array('conditions' => array('Sposobplatnosci.' . $this->Sposobplatnosci->primaryKey => $id));
 			$this->request->data = $this->Sposobplatnosci->find('first', $options);
 		}
-		$parentSposobPlatnoscis = $this->Sposobplatnosci->ParentSposobPlatnosci->find('list');
+		// $parentSposobPlatnoscis = $this->Sposobplatnosci->ParentSposobPlatnosci->find('list');
 		$this->set(compact('parentSposobPlatnoscis'));
 	}
 

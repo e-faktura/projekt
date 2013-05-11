@@ -47,7 +47,7 @@ class JednostkiController extends AppController {
 				$this->Session->setFlash(__('The jednostka could not be saved. Please, try again.'));
 			}
 		}
-		$parentJednostkas = $this->Jednostka->ParentJednostka->find('list');
+		// $parentJednostkas = $this->Jednostka->ParentJednostka->find('list');
 		$this->set(compact('parentJednostkas'));
 	}
 
@@ -73,7 +73,7 @@ class JednostkiController extends AppController {
 			$options = array('conditions' => array('Jednostka.' . $this->Jednostka->primaryKey => $id));
 			$this->request->data = $this->Jednostka->find('first', $options);
 		}
-		$parentJednostkas = $this->Jednostka->ParentJednostka->find('list');
+		// $parentJednostkas = $this->Jednostka->ParentJednostka->find('list');
 		$this->set(compact('parentJednostkas'));
 	}
 

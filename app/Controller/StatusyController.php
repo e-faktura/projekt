@@ -47,7 +47,7 @@ class StatusyController extends AppController {
 				$this->Session->setFlash(__('The status could not be saved. Please, try again.'));
 			}
 		}
-		$parentStatuses = $this->Status->ParentStatus->find('list');
+		// $parentStatuses = $this->Status->ParentStatus->find('list');
 		$this->set(compact('parentStatuses'));
 	}
 
@@ -73,7 +73,7 @@ class StatusyController extends AppController {
 			$options = array('conditions' => array('Status.' . $this->Status->primaryKey => $id));
 			$this->request->data = $this->Status->find('first', $options);
 		}
-		$parentStatuses = $this->Status->ParentStatus->find('list');
+		// $parentStatuses = $this->Status->ParentStatus->find('list');
 		$this->set(compact('parentStatuses'));
 	}
 

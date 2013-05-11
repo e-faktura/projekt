@@ -47,7 +47,7 @@ class TypyController extends AppController {
 				$this->Session->setFlash(__('The typ could not be saved. Please, try again.'));
 			}
 		}
-		$parentTyps = $this->Typ->ParentTyp->find('list');
+		// $parentTyps = $this->Typ->ParentTyp->find('list');
 		$this->set(compact('parentTyps'));
 	}
 
@@ -73,7 +73,7 @@ class TypyController extends AppController {
 			$options = array('conditions' => array('Typ.' . $this->Typ->primaryKey => $id));
 			$this->request->data = $this->Typ->find('first', $options);
 		}
-		$parentTyps = $this->Typ->ParentTyp->find('list');
+		// $parentTyps = $this->Typ->ParentTyp->find('list');
 		$this->set(compact('parentTyps'));
 	}
 

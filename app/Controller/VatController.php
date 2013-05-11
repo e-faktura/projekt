@@ -47,7 +47,7 @@ class VatController extends AppController {
 				$this->Session->setFlash(__('The vat could not be saved. Please, try again.'));
 			}
 		}
-		$parentVats = $this->Vat->ParentVat->find('list');
+		// $parentVats = $this->Vat->ParentVat->find('list');
 		$this->set(compact('parentVats'));
 	}
 
@@ -73,7 +73,7 @@ class VatController extends AppController {
 			$options = array('conditions' => array('Vat.' . $this->Vat->primaryKey => $id));
 			$this->request->data = $this->Vat->find('first', $options);
 		}
-		$parentVats = $this->Vat->ParentVat->find('list');
+		// $parentVats = $this->Vat->ParentVat->find('list');
 		$this->set(compact('parentVats'));
 	}
 

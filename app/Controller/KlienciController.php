@@ -47,7 +47,7 @@ class KlienciController extends AppController {
 				$this->Session->setFlash(__('The klient could not be saved. Please, try again.'));
 			}
 		}
-		$parentKlients = $this->Klient->ParentKlient->find('list');
+		// $parentKlients = $this->Klient->ParentKlient->find('list');
 		$this->set(compact('parentKlients'));
 	}
 
@@ -73,7 +73,7 @@ class KlienciController extends AppController {
 			$options = array('conditions' => array('Klient.' . $this->Klient->primaryKey => $id));
 			$this->request->data = $this->Klient->find('first', $options);
 		}
-		$parentKlients = $this->Klient->ParentKlient->find('list');
+		// $parentKlients = $this->Klient->ParentKlient->find('list');
 		$this->set(compact('parentKlients'));
 	}
 

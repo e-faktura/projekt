@@ -1,5 +1,5 @@
 <?php
-	print_r($this->request->data);
+	// print_r($this->request->data);
 ?>
 <div class="faktury form">
 <?php echo $this->Form->create('Faktura'); ?>
