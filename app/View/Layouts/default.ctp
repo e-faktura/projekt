@@ -17,7 +17,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-$cakeDescription = __d('cake_dev', 'e-faktura');
+$cakeDescription = __d('cake_dev', '-faktura');
 ?>
 <!DOCTYPE html>
 <html>
@@ -35,6 +35,8 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 		echo $this->Html->css('efaktura');
 		
 		echo $this->Html->script('jquery');
+		echo $this->Html->script('bootstrap-transition');
+		echo $this->Html->script('bootstrap-carousel');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -46,7 +48,7 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 		<div class="masthead">
 			
 			<h3 class="muted">
-				<span id="logo_e">e</span><span id="logo_text">-Faktura</span>
+				<span id="logo_e">e</span><span id="logo_text">-Faktura</span><span id="info">Twoje faktury online</span>
 			</h3>
 			
 			<div class="navbar">
@@ -92,10 +94,12 @@ $cakeDescription = __d('cake_dev', 'e-faktura');
 
 			<?php echo $this->fetch('content'); ?>
 		</div>
-		<div id="footer">
-			&copy; 2013 e-Faktura
-		</div>
 	</div>
+		<div id="footer">
+			<div class="container">
+        		  <p class="muted credit"> Copyright © 2013 e-Faktura</p>
+      			</div>
+		</div>
 	<?php
 		// echo $this->element('sql_dump');
 	?>

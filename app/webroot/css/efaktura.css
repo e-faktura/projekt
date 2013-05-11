@@ -1,3 +1,13 @@
+@font-face {
+	font-family: 'JustMeAgainDownHere';
+	src: url('../fonts/JustMeAgainDownHere.eot');
+	src: url('../fonts/JustMeAgainDownHere.eot?#iefix') format('embedded-opentype'), 
+	url('../fonts/JustMeAgainDownHere.woff') format('woff'), 
+	url('../fonts/JustMeAgainDownHere.ttf') format('truetype'), 
+	url('../fonts/JustMeAgainDownHere.svg#JustMeAgainDownHere') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
 #logo_text {
 	text-shadow: 0px 1px 0px rgb(255, 255, 255), 0px -1px 0px rgb(0, 0, 0);
 	color: rgb(119, 119, 119);
@@ -109,3 +119,23 @@ dt, dd {
 	line-height: 2em;
 }
 
+#footer {
+	background-color: rgb(245, 245, 245);
+    	clear:both;
+    	padding-top:20px;
+    	text-align:left;
+}
+
+#napis{
+	display:block;
+	position:absolute;
+	font-size: 55px;
+	left: 120px;
+	color: rgb(41, 42, 37);
+	margin-top:-200px;
+}
+
+#info{
+	font-family: 'JustMeAgainDownHere';
+	margin-left: 10px;
+}
