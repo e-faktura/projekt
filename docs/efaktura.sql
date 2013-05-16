@@ -98,6 +98,9 @@ CREATE TABLE IF NOT EXISTS `klienci` (
   `nip` char(13) COLLATE utf8_polish_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `telefon` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
@@ -106,9 +109,9 @@ CREATE TABLE IF NOT EXISTS `klienci` (
 -- Dumping data for table `klienci`
 --
 
-INSERT INTO `klienci` (`id`, `parent_id`, `nazwa`, `adres`, `nip`, `email`, `telefon`) VALUES
-(1, 0, 'Jan Kowalski', 'ul. Morska 2\r\n12-345 Gdańsk', '123-456-32-18', '', ''),
-(2, 0, 'Marian Nowak', 'ul. Wojciechowska 24\r\n12-345 Gdynia', '', 'marian@nowak.pl', '123456789');
+INSERT INTO `klienci` (`id`, `parent_id`, `nazwa`, `adres`, `nip`, `email`, `telefon`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'Jan Kowalski', 'ul. Morska 2\r\n12-345 Gdańsk', '123-456-32-18', '', '', 0, '2013-05-16 15:03:26', '2013-05-16 15:03:26'),
+(2, 2, 'Marian Nowak', 'ul. Wojciechowska 24\r\n12-345 Gdynia', '', 'marian@nowak.pl', '123456789', 0, '2013-05-16 15:03:26', '2013-05-16 15:03:26');
 
 -- --------------------------------------------------------
 

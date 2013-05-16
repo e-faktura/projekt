@@ -1,12 +1,19 @@
 <div class="klienci form">
 <?php echo $this->Form->create('Klient'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Klient'); ?></legend>
+		<legend>Edytujesz dane klienta <?php echo $this->request->data['Klient']['nazwa']; ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('adres');
-		echo $this->Form->input('nip', array( 'label' => 'NIP' ));
+		
+		$disable_nip = false;
+		if( !empty($this->request->data['Klient']['nip']) ){
+			$disable_nip = true;
+			echo $this->Form->hidden('nip');
+		}
+		
+		echo $this->Form->input('nip', array( 'label' => 'NIP', 'disabled' => $disable_nip ));
 		echo $this->Form->input('email');
 		echo $this->Form->input('telefon');
 	?>

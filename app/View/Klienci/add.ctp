@@ -1,7 +1,7 @@
 <div class="klienci form">
 <?php echo $this->Form->create('Klient'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Klient'); ?></legend>
+		<legend>Dodawanie nowego klienta</legend>
 	<?php
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('adres');

@@ -7,6 +7,13 @@ App::uses('AppController', 'Controller');
  */
 class KlienciController extends AppController {
 
+	public $paginate = array(
+		'page' => 1,
+		'limit' => 20,
+		'maxLimit' => 100,
+		'paramType' => 'named'
+	);
+
 /**
  * index method
  *
@@ -14,6 +21,36 @@ class KlienciController extends AppController {
  */
 	public function index() {
 		$this->Klient->recursive = 0;
+		
+		$sub_opts = array(
+			'fields' => array( 'MAX(SubKlient.id) as id' ),
+			'conditions' => array(
+				'SubKlient.deleted !=' => 1,
+			 ),
+			'group' => array( 'SubKlient.parent_id')
+		);
+
+		$subquery = $this->Klient->subquery('all', $sub_opts);
+		
+		$options = array(
+			'joins' => array(
+				array(
+					'table' => $subquery,
+					'alias' => 'KlMax',
+					'type' => 'INNER',
+					'conditions' => array(
+						'Klient.id = KlMax.id'
+					)
+				)
+			),
+			'conditions' => array(
+				'Klient.deleted != ' => 1
+			),
+			'order' => array( 'Klient.nazwa' => 'ASC' )
+		);
+
+		$this->paginate = array_merge($this->paginate, $options);
+		
 		$this->set('klienci', $this->paginate());
 	}
 
@@ -39,12 +76,16 @@ class KlienciController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			
 			$this->Klient->create();
+						
 			if ($this->Klient->save($this->request->data)) {
-				$this->Session->setFlash(__('The klient has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The klient could not be saved. Please, try again.'));
+				if($this->Klient->saveField('parent_id', $this->Klient->id)){
+					$this->Session->setFlash(__('The klient has been saved'));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The klient could not be saved. Please, try again.'));
+				}
 			}
 		}
 		// $parentKlients = $this->Klient->ParentKlient->find('list');
@@ -60,14 +101,25 @@ class KlienciController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Klient->exists($id)) {
-			throw new NotFoundException(__('Invalid klient'));
+			$this->Session->setFlash('Taki klient nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
-		if ($this->request->is('post') || $this->request->is('put')) {
+		
+		if ( $this->request->is('post') || $this->request->is('put') ) {
+			
+			$klient = $this->Klient->findById($id);
+			$parent_id = $klient['Klient']['parent_id'];
+			
+			if( !empty($klient['Faktura']) ){
+				unset($this->request->data['Klient']['id']);
+				$this->request->data['Klient']['parent_id'] = $parent_id;
+			}
+			
 			if ($this->Klient->save($this->request->data)) {
-				$this->Session->setFlash(__('The klient has been saved'));
+				$this->Session->setFlash('Dane klienta zostały zachowane.');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The klient could not be saved. Please, try again.'));
+				$this->Session->setFlash('Dane klienta nie mogły zostać zachowane. Spróbuj ponownie.');
 			}
 		} else {
 			$options = array('conditions' => array('Klient.' . $this->Klient->primaryKey => $id));
@@ -88,14 +140,18 @@ class KlienciController extends AppController {
 	public function delete($id = null) {
 		$this->Klient->id = $id;
 		if (!$this->Klient->exists()) {
-			throw new NotFoundException(__('Invalid klient'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->Klient->delete()) {
-			$this->Session->setFlash(__('Klient deleted'));
+			$this->Session->setFlash('Taki klient nie istnieje.');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Klient was not deleted'));
+		$this->request->onlyAllow('post', 'delete');
+		
+		// if ($this->Klient->delete()) {
+		if ( $this->Klient->saveField('deleted', 1) ) {
+			$this->Session->setFlash('Klient został usunięty');
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		$this->Session->setFlash('Klient nie został usunięty');
 		$this->redirect(array('action' => 'index'));
 	}
 }
