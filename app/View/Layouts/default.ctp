@@ -72,7 +72,7 @@ $cakeDescription = __d('cake_dev', '-faktura');
 								echo '<li';
 								if ( $this->params['controller'] == 'klienci' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Klienci', array('controller' => 'klienci', 'action' => 'index')).'</li>';
+								echo '>'.$this->Html->link('<i class="icon-user"></i> Klienci', array('controller' => 'klienci', 'action' => 'index'), array('escape' => false)).'</li>';
 
 								echo '<li';
 								if ( $this->params['controller'] == 'produkty' )

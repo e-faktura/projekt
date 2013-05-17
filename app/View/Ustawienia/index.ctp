@@ -1,42 +1,18 @@
+<?php
+	// pr($ustawienia);
+?>
 <div class="ustawienia index">
-	<h2><?php echo __('Ustawienia'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
-			<th><?php echo $this->Paginator->sort('wartosc'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php foreach ($ustawienia as $ustawienie): ?>
-	<tr>
-		<td><?php echo h($ustawienie['Ustawienie']['id']); ?>&nbsp;</td>
-		<td><?php echo h($ustawienie['Ustawienie']['nazwa']); ?>&nbsp;</td>
-		<td><?php echo h($ustawienie['Ustawienie']['wartosc']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ustawienie['Ustawienie']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ustawienie['Ustawienie']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $ustawienie['Ustawienie']['id']), null, __('Are you sure you want to delete # %s?', $ustawienie['Ustawienie']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
+	<?php echo $this->Form->create(false); ?>
+	
 	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Form->hidden('Ustawienie.0.id', array( 'value' => $ustawienia[1]['id']) );
+		echo $this->Form->input('Ustawienie.0.wartosc', array('label'=> $ustawienia[1]['nazwa'], 'type' => 'textarea', 'value' => $ustawienia[1]['wartosc'], 'escape' => false));
 	?>
+	
+	
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Zapisz</button>
+		<button type="button" class="btn" onClick="document.location = '<?php echo $this->Html->url( array('action' => 'index')) ?>';">Anuluj</button>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Ustawienie'), array('action' => 'add')); ?></li>
-	</ul>
+	<?php echo $this->Form->end(); ?>
 </div>

@@ -13,8 +13,33 @@ class UstawieniaController extends AppController {
  * @return void
  */
 	public function index() {
+		if ($this->request->is('post') || $this->request->is('put')) {
+			pr($this->request->data['Ustawienie']);
+			
+			if ($this->Ustawienie->saveAll($this->request->data['Ustawienie'])) {
+				$this->Session->setFlash('Ustawienia zostały zapisane.');
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash('Ustawienia nie mogły zostać zapisane. Spróbuj ponownie.');
+			}
+			
+			
+		}
+		
 		$this->Ustawienie->recursive = 0;
-		$this->set('ustawienia', $this->paginate());
+		
+		$ustawienia = $this->Ustawienie->find('all');
+		
+		// pr($ustawienia);
+		
+		$ust = array();
+		if( !empty($ustawienia) ){
+			foreach( $ustawienia as $ustawienie ){
+				$ust[$ustawienie['Ustawienie']['id']] = $ustawienie['Ustawienie'];
+			}
+		}
+		
+		$this->set('ustawienia', $ust);
 	}
 
 /**

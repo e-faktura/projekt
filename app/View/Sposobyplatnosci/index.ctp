@@ -8,12 +8,12 @@
 	</tr>
 	<?php foreach ($sposobyplatnosci as $sposobplatnosci): ?>
 	<tr>
-		<td><?php echo h($sposobplatnosci['Sposobplatnosci']['id']); ?>&nbsp;</td>
-		<td><?php echo h($sposobplatnosci['Sposobplatnosci']['nazwa']); ?>&nbsp;</td>
+		<td><?php echo h($sposobplatnosci['SposobPlatnosci']['id']); ?>&nbsp;</td>
+		<td><?php echo h($sposobplatnosci['SposobPlatnosci']['nazwa']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $sposobplatnosci['Sposobplatnosci']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $sposobplatnosci['Sposobplatnosci']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $sposobplatnosci['Sposobplatnosci']['id']), null, __('Are you sure you want to delete # %s?', $sposobplatnosci['Sposobplatnosci']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $sposobplatnosci['SposobPlatnosci']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $sposobplatnosci['SposobPlatnosci']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $sposobplatnosci['SposobPlatnosci']['id']), null, __('Are you sure you want to delete # %s?', $sposobplatnosci['SposobPlatnosci']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
