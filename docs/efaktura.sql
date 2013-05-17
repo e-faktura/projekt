@@ -171,6 +171,8 @@ INSERT INTO `produkty` (`id`, `parent_id`, `nazwa`, `cena_netto`, `vat_id`, `del
 CREATE TABLE IF NOT EXISTS `role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
 
@@ -279,6 +281,8 @@ CREATE TABLE IF NOT EXISTS `uzytkownicy` (
   `login` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `haslo` char(40) COLLATE utf8_polish_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `rola_id` (`rola_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
