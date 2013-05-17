@@ -266,7 +266,14 @@ CREATE TABLE IF NOT EXISTS `ustawienia` (
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `wartosc` longtext COLLATE utf8_polish_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `ustawienia`
+--
+
+INSERT INTO `ustawienia` (`id`, `nazwa`, `wartosc`) VALUES
+(1, 'Nazwa firmy', 'Sklep Mydło i Powidło\r\nAndrzej Warkolski\r\nul. Uczelniania 3\r\n12-345 Gdańsk\r\n\r\nNIP: 123-456-32-18');
 
 -- --------------------------------------------------------
 
