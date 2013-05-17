@@ -67,6 +67,9 @@ CREATE TABLE IF NOT EXISTS `jednostki` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=8 ;
@@ -75,14 +78,14 @@ CREATE TABLE IF NOT EXISTS `jednostki` (
 -- Dumping data for table `jednostki`
 --
 
-INSERT INTO `jednostki` (`id`, `parent_id`, `nazwa`) VALUES
-(1, 0, 'szt.'),
-(2, 0, 'g'),
-(3, 0, 'kg'),
-(4, 0, 'l'),
-(5, 0, 'm'),
-(6, 0, 'm²'),
-(7, 0, 'm³');
+INSERT INTO `jednostki` (`id`, `parent_id`, `nazwa`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'szt.', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56'),
+(2, 2, 'g', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56'),
+(3, 3, 'kg', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56'),
+(4, 4, 'l', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56'),
+(5, 5, 'm', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56'),
+(6, 6, 'm²', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56'),
+(7, 7, 'm³', 0, '2013-05-17 14:11:56', '2013-05-17 14:11:56');
 
 -- --------------------------------------------------------
 
@@ -142,8 +145,10 @@ CREATE TABLE IF NOT EXISTS `produkty` (
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `cena_netto` decimal(10,2) NOT NULL,
-  `ilosc` float NOT NULL,
   `vat_id` int(11) NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`),
   KEY `vat_id` (`vat_id`)
@@ -153,9 +158,9 @@ CREATE TABLE IF NOT EXISTS `produkty` (
 -- Dumping data for table `produkty`
 --
 
-INSERT INTO `produkty` (`id`, `parent_id`, `nazwa`, `cena_netto`, `ilosc`, `vat_id`) VALUES
-(1, 0, 'Jakiś produkt', 2.55, 5, 1),
-(2, 0, 'Jakiś inny produkt', 32.11, 4, 2);
+INSERT INTO `produkty` (`id`, `parent_id`, `nazwa`, `cena_netto`, `vat_id`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'Jakiś produkt', 2.55, 1, 0, '2013-05-17 13:36:46', '2013-05-17 13:36:46'),
+(2, 2, 'Jakiś inny produkt', 32.11, 2, 0, '2013-05-17 13:36:46', '2013-05-17 13:36:46');
 
 -- --------------------------------------------------------
 
@@ -179,6 +184,9 @@ CREATE TABLE IF NOT EXISTS `sposoby_platnosci` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=4 ;
@@ -187,10 +195,10 @@ CREATE TABLE IF NOT EXISTS `sposoby_platnosci` (
 -- Dumping data for table `sposoby_platnosci`
 --
 
-INSERT INTO `sposoby_platnosci` (`id`, `parent_id`, `nazwa`) VALUES
-(1, 0, 'Gotówka'),
-(2, 0, 'Przelew'),
-(3, 0, 'Inny');
+INSERT INTO `sposoby_platnosci` (`id`, `parent_id`, `nazwa`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'Gotówka', 0, '2013-05-17 14:12:52', '2013-05-17 14:12:52'),
+(2, 2, 'Przelew', 0, '2013-05-17 14:12:52', '2013-05-17 14:12:52'),
+(3, 3, 'Inny', 0, '2013-05-17 14:12:52', '2013-05-17 14:12:52');
 
 -- --------------------------------------------------------
 
@@ -202,6 +210,9 @@ CREATE TABLE IF NOT EXISTS `statusy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
@@ -210,9 +221,9 @@ CREATE TABLE IF NOT EXISTS `statusy` (
 -- Dumping data for table `statusy`
 --
 
-INSERT INTO `statusy` (`id`, `parent_id`, `nazwa`) VALUES
-(1, 0, 'Zapłacono'),
-(2, 0, 'Oczekiwanie na zapłatę');
+INSERT INTO `statusy` (`id`, `parent_id`, `nazwa`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'Zapłacono', 0, '2013-05-17 14:13:23', '2013-05-17 14:13:23'),
+(2, 2, 'Oczekiwanie na zapłatę', 0, '2013-05-17 14:13:23', '2013-05-17 14:13:23');
 
 -- --------------------------------------------------------
 
@@ -224,6 +235,9 @@ CREATE TABLE IF NOT EXISTS `typy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=6 ;
@@ -232,12 +246,12 @@ CREATE TABLE IF NOT EXISTS `typy` (
 -- Dumping data for table `typy`
 --
 
-INSERT INTO `typy` (`id`, `parent_id`, `nazwa`) VALUES
-(1, 0, 'Faktura VAT'),
-(2, 0, 'Faktura proforma'),
-(3, 0, 'Faktura marża'),
-(4, 0, 'Faktura zaliczkowa'),
-(5, 0, 'Faktura korygująca');
+INSERT INTO `typy` (`id`, `parent_id`, `nazwa`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'Faktura VAT', 0, '2013-05-17 14:12:34', '2013-05-17 14:12:34'),
+(2, 2, 'Faktura proforma', 0, '2013-05-17 14:12:34', '2013-05-17 14:12:34'),
+(3, 3, 'Faktura marża', 0, '2013-05-17 14:12:34', '2013-05-17 14:12:34'),
+(4, 4, 'Faktura zaliczkowa', 0, '2013-05-17 14:12:34', '2013-05-17 14:12:34'),
+(5, 5, 'Faktura korygująca', 0, '2013-05-17 14:12:34', '2013-05-17 14:12:34');
 
 -- --------------------------------------------------------
 
@@ -280,6 +294,9 @@ CREATE TABLE IF NOT EXISTS `vat` (
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
   `wartosc` float NOT NULL,
+  `deleted` tinyint(1) NOT NULL,
+  `created` datetime DEFAULT NULL,
+  `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=7 ;
@@ -288,13 +305,13 @@ CREATE TABLE IF NOT EXISTS `vat` (
 -- Dumping data for table `vat`
 --
 
-INSERT INTO `vat` (`id`, `parent_id`, `nazwa`, `wartosc`) VALUES
-(1, 0, '23%', 0.23),
-(2, 0, '8%', 0.08),
-(3, 0, '7%', 0.07),
-(4, 0, '5%', 0.05),
-(5, 0, '4%', 0.04),
-(6, 0, '0%', 0);
+INSERT INTO `vat` (`id`, `parent_id`, `nazwa`, `wartosc`, `deleted`, `created`, `modified`) VALUES
+(1, 1, '23%', 0.23, 0, '2013-05-17 14:12:57', '2013-05-17 14:12:57'),
+(2, 2, '8%', 0.08, 0, '2013-05-17 14:12:57', '2013-05-17 14:12:57'),
+(3, 3, '7%', 0.07, 0, '2013-05-17 14:12:57', '2013-05-17 14:12:57'),
+(4, 4, '5%', 0.05, 0, '2013-05-17 14:12:57', '2013-05-17 14:12:57'),
+(5, 5, '4%', 0.04, 0, '2013-05-17 14:12:57', '2013-05-17 14:12:57'),
+(6, 6, '0%', 0, 0, '2013-05-17 14:12:57', '2013-05-17 14:12:57');
 
 
 GRANT USAGE ON * . * TO 'efaktura'@'localhost' IDENTIFIED BY 'efaktura' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0 ;
