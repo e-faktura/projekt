@@ -16,14 +16,14 @@
 	<?php foreach ($klienci as $klient): ?>
 	<tr>
 		<td><?php echo h($klient['Klient']['id']); ?>&nbsp;</td>
-		<td><?php echo h($klient['Klient']['nazwa']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link($klient['Klient']['nazwa'], array('action' => 'edit', $klient['Klient']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['adres']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['nip']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['email']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['telefon']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $klient['Klient']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $klient['Klient']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $klient['Klient']['id'])); ?>
 			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $klient['Klient']['id']), null, __('Are you sure you want to delete # %s?', $klient['Klient']['id'])); ?>
 		</td>
 	</tr>

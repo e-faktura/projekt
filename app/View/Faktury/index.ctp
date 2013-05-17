@@ -8,12 +8,9 @@
 				<th><?php echo $this->Paginator->sort('id'); ?></th>
 				<th><?php echo $this->Paginator->sort('numer'); ?></th>
 				<th><?php echo $this->Paginator->sort('data_wystawienia'); ?></th>
-				<th><?php echo $this->Paginator->sort('data_sprzedazy'); ?></th>
 				<th><?php echo $this->Paginator->sort('typ_id'); ?></th>
 				<th><?php echo $this->Paginator->sort('status_id'); ?></th>
 				<th><?php echo $this->Paginator->sort('klient_id'); ?></th>
-				<th><?php echo $this->Paginator->sort('sposob_platnosci_id'); ?></th>
-				<th><?php echo $this->Paginator->sort('termin_platnosci'); ?></th>
 				<th class="actions"><?php echo __('Actions'); ?></th>
 		</tr>
 		<?php foreach ($faktury as $faktura): ?>
@@ -21,16 +18,13 @@
 				<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
-				<td><?php echo h($faktura['Faktura']['data_sprzedazy']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Typ']['nazwa']); ?></td>
 				<td><?php echo h($faktura['Status']['nazwa']); ?></td>
 				<td><?php echo h($faktura['Klient']['nazwa']); ?></td>
-				<td><?php echo h($faktura['SposobPlatnosci']['nazwa']); ?></td>
-				<td><?php echo h($faktura['Faktura']['termin_platnosci']); ?>&nbsp;</td>
 				<td class="actions">
-					<?php echo $this->Html->link(__('View'), array('action' => 'view', $faktura['Faktura']['id'])); ?>
+					<?php //echo $this->Html->link(__('View'), array('action' => 'view', $faktura['Faktura']['id'])); ?>
 					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $faktura['Faktura']['id'])); ?>
-					<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $faktura['Faktura']['id']), null, __('Are you sure you want to delete # %s?', $faktura['Faktura']['id'])); ?>
+					<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $faktura['Faktura']['id']), null, __('Are you sure you want to delete # %s?', $faktura['Faktura']['id'])); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

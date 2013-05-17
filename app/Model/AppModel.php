@@ -33,6 +33,9 @@ App::uses('PlValidation','Localized.Validation');
  */
 class AppModel extends Model {
 	
+	public $options;
+	
+	
 	/**
 	 * Generates a SQL subquery snippet to be used in your actual query.
 	 * Your subquery snippet needs to return a single value or flat array of values.
@@ -90,6 +93,43 @@ class AppModel extends Model {
 			$subQuery = '(' . $subQuery . ')';
 		}
 		return $subQuery;
+	}
+	
+	public function __construct($id = false, $table = null, $ds = null) {
+		parent::__construct($id = false, $table = null, $ds = null);
+		
+		
+		// pr($this);
+		
+		$sub_options = array(
+			'fields' => array( 'MAX(Sub'.$this->name.'.id) as id' ),
+			'conditions' => array(
+				'Sub'.$this->name.'.deleted !=' => 1,
+			 ),
+			'group' => array( 'Sub'.$this->name.'.parent_id')
+		);
+
+		$subquery = $this->subquery('all', $sub_options);
+		
+		$options = array(
+			'joins' => array(
+				array(
+					'table' => $subquery,
+					'alias' => $this->name.'Max',
+					'type' => 'INNER',
+					'conditions' => array(
+						$this->name.'.id = '.$this->name.'Max.id'
+					)
+				)
+			),
+			'conditions' => array(
+				$this->name.'.deleted != ' => 1
+			),
+			'order' => array( $this->name.'.nazwa' => 'ASC' )
+		);
+
+		$this->options = $options;
+				
 	}
 	
 }

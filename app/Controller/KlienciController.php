@@ -7,12 +7,12 @@ App::uses('AppController', 'Controller');
  */
 class KlienciController extends AppController {
 
-	public $paginate = array(
-		'page' => 1,
-		'limit' => 20,
-		'maxLimit' => 100,
-		'paramType' => 'named'
-	);
+	// public $paginate = array(
+	// 	'page' => 1,
+	// 	'limit' => 20,
+	// 	'maxLimit' => 100,
+	// 	'paramType' => 'named'
+	// );
 
 /**
  * index method
@@ -21,36 +21,7 @@ class KlienciController extends AppController {
  */
 	public function index() {
 		$this->Klient->recursive = 0;
-		
-		$sub_opts = array(
-			'fields' => array( 'MAX(SubKlient.id) as id' ),
-			'conditions' => array(
-				'SubKlient.deleted !=' => 1,
-			 ),
-			'group' => array( 'SubKlient.parent_id')
-		);
-
-		$subquery = $this->Klient->subquery('all', $sub_opts);
-		
-		$options = array(
-			'joins' => array(
-				array(
-					'table' => $subquery,
-					'alias' => 'KlMax',
-					'type' => 'INNER',
-					'conditions' => array(
-						'Klient.id = KlMax.id'
-					)
-				)
-			),
-			'conditions' => array(
-				'Klient.deleted != ' => 1
-			),
-			'order' => array( 'Klient.nazwa' => 'ASC' )
-		);
-
-		$this->paginate = array_merge($this->paginate, $options);
-		
+		$this->paginate = array_merge($this->paginate, $this->Klient->options);
 		$this->set('klienci', $this->paginate());
 	}
 
@@ -81,10 +52,10 @@ class KlienciController extends AppController {
 						
 			if ($this->Klient->save($this->request->data)) {
 				if($this->Klient->saveField('parent_id', $this->Klient->id)){
-					$this->Session->setFlash(__('The klient has been saved'));
+					$this->Session->setFlash('Klient został dodany');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash(__('The klient could not be saved. Please, try again.'));
+					$this->Session->setFlash('Klient nie mógł zostać dodany. Spróbuj ponownie.');
 				}
 			}
 		}
@@ -143,10 +114,12 @@ class KlienciController extends AppController {
 			$this->Session->setFlash('Taki klient nie istnieje.');
 			$this->redirect(array('action' => 'index'));
 		}
+		
 		$this->request->onlyAllow('post', 'delete');
 		
-		// if ($this->Klient->delete()) {
-		if ( $this->Klient->saveField('deleted', 1) ) {
+		$klient = $this->Klient->findById($id);
+		
+		if ( $this->Klient->updateAll( array('Klient.deleted' => true), array('Klient.parent_id' => $klient['Klient']['parent_id']) )) {
 			$this->Session->setFlash('Klient został usunięty');
 			$this->redirect(array('action' => 'index'));
 		}

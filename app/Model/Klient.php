@@ -129,5 +129,45 @@ class Klient extends AppModel {
 		// 	'counterQuery' => ''
 		// )
 	);
+	
+	public function index_gr() {
+		
+		
+		$sub_opts = array(
+			'fields' => array( 'MAX(SubKlient.id) as id' ),
+			'conditions' => array(
+				'SubKlient.deleted !=' => 1,
+			 ),
+			'group' => array( 'SubKlient.parent_id')
+		);
 
+		$subquery = $this->subquery('all', $sub_opts);
+		
+		$options = array(
+			'joins' => array(
+				array(
+					'table' => $subquery,
+					'alias' => 'KlMax',
+					'type' => 'INNER',
+					'conditions' => array(
+						'Klient.id = KlMax.id'
+					)
+				)
+			),
+			'conditions' => array(
+				'Klient.deleted != ' => 1
+			),
+			'order' => array( 'Klient.nazwa' => 'ASC' ),
+			// 'fields' => array( 'Klient.id', 'Klient.nazwa'),
+			'recursive' => 0
+		);
+
+		$klienci = $this->find('all', $options);
+		
+		// pr($klienci);
+		
+		return $klienci;
+		
+	}
+	
 }

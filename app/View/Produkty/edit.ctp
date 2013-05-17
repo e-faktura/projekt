@@ -1,17 +1,22 @@
 <div class="produkty form">
 <?php echo $this->Form->create('Produkt'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Produkt'); ?></legend>
+		<legend>Edycja danych produktu: <?php echo $this->request->data['Produkt']['nazwa']; ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('cena_netto', array( 'label' => 'Cena netto', 'default' => '0.00' ));
 		echo $this->Form->input('cena_brutto', array( 'label' => 'Cena brutto', 'default' => '0.00', 'disabled' => true ));
-		echo $this->Form->input('ilosc', array( 'label' => 'Ilość', 'default' => '0' ));
 		echo $this->Form->input('vat_id');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+<?php
+	
+	echo $this->Form->submit('Zapisz', array( 'after' => $this->Html->link('Anuluj', array('action' => 'index'), array( 'class' => 'btn btn-primary') )));
+	
+	echo $this->Form->end();
+	
+?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
@@ -27,3 +32,7 @@
 		<li><?php echo $this->Html->link(__('New Pozycja'), array('controller' => 'pozycje', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+
+<?php
+	echo $this->element('UpdateCenaBrutto.js', array('vat_json' => $vat_json));
+?>

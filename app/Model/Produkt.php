@@ -55,32 +55,14 @@ class Produkt extends AppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-			'decimal' => array(
-				'rule' => array('decimal',2),
-				'message' => 'Wartość jest niepoprawna.',
-				//'allowEmpty' => false,
-				'required' => true,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'ilosc' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
-				'message' => 'Ilość nie może być pusta.',
-				// 'allowEmpty' => true,
-				'required' => true,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-			'dodatnia' => array(
-				'rule' => array('comparison','>=',0),
-				'message' => 'Ilość musi być większa lub równa 0.',
-				//'allowEmpty' => false,
-				'required' => true,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			// 'decimal' => array(
+			// 	'rule' => array('decimal',2),
+			// 	'message' => 'Wartość jest niepoprawna.',
+			// 	//'allowEmpty' => false,
+			// 	'required' => true,
+			// 	//'last' => false, // Stop validation after this rule
+			// 	//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			// ),
 		),
 	// 	'vat_id' => array(
 	// 		'numeric' => array(
@@ -169,7 +151,7 @@ class Produkt extends AppModel {
 		} else {
 			foreach ( $results as $key => $val ){
 				if( isset($val['Produkt']['vat_id']) && !empty($val['Produkt']['vat_id']) && isset($val['Vat']['wartosc']) ){
-					$results[$key]['Produkt']['cena_brutto'] = round(((float)$val['Produkt']['cena_netto']) * (((float)$val['Vat']['wartosc']) + 1), 2);
+					$results[$key]['Produkt']['cena_brutto'] = number_format(round(((float)$val['Produkt']['cena_netto']) * (((float)$val['Vat']['wartosc']) + 1), 2),2,'.','');
 				}
 			}
 		}
