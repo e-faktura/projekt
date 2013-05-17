@@ -56,6 +56,9 @@ $cakeDescription = __d('cake_dev', '-faktura');
 					<div class="container">
 						<ul class="nav">
 							<?php
+								
+								$ustawienia = array( 'ustawienia', 'uzytkownicy', 'role', 'jednostki', 'sposoby_platnosci', 'statusy', 'typy', 'vat');
+								
 								echo '<li';
 								if ( strpos($title_for_layout, 'Home') === 0 )
 									echo ' class="active"';
@@ -77,12 +80,10 @@ $cakeDescription = __d('cake_dev', '-faktura');
 								echo '>'.$this->Html->link('Produkty', array('controller' => 'produkty', 'action' => 'index')).'</li>';
 								
 								echo '<li';
-								if ( $this->params['controller'] == 'ustawienia' )
+								if ( in_array($this->params['controller'], $ustawienia) )
 									echo ' class="active"';
 								echo '>'.$this->Html->link('Ustawienia', array('controller' => 'ustawienia', 'action' => 'index')).'</li>';
 							?>
-							<li><a href="#">Kontakt</a></li>
-
 						</ul>
 					</div>
 				</div>
@@ -90,6 +91,11 @@ $cakeDescription = __d('cake_dev', '-faktura');
 		</div>
 
 		<div id="content">
+			<?php
+				if( in_array($this->params['controller'], $ustawienia) ){
+					echo $this->element('UstawieniaMenu');
+				}
+			?>
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
