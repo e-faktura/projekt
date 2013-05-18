@@ -62,12 +62,12 @@ $cakeDescription = __d('cake_dev', '-faktura');
 								echo '<li';
 								if ( strpos($title_for_layout, 'Home') === 0 )
 									echo ' class="active"';
-								echo '>'.$this->Html->link(__('Home'), '/').'</li>';
+								echo '>'.$this->Html->link('<i class="icon-home"></i> '.__('Home'), '/', array('escape' => false)).'</li>';
 								
 								echo '<li';
 								if ( $this->params['controller'] == 'faktury' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Faktury', array('controller' => 'faktury', 'action' => 'index')).'</li>';
+								echo '>'.$this->Html->link('<i class="icon-file"></i> Faktury', array('controller' => 'faktury', 'action' => 'index'), array('escape' => false)).'</li>';
 								
 								echo '<li';
 								if ( $this->params['controller'] == 'klienci' )
@@ -77,12 +77,12 @@ $cakeDescription = __d('cake_dev', '-faktura');
 								echo '<li';
 								if ( $this->params['controller'] == 'produkty' )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Produkty', array('controller' => 'produkty', 'action' => 'index')).'</li>';
+								echo '>'.$this->Html->link('<i class="icon-barcode"></i> Produkty', array('controller' => 'produkty', 'action' => 'index'), array('escape' => false)).'</li>';
 								
 								echo '<li';
 								if ( in_array($this->params['controller'], $ustawienia) )
 									echo ' class="active"';
-								echo '>'.$this->Html->link('Ustawienia', array('controller' => 'ustawienia', 'action' => 'index')).'</li>';
+								echo '>'.$this->Html->link('<i class="icon-wrench"></i> Ustawienia', array('controller' => 'ustawienia', 'action' => 'index'), array('escape' => false)).'</li>';
 							?>
 						</ul>
 					</div>

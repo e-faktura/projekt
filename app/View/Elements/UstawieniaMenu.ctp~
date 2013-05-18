@@ -1,0 +1,21 @@
+<?php
+		$tabs = array(
+			'ustawienia' => '<i class="icon-home"></i> Główne',
+			'uzytkownicy' => '<i class="icon-user"></i> Użytkownicy',
+			'role' => '<i class="icon-home"></i> Role',
+			'jednostki' => '<i class="icon-home"></i> Jednostki',
+			'sposoby_platnosci' => '<i class="icon-home"></i> Sposoby płatności',
+			'statusy' => '<i class="icon-home"></i> Statusy',
+			'typy' => '<i class="icon-home"></i> Typy',
+			'vat' => '<i class="icon-home"></i> Vat',
+		);
+	?>
+	
+	
+	<ul class="nav nav-tabs">
+		<?php
+			foreach( $tabs as $cont => $tab ){
+				echo '<li'.(( $this->params['controller'] == $cont ) ? ' class="active"' : '').'>'.$this->Html->link($tab, array( 'controller' => $cont, 'action' => 'index' ), array( 'escape' => false) ).'</li>';
+			}
+		?>
+	</ul>
