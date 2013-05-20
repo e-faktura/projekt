@@ -212,6 +212,7 @@ CREATE TABLE IF NOT EXISTS `statusy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent_id` int(11) NOT NULL,
   `nazwa` varchar(255) COLLATE utf8_polish_ci NOT NULL,
+  `kolor` varchar(20) COLLATE utf8_polish_ci NOT NULL,
   `deleted` tinyint(1) NOT NULL,
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
@@ -223,9 +224,9 @@ CREATE TABLE IF NOT EXISTS `statusy` (
 -- Dumping data for table `statusy`
 --
 
-INSERT INTO `statusy` (`id`, `parent_id`, `nazwa`, `deleted`, `created`, `modified`) VALUES
-(1, 1, 'Zapłacono', 0, '2013-05-17 14:13:23', '2013-05-17 14:13:23'),
-(2, 2, 'Oczekiwanie na zapłatę', 0, '2013-05-17 14:13:23', '2013-05-17 14:13:23');
+INSERT INTO `statusy` (`id`, `parent_id`, `nazwa`, `kolor`, `deleted`, `created`, `modified`) VALUES
+(1, 1, 'Zapłacono', '#22b14c', 0, '2013-05-17 14:13:23', '2013-05-20 11:31:05'),
+(2, 2, 'Oczekiwanie na zapłatę', '#ffc90e', 0, '2013-05-17 14:13:23', '2013-05-20 11:31:17');
 
 -- --------------------------------------------------------
 
