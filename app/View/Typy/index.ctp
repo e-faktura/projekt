@@ -1,5 +1,8 @@
 <div class="typy index">
 	<h2><?php echo __('Typy'); ?></h2>
+	
+	<?php echo $this->Html->link('Nowy typ', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	
 	<table cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -9,11 +12,11 @@
 	<?php foreach ($typy as $typ): ?>
 	<tr>
 		<td><?php echo h($typ['Typ']['id']); ?>&nbsp;</td>
-		<td><?php echo h($typ['Typ']['nazwa']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($typ['Typ']['nazwa']), array('action' => 'edit', $typ['Typ']['id'])); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $typ['Typ']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $typ['Typ']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $typ['Typ']['id']), null, __('Are you sure you want to delete # %s?', $typ['Typ']['id'])); ?>
+			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $typ['Typ']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $typ['Typ']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $typ['Typ']['id']), array( 'escape' => false ), __('Are you sure you want to delete # %s?', $typ['Typ']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
