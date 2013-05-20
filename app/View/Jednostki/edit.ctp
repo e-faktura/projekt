@@ -1,13 +1,19 @@
 <div class="jednostki form">
 <?php echo $this->Form->create('Jednostka'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Jednostka'); ?></legend>
+		<legend>Edycja jednostki miary: <?php echo $this->request->data['Jednostka']['nazwa']; ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+	
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Zapisz</button>
+		<button type="button" class="btn" onClick="document.location = '<?php echo $this->Html->url( array('action' => 'index')) ?>';">Anuluj</button>
+	</div>
+	
+<?php echo $this->Form->end(); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
