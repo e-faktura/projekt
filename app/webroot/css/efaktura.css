@@ -145,4 +145,7 @@ dt, dd {
 	margin-right: 0;
 }
 
+.nav-tabs > .active > a{
+	cursor: pointer !important;
+}
 

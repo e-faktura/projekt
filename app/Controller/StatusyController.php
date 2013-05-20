@@ -117,7 +117,7 @@ class StatusyController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->Session->setFlash('Status nie został usunięty'));
+		$this->Session->setFlash('Status nie został usunięty');
 		$this->redirect(array('action' => 'index'));
 	}
 }
