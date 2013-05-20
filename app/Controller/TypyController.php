@@ -81,7 +81,7 @@ class TypyController extends AppController {
 				$this->Session->setFlash('Typ został zapisany');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Typ nie mógł zostać dodany. Spróbuj ponownie.');
+				$this->Session->setFlash('Typ nie mógł zostać zapisany. Spróbuj ponownie.');
 			}
 		} else {
 			$options = array('conditions' => array('Typ.' . $this->Typ->primaryKey => $id));

@@ -7,7 +7,7 @@
 			'sposoby_platnosci' => '<i class="icon-briefcase"></i> Sposoby płatności',
 			'statusy' => '<i class="icon-th-list"></i> Statusy',
 			'typy' => '<i class="icon-tags"></i> Typy',
-			'vat' => '<i class="icon-shopping-cart"></i> Vat',
+			'vat' => '<i class="icon-shopping-cart"></i> VAT',
 		);
 	?>
 	

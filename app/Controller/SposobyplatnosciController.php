@@ -80,7 +80,7 @@ class SposobyplatnosciController extends AppController {
 				$this->Session->setFlash('Sposób płatności został zapisany.');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Sposób płatności nie mógł zostać dodany. Spróbuj ponownie.');
+				$this->Session->setFlash('Sposób płatności nie mógł zostać zapisany. Spróbuj ponownie.');
 			}
 		} else {
 			$options = array('conditions' => array('Sposobplatnosci.' . $this->Sposobplatnosci->primaryKey => $id));

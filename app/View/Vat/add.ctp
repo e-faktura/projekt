@@ -1,13 +1,19 @@
 <div class="vat form">
 <?php echo $this->Form->create('Vat'); ?>
 	<fieldset>
-		<legend><?php echo __('Add Vat'); ?></legend>
+		<legend>Dodawanie nowej stawki VAT</legend>
 	<?php
 		echo $this->Form->input('nazwa');
 		echo $this->Form->input('wartosc', array( 'label' => 'Wartość', 'default' => '0.00' ));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+	
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Zapisz</button>
+		<button type="button" class="btn" onClick="document.location = '<?php echo $this->Html->url( array('action' => 'index')) ?>';">Anuluj</button>
+	</div>
+	
+<?php echo $this->Form->end(); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

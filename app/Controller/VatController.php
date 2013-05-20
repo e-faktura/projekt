@@ -14,6 +14,7 @@ class VatController extends AppController {
  */
 	public function index() {
 		$this->Vat->recursive = 0;
+		$this->paginate = array_merge($this->paginate, $this->Vat->options);
 		$this->set('vat', $this->paginate());
 	}
 
@@ -41,10 +42,12 @@ class VatController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Vat->create();
 			if ($this->Vat->save($this->request->data)) {
-				$this->Session->setFlash(__('The vat has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The vat could not be saved. Please, try again.'));
+				if($this->Vat->saveField('parent_id', $this->Vat->id)){
+					$this->Session->setFlash('Stawka VAT została dodana');
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash('Stawka VAT nie mógła zostać dodana. Spróbuj ponownie.');
+				}
 			}
 		}
 		// $parentVats = $this->Vat->ParentVat->find('list');
@@ -60,14 +63,24 @@ class VatController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Vat->exists($id)) {
-			throw new NotFoundException(__('Invalid vat'));
+			$this->Session->setFlash('Taka stawka VAT nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
+			
+			$vat = $this->Vat->findById($id);
+			$parent_id = $vat['Vat']['parent_id'];
+			
+			if( !empty($vat['Faktura']) ){
+				unset($this->request->data['Vat']['id']);
+				$this->request->data['Vat']['parent_id'] = $parent_id;
+			}
+			
 			if ($this->Vat->save($this->request->data)) {
-				$this->Session->setFlash(__('The vat has been saved'));
+				$this->Session->setFlash('Stawka VAT została zapisana');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The vat could not be saved. Please, try again.'));
+				$this->Session->setFlash('Stawka VAT nie mógła zostać zapisana. Spróbuj ponownie.');
 			}
 		} else {
 			$options = array('conditions' => array('Vat.' . $this->Vat->primaryKey => $id));
@@ -88,14 +101,19 @@ class VatController extends AppController {
 	public function delete($id = null) {
 		$this->Vat->id = $id;
 		if (!$this->Vat->exists()) {
-			throw new NotFoundException(__('Invalid vat'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->Vat->delete()) {
-			$this->Session->setFlash(__('Vat deleted'));
+			$this->Session->setFlash('Taka stawka VAT nie istnieje.');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Vat was not deleted'));
+		$this->request->onlyAllow('post', 'delete');
+		
+		$vat = $this->Vat->findById($id);
+		
+		if ( $this->Vat->updateAll( array('Vat.deleted' => true), array('Vat.parent_id' => $vat['Vat']['parent_id']) )) {
+			$this->Session->setFlash('Stawka VAT została usunięta');
+			$this->redirect(array('action' => 'index'));
+		}
+				
+		$this->Session->setFlash('Stawka VAT nie została usunięta');
 		$this->redirect(array('action' => 'index'));
 	}
 }
