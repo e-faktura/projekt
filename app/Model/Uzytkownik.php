@@ -83,4 +83,12 @@ class Uzytkownik extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	public function beforeSave($options = array()) {
+		if (isset($this->data['Uzytkownik']['haslo'])) {
+			$this->data['Uzytkownik']['haslo'] = AuthComponent::password($this->data['Uzytkownik']['haslo']);
+		}
+		return true;
+	}
+	
 }

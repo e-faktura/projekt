@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+
 /**
  * Uzytkownicy Controller
  *
@@ -41,10 +42,10 @@ class UzytkownicyController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Uzytkownik->create();
 			if ($this->Uzytkownik->save($this->request->data)) {
-				$this->Session->setFlash(__('The uzytkownik has been saved'));
+				$this->Session->setFlash('Użytkownik został dodany.');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The uzytkownik could not be saved. Please, try again.'));
+				$this->Session->setFlash('Użytkownik nie mógł zostać dodany. Spróbuj ponownie.');
 			}
 		}
 		$role = $this->Uzytkownik->Rola->find('list');
@@ -60,14 +61,15 @@ class UzytkownicyController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Uzytkownik->exists($id)) {
-			throw new NotFoundException(__('Invalid uzytkownik'));
+			$this->Session->setFlash('Taki użytkownik nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Uzytkownik->save($this->request->data)) {
-				$this->Session->setFlash(__('The uzytkownik has been saved'));
+				$this->Session->setFlash('Użytkownik został zapisany.');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The uzytkownik could not be saved. Please, try again.'));
+				$this->Session->setFlash('Użytkownik nie mógł zostać zachowany. Spróbuj ponownie.');
 			}
 		} else {
 			$options = array('conditions' => array('Uzytkownik.' . $this->Uzytkownik->primaryKey => $id));
@@ -88,14 +90,20 @@ class UzytkownicyController extends AppController {
 	public function delete($id = null) {
 		$this->Uzytkownik->id = $id;
 		if (!$this->Uzytkownik->exists()) {
-			throw new NotFoundException(__('Invalid uzytkownik'));
+			$this->Session->setFlash('Taki użytkownik nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Uzytkownik->delete()) {
-			$this->Session->setFlash(__('Uzytkownik deleted'));
+			$this->Session->setFlash('Użytkownik został usunięty.');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Uzytkownik was not deleted'));
+		$this->Session->setFlash('Użytkownik nie został usunięty.');
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	public function login() {
+
+	}
+	
 }

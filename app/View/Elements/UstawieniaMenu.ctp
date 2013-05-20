@@ -2,12 +2,12 @@
 		$tabs = array(
 			'ustawienia' => '<i class="icon-globe"></i> Główne',
 			'uzytkownicy' => '<i class="icon-user"></i> Użytkownicy',
-			'role' => '<i class="icon-eye-close"></i> Role',
-			'jednostki' => '<i class="icon-tasks"></i> Jednostki',
+			// 'role' => '<i class="icon-eye-close"></i> Role',
+			'jednostki' => '<i class="icon-tasks"></i> Jednostki miary',
 			'sposoby_platnosci' => '<i class="icon-briefcase"></i> Sposoby płatności',
-			'statusy' => '<i class="icon-th-list"></i> Statusy',
-			'typy' => '<i class="icon-tags"></i> Typy',
-			'vat' => '<i class="icon-shopping-cart"></i> VAT',
+			'statusy' => '<i class="icon-th-list"></i> Statusy faktur',
+			'typy' => '<i class="icon-tags"></i> Typy faktur',
+			'vat' => '<i class="icon-shopping-cart"></i> Stawki VAT',
 		);
 	?>
 	

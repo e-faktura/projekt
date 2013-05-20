@@ -7,6 +7,8 @@ App::uses('AppModel', 'Model');
  */
 class Rola extends AppModel {
 
+	public $displayField = 'nazwa';
+
 /**
  * Validation rules
  *

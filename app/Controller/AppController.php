@@ -21,7 +21,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('Controller', 'Controller');
-
+App::uses('AuthComponent', 'Controller/Component');
 /**
  * Application Controller
  *
@@ -32,4 +32,27 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+	
+	// public $components = array(
+	// 	'Auth' => array(
+	// 		'loginAction' => array(
+	// 			'controller' => 'uzytkownicy',
+	// 			'action' => 'login',
+	// 			// 'plugin' => 'users'
+	// 	  ),
+	// 	  'authError' => 'Did you really think you are allowed to see that?',
+	// 		'authenticate' => array(
+	// 			'Form' => array(
+	// 				'userModel' => 'Uzytkownicy',
+	// 				'fields' => array('username' => 'login', 'password' => 'haslo')
+	// 			)
+	// 		)
+	// 	)
+	// );
+	
+	// public function beforeFilter() {
+	// 	parent::beforeFilter();
+	// 	$this->Auth->allow('all');
+	// }
+	
 }
