@@ -174,7 +174,15 @@ CREATE TABLE IF NOT EXISTS `role` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `role`
+--
+
+INSERT INTO `role` (`id`, `nazwa`, `created`, `modified`) VALUES
+(1, 'Administrator', '2013-05-20 14:12:05', '2013-05-20 14:12:05'),
+(2, 'Użytkownik', '2013-05-20 14:12:14', '2013-05-20 14:12:14');
 
 -- --------------------------------------------------------
 
@@ -293,7 +301,15 @@ CREATE TABLE IF NOT EXISTS `uzytkownicy` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `rola_id` (`rola_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `uzytkownicy`
+--
+
+INSERT INTO `uzytkownicy` (`id`, `rola_id`, `nazwa`, `login`, `haslo`, `email`, `created`, `modified`) VALUES
+(1, 1, 'Administrator', 'admin', '4b437782a88d5d26efadb8b4650592326ededd72', 'admin@poczta.pl', '2013-05-20 15:38:56', '2013-05-20 15:38:56'),
+(2, 2, 'Użytkownik', 'user', '0d78b3202b2f1702a328cfc8317627e5893731d4', 'user@poczta.pl', '2013-05-20 15:39:25', '2013-05-20 15:39:25');
 
 -- --------------------------------------------------------
 
