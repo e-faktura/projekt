@@ -1,13 +1,20 @@
 <div class="statusy form">
 <?php echo $this->Form->create('Status'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Status'); ?></legend>
+		<legend>Edycja statusu: <?php echo $this->request->data['Status']['nazwa']; ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');
+		echo $this->Form->input('kolor', array( 'type' => 'color' ));
 	?>
 	</fieldset>
-<?php echo $this->Form->end(__('Submit')); ?>
+	
+	<div class="form-actions">
+		<button type="submit" class="btn btn-primary">Zapisz</button>
+		<button type="button" class="btn" onClick="document.location = '<?php echo $this->Html->url( array('action' => 'index')) ?>';">Anuluj</button>
+	</div>
+	
+<?php echo $this->Form->end(); ?>
 </div>
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>

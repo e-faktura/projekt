@@ -14,6 +14,7 @@ class StatusyController extends AppController {
  */
 	public function index() {
 		$this->Status->recursive = 0;
+		$this->paginate = array_merge($this->paginate, $this->Status->options);
 		$this->set('statusy', $this->paginate());
 	}
 
@@ -39,12 +40,16 @@ class StatusyController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
+			
 			$this->Status->create();
+			
 			if ($this->Status->save($this->request->data)) {
-				$this->Session->setFlash(__('The status has been saved'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The status could not be saved. Please, try again.'));
+				if($this->Status->saveField('parent_id', $this->Status->id)){
+					$this->Session->setFlash('Status został dodany');
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash('Status nie mógł zostać dodany. Spróbuj ponownie.');
+				}
 			}
 		}
 		// $parentStatuses = $this->Status->ParentStatus->find('list');
@@ -60,14 +65,25 @@ class StatusyController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Status->exists($id)) {
-			throw new NotFoundException(__('Invalid status'));
+			$this->Session->setFlash('Taki status nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
+			
+			$status = $this->Status->findById($id);
+			$parent_id = $status['Status']['parent_id'];
+			
+			if( !empty($status['Faktura']) ){
+				unset($this->request->data['Status']['id']);
+				$this->request->data['Status']['parent_id'] = $parent_id;
+			}
+			
+			
 			if ($this->Status->save($this->request->data)) {
-				$this->Session->setFlash(__('The status has been saved'));
+				$this->Session->setFlash('Status został zapisany');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The status could not be saved. Please, try again.'));
+				$this->Session->setFlash('Status nie mógł zostać zapisany. Spróbuj ponownie.');
 			}
 		} else {
 			$options = array('conditions' => array('Status.' . $this->Status->primaryKey => $id));
@@ -88,14 +104,20 @@ class StatusyController extends AppController {
 	public function delete($id = null) {
 		$this->Status->id = $id;
 		if (!$this->Status->exists()) {
-			throw new NotFoundException(__('Invalid status'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->Status->delete()) {
-			$this->Session->setFlash(__('Status deleted'));
+			$this->Session->setFlash('Taki status nie istnieje.');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash(__('Status was not deleted'));
+		
+		$this->request->onlyAllow('post', 'delete');
+		
+		$status = $this->Status->findById($id);
+		
+		if ( $this->Status->updateAll( array('Status.deleted' => true), array('Status.parent_id' => $status['Status']['parent_id']) )) {
+			$this->Session->setFlash('Status został usunięty');
+			$this->redirect(array('action' => 'index'));
+		}
+		
+		$this->Session->setFlash('Status nie został usunięty'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

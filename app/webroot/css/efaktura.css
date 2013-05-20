@@ -1,9 +1,9 @@
 @font-face {
 	font-family: 'JustMeAgainDownHere';
 	src: url('../fonts/JustMeAgainDownHere.eot');
-	src: url('../fonts/JustMeAgainDownHere.eot?#iefix') format('embedded-opentype'), 
-	url('../fonts/JustMeAgainDownHere.woff') format('woff'), 
-	url('../fonts/JustMeAgainDownHere.ttf') format('truetype'), 
+	src: url('../fonts/JustMeAgainDownHere.eot?#iefix') format('embedded-opentype'),
+	url('../fonts/JustMeAgainDownHere.woff') format('woff'),
+	url('../fonts/JustMeAgainDownHere.ttf') format('truetype'),
 	url('../fonts/JustMeAgainDownHere.svg#JustMeAgainDownHere') format('svg');
 	font-weight: normal;
 	font-style: normal;
@@ -139,3 +139,10 @@ dt, dd {
 	font-family: 'JustMeAgainDownHere';
 	margin-left: 10px;
 }
+
+.nav-tabs > li {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+

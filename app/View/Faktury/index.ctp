@@ -18,9 +18,9 @@
 				<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
-				<td><?php echo h($faktura['Typ']['nazwa']); ?></td>
-				<td><?php echo h($faktura['Status']['nazwa']); ?></td>
-				<td><?php echo h($faktura['Klient']['nazwa']); ?></td>
+				<td><?php echo h($faktura['Typ']['nazwa']); ?>&nbsp;</td>
+				<td><span class="label" style="background-color: <?php echo $faktura['Status']['kolor']; ?>"><?php echo h($faktura['Status']['nazwa']); ?></span>&nbsp;</td>
+				<td><?php echo h($faktura['Klient']['nazwa']); ?>&nbsp;</td>
 				<td class="actions">
 					<?php //echo $this->Html->link(__('View'), array('action' => 'view', $faktura['Faktura']['id'])); ?>
 					<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $faktura['Faktura']['id'])); ?>
