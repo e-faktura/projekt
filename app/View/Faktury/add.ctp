@@ -19,7 +19,7 @@
 		</fieldset>
 	
 
-		<table class="table table-bordered">
+		<table class="table table-striped table-bordered table-hover table-condensed" class="table table-bordered">
 			<tr>
 				<th>Lp.</th>
 				<th>Nazwa produktu</th>

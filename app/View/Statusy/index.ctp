@@ -3,7 +3,7 @@
 	
 	<?php echo $this->Html->link('Nowy status', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
-	<table cellpadding="0" cellspacing="0">
+	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
