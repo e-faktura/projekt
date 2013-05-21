@@ -10,8 +10,8 @@
 	</fieldset>
 	
 	<div class="form-actions">
-		<button type="submit" class="btn btn-primary">Zapisz</button>
-		<button type="button" class="btn" onClick="document.location = '<?php echo $this->Html->url( array('action' => 'index')) ?>';">Anuluj</button>
+		<button type="submit" class="btn btn-primary"><i class="icon-ok"></i> Zapisz</button>
+		<button type="button" class="btn" onClick="document.location = '<?php echo $this->Html->url( array('action' => 'index')) ?>';"><i class="icon-remove"></i> Anuluj</button>
 	</div>
 	
 <?php echo $this->Form->end(); ?>
