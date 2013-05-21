@@ -1,4 +1,7 @@
 <?php
+	
+	if( AuthComponent::user() ){
+	
 		$tabs = array(
 			'ustawienia' => '<i class="icon-globe"></i> Główne',
 			'uzytkownicy' => '<i class="icon-user"></i> Użytkownicy',
@@ -19,3 +22,5 @@
 			}
 		?>
 	</ul>
+
+<?php } ?>

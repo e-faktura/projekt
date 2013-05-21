@@ -1,3 +1,6 @@
+<?php
+	// pr($sposobyplatnosci);
+?>
 <div class="sposobyplatnosci index">
 	<h2>Sposoby płatności</h2>
 	
@@ -11,12 +14,12 @@
 	</tr>
 	<?php foreach ($sposobyplatnosci as $sposobplatnosci): ?>
 	<tr>
-		<td><?php echo h($sposobplatnosci['SposobPlatnosci']['id']); ?>&nbsp;</td>
-		<td><?php echo $this->Html->link(h($sposobplatnosci['SposobPlatnosci']['nazwa']), array('action' => 'edit', $sposobplatnosci['SposobPlatnosci']['id'])); ?>&nbsp;</td>
+		<td><?php echo h($sposobplatnosci['Sposobplatnosci']['id']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($sposobplatnosci['Sposobplatnosci']['nazwa']), array('action' => 'edit', $sposobplatnosci['Sposobplatnosci']['id'])); ?>&nbsp;</td>
 		<td class="actions">
-			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $sposobplatnosci['SposobPlatnosci']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $sposobplatnosci['SposobPlatnosci']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $sposobplatnosci['SposobPlatnosci']['id']), array( 'escape' => false ), __('Are you sure you want to delete # %s?', $sposobplatnosci['SposobPlatnosci']['id'])); ?>
+			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $sposobplatnosci['Sposobplatnosci']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $sposobplatnosci['Sposobplatnosci']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $sposobplatnosci['Sposobplatnosci']['id']), array( 'escape' => false ), __('Are you sure you want to delete # %s?', $sposobplatnosci['Sposobplatnosci']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

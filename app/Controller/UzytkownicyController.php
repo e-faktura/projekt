@@ -8,6 +8,23 @@ App::uses('AppController', 'Controller');
  */
 class UzytkownicyController extends AppController {
 
+
+	public function login() {
+		 if ($this->request->is('post')) {
+			  if ($this->Auth->login()) {
+					$this->Session->setFlash('Zalogowano');
+					$this->redirect($this->Auth->redirect());
+			  } else {
+					$this->Session->setFlash('Login lub hasło jest nieprawidłowe. Spróbuj jeszcze raz.');
+			  }
+		 }
+	}
+	
+	public function logout() {
+		$this->Session->setFlash('Wylogowano');
+		$this->redirect($this->Auth->logout());
+	}
+
 /**
  * index method
  *
@@ -101,9 +118,32 @@ class UzytkownicyController extends AppController {
 		$this->Session->setFlash('Użytkownik nie został usunięty.');
 		$this->redirect(array('action' => 'index'));
 	}
-	
-	public function login() {
 
+
+
+	public function initDb() {
+		$rola = $this->Uzytkownik->Rola;
+	 //Allow admins to everything
+		$rola->id = 1;
+		$this->Acl->allow($rola, 'controllers');
+
+	 //allow managers to posts and widgets
+		$rola->id = 2;
+		$this->Acl->deny($rola, 'controllers');
+		$this->Acl->allow($rola, 'controllers/Faktury');
+		$this->Acl->allow($rola, 'controllers/Klienci');
+		$this->Acl->allow($rola, 'controllers/Produkty');
+
+	 //allow users to only add and edit on posts and widgets
+		// $rola->id = 3;
+		// $this->Acl->deny($rola, 'controllers');
+		// $this->Acl->allow($rola, 'controllers/Posts/add');
+		// $this->Acl->allow($rola, 'controllers/Posts/edit');
+		// $this->Acl->allow($rola, 'controllers/Widgets/add');
+		// $this->Acl->allow($rola, 'controllers/Widgets/edit');
+	 //we add an exit to avoid an ugly "missing views" error message
+		echo "all done";
+		exit;
 	}
 	
 }

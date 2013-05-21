@@ -1,5 +1,6 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('AuthComponent', 'Controller/Component');
 /**
  * Uzytkownik Model
  *
@@ -83,6 +84,28 @@ class Uzytkownik extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	public $actsAs = array('Acl' => array('type' => 'requester'));
+
+	public function parentNode() {
+		if (!$this->id && empty($this->data)) {
+			return null;
+		}
+		if (isset($this->data['Uzytkownik']['rola_id'])) {
+			$rolaId = $this->data['Uzytkownik']['rola_id'];
+		} else {
+			$rolaId = $this->field('rola_id');
+		}
+		if (!$rolaId) {
+			return null;
+		} else {
+			return array('Rola' => array('id' => $rolaId));
+		}
+	}
+	
+	public function bindNode($uzytkownik) {
+		return array('model' => 'Rola', 'foreign_key' => $uzytkownik['Uzytkownik']['rola_id']);
+	}
 	
 	public function beforeSave($options = array()) {
 		if (isset($this->data['Uzytkownik']['haslo'])) {

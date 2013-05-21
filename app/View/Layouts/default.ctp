@@ -47,9 +47,22 @@ $cakeDescription = __d('cake_dev', '-faktura');
 	<div class="container">
 		<div class="masthead">
 			
-			<h3 class="muted">
-				<span id="logo_e">e</span><span id="logo_text">-Faktura</span><span id="info">Twoje faktury online</span>
-			</h3>
+			<div id="naglowek">
+				<h3 class="muted">
+					<span id="logo_e">e</span><span id="logo_text">-Faktura</span><span id="info">Twoje faktury online</span>
+				</h3>
+			</div>
+			
+			<div id="login_info">
+				<?php if(AuthComponent::user()){ ?>
+					Zalogowano jako: <?php echo $this->Html->link( AuthComponent::user('nazwa'), array('controller'=>'uzytkownicy', 'action'=>'logout'), array('title'=>'Wyloguj') ); ?>
+				<?php } else { ?>
+					<?php echo $this->Html->link( 'Zaloguj się', array('controller'=>'uzytkownicy', 'action'=>'login') ); ?>
+				
+				<?php } ?>
+			</div>
+			
+			<div class="clearfix"></div>
 			
 			<div class="navbar">
 				<div class="navbar-inner">
@@ -57,7 +70,10 @@ $cakeDescription = __d('cake_dev', '-faktura');
 						<ul class="nav">
 							<?php
 								
-								$ustawienia = array( 'ustawienia', 'uzytkownicy', 'role', 'jednostki', 'sposoby_platnosci', 'statusy', 'typy', 'vat');
+								$ustawienia = array();
+								if(AuthComponent::user()){
+									$ustawienia = array( 'ustawienia', 'uzytkownicy', 'role', 'jednostki', 'sposoby_platnosci', 'statusy', 'typy', 'vat');
+								}
 								
 								echo '<li';
 								if ( strpos($title_for_layout, 'Home') === 0 )
@@ -96,7 +112,10 @@ $cakeDescription = __d('cake_dev', '-faktura');
 					echo $this->element('UstawieniaMenu');
 				}
 			?>
-			<?php echo $this->Session->flash(); ?>
+			<?php
+				echo $this->Session->flash();
+				echo $this->Session->flash('auth');
+			?>
 
 			<?php echo $this->fetch('content'); ?>
 		</div>

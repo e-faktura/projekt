@@ -96,10 +96,7 @@ class AppModel extends Model {
 	}
 	
 	public function __construct($id = false, $table = null, $ds = null) {
-		parent::__construct($id = false, $table = null, $ds = null);
-		
-		
-		// pr($this);
+		parent::__construct($id, $table, $ds);
 		
 		$sub_options = array(
 			'fields' => array( 'MAX(Sub'.$this->name.'.id) as id' ),

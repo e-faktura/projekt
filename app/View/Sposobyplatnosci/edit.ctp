@@ -1,7 +1,7 @@
 <div class="sposobyplatnosci form">
-<?php echo $this->Form->create('SposobPlatnosci'); ?>
+<?php echo $this->Form->create('Sposobplatnosci'); ?>
 	<fieldset>
-		<legend>Edycja sposobu płatności: <?php echo $this->request->data['SposobPlatnosci']['nazwa']; ?></legend>
+		<legend>Edycja sposobu płatności: <?php echo $this->request->data['Sposobplatnosci']['nazwa']; ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nazwa');

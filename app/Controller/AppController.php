@@ -33,26 +33,40 @@ App::uses('AuthComponent', 'Controller/Component');
  */
 class AppController extends Controller {
 	
-	// public $components = array(
-	// 	'Auth' => array(
-	// 		'loginAction' => array(
-	// 			'controller' => 'uzytkownicy',
-	// 			'action' => 'login',
-	// 			// 'plugin' => 'users'
-	// 	  ),
-	// 	  'authError' => 'Did you really think you are allowed to see that?',
-	// 		'authenticate' => array(
-	// 			'Form' => array(
-	// 				'userModel' => 'Uzytkownicy',
-	// 				'fields' => array('username' => 'login', 'password' => 'haslo')
-	// 			)
-	// 		)
-	// 	)
-	// );
+	public $helpers = array('Html', 'Form', 'Session');
 	
-	// public function beforeFilter() {
-	// 	parent::beforeFilter();
-	// 	$this->Auth->allow('all');
-	// }
+	public $components = array(
+		'Session',
+		'Acl',
+		'Auth' => array(
+			'loginAction' => array(
+				'controller' => 'uzytkownicy',
+				'action' => 'login'
+			),
+			'logoutRedirect' => '/',
+			'loginRedirect' => array(
+				'controller' => 'faktury',
+				'action' => 'index'
+			),
+			'authError' => 'Nie masz dostępu do tej sekcji.',
+			'authenticate' => array(
+				'Form' => array(
+					'userModel' => 'Uzytkownik',
+					'fields' => array('username' => 'login', 'password' => 'haslo')
+				)
+			),
+			'authorize' => array(
+				'Actions' => array(
+					'actionPath' => 'controllers',
+					'userModel' => 'Uzytkownik',
+					'fields' => array('username' => 'login', 'password' => 'haslo')
+				)
+			)
+		)
+	);
+	
+	public function beforeFilter() {
+		$this->Auth->allow('display', 'login', 'logout');
+	}
 	
 }
