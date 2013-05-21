@@ -19,21 +19,6 @@ class SposobyplatnosciController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Sposobplatnosci->exists($id)) {
-			throw new NotFoundException(__('Invalid sposobplatnosci'));
-		}
-		$options = array('conditions' => array('Sposobplatnosci.' . $this->Sposobplatnosci->primaryKey => $id));
-		$this->set('sposobplatnosci', $this->Sposobplatnosci->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

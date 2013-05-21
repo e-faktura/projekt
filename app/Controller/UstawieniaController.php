@@ -43,21 +43,6 @@ class UstawieniaController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Ustawienie->exists($id)) {
-			throw new NotFoundException(__('Invalid ustawienie'));
-		}
-		$options = array('conditions' => array('Ustawienie.' . $this->Ustawienie->primaryKey => $id));
-		$this->set('ustawienie', $this->Ustawienie->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

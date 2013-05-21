@@ -36,21 +36,6 @@ class UzytkownicyController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Uzytkownik->exists($id)) {
-			throw new NotFoundException(__('Invalid uzytkownik'));
-		}
-		$options = array('conditions' => array('Uzytkownik.' . $this->Uzytkownik->primaryKey => $id));
-		$this->set('uzytkownik', $this->Uzytkownik->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

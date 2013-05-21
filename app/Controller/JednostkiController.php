@@ -19,21 +19,6 @@ class JednostkiController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Jednostka->exists($id)) {
-			throw new NotFoundException(__('Invalid jednostka'));
-		}
-		$options = array('conditions' => array('Jednostka.' . $this->Jednostka->primaryKey => $id));
-		$this->set('jednostka', $this->Jednostka->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

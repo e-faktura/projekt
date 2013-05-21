@@ -26,21 +26,6 @@ class KlienciController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Klient->exists($id)) {
-			throw new NotFoundException(__('Invalid klient'));
-		}
-		$options = array('conditions' => array('Klient.' . $this->Klient->primaryKey => $id));
-		$this->set('klient', $this->Klient->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

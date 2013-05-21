@@ -18,21 +18,6 @@ class RoleController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Rola->exists($id)) {
-			throw new NotFoundException(__('Invalid rola'));
-		}
-		$options = array('conditions' => array('Rola.' . $this->Rola->primaryKey => $id));
-		$this->set('rola', $this->Rola->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

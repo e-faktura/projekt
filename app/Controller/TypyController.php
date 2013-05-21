@@ -19,21 +19,6 @@ class TypyController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Typ->exists($id)) {
-			throw new NotFoundException(__('Invalid typ'));
-		}
-		$options = array('conditions' => array('Typ.' . $this->Typ->primaryKey => $id));
-		$this->set('typ', $this->Typ->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

@@ -18,21 +18,6 @@ class FakturyController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Faktura->exists($id)) {
-			throw new NotFoundException(__('Invalid faktura'));
-		}
-		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id), 'recursive' => 2);
-		$this->set('faktura', $this->Faktura->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void

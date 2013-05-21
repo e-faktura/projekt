@@ -19,21 +19,6 @@ class VatController extends AppController {
 	}
 
 /**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Vat->exists($id)) {
-			throw new NotFoundException(__('Invalid vat'));
-		}
-		$options = array('conditions' => array('Vat.' . $this->Vat->primaryKey => $id));
-		$this->set('vat', $this->Vat->find('first', $options));
-	}
-
-/**
  * add method
  *
  * @return void
