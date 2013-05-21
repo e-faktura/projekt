@@ -3,7 +3,8 @@
 	
 	<?php echo $this->Html->link('Nowy produkt', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
-	<table cellpadding="0" cellspacing="0">
+	<table cellpadding="0" cellspacing="0"class="table-hover">
+	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
@@ -12,6 +13,7 @@
 			<th><?php echo $this->Paginator->sort('vat_id'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
+	</thead>
 	<?php foreach ($produkty as $produkt): ?>
 	<tr>
 		<td><?php echo h($produkt['Produkt']['id']); ?>&nbsp;</td>

@@ -43,6 +43,7 @@
 body {
 	padding-top: 20px;
 	padding-bottom: 60px;
+	background: url(../img/bg.gif) repeat scroll 0% 0% transparent;
 }
 
 /* Custom container */
