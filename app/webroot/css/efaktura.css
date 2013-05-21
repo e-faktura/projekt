@@ -111,23 +111,9 @@ body {
 	border-radius: 0 3px 3px 0;
 }
 
-div.form, div.index, div.view {
-	float: none;
-	border: none;
-	width: auto;
-}
 
-div.actions {
-	display: none;
-}
 
-dd {
-	margin-left: 10em;
-}
 
-dt, dd {
-	line-height: 2em;
-}
 
 #footer {
 	background-color: rgb(245, 245, 245);
@@ -150,12 +136,14 @@ dt, dd {
 	margin-left: 10px;
 }
 
-.nav-tabs > li {
-	margin-left: 0;
-	margin-right: 0;
+
+.table th, .table td {
+	vertical-align: middle;
 }
 
-.nav-tabs > .active > a{
-	cursor: pointer !important;
+th a.asc:after {
+	content: ' ⇣';
 }
-
+th a.desc:after {
+	content: ' ⇡';
+}
