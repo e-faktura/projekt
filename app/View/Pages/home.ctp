@@ -9,18 +9,18 @@
 			<!-- Carousel items -->
 			<div class="carousel-inner">
 				<div class="active item">
-					<img src="http://www.automatycznafaktura.pl/upload/rotator/2_rotator_image_path_img1.jpg" alt="">
-					<p class="lead" id="napis">Proste w użyciu.</p>
+					<?php echo $this->Html->image('slider_1.jpg'); ?>
+					<p class="lead" id="napis">Bezpieczeństwo</p>
 				</div>
 
 				<div class="item">
-					<img src="http://www.automatycznafaktura.pl/upload/rotator/3_rotator_image_path_img2.jpg" alt="">
-					<p class="lead" id="napis">Slajd 2 Napis.</p>
+					<?php echo $this->Html->image('slider_2.jpg'); ?>
+					<p class="lead" id="napis">Innowacja</p>
 				</div>
 
 				<div class="item">
-					<img src="http://www.automatycznafaktura.pl/upload/rotator/4_rotator_image_path_img3.jpg">
-					<p class="lead" id="napis">Slajd 3 Napis.</p>
+					<?php echo $this->Html->image('slider_3.jpg'); ?>
+					<p class="lead" id="napis">Rzetelność</p>
 				</div>
 			</div>
 			<!-- Carousel nav -->
@@ -80,10 +80,10 @@
 	
 </div>
 
-<script>
-		  !function ($) {
-			 $(function(){
-				$('.carousel').carousel()
-			 })
-		  }(window.jQuery)
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('.carousel').carousel()
+	});
+
 </script>
