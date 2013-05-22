@@ -68,6 +68,7 @@
 									<td class="kwota_netto"><?php echo $this->Form->input('kwota_netto', array( 'label' => false )); ?></td>
 									<td class="kwota_vat"><?php echo $this->Form->input('kwota_vat', array( 'label' => false )); ?></td>
 									<td class="kwota_brutto"><?php echo $this->Form->input('kwota_brutto', array( 'label' => false )); ?></td>
+									<button id="b1" onClick="addFormField()" class="btn btn-info" type="button">+</button>
 								</tr>
 							</tbody>
 						</table>
@@ -135,5 +136,15 @@
 	}
 	
 </style>
+
+<script type="text/javascript">
+var i = 1;
+$("#b1").click(function() {
+    $("tbody tr:first").clone().find("input").each(function() {
+        $(this).val('').attr('id', function(_, id) { return id + i });
+    }).end().appendTo("table");
+    i++;
+});
+</script>
 
 
