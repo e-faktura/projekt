@@ -18,7 +18,7 @@
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $vat['Vat']['id'])); ?>
 			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $vat['Vat']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $vat['Vat']['id']), array( 'escape' => false ), __('Are you sure you want to delete # %s?', $vat['Vat']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $vat['Vat']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $vat['Vat']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

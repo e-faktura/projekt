@@ -24,7 +24,7 @@
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $produkt['Produkt']['id'])); ?>
 			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $produkt['Produkt']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $produkt['Produkt']['id']), array( 'escape' => false ), __('Are you sure you want to delete # %s?', $produkt['Produkt']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $produkt['Produkt']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $produkt['Produkt']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

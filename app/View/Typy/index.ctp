@@ -16,7 +16,7 @@
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $typ['Typ']['id'])); ?>
 			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $typ['Typ']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $typ['Typ']['id']), array( 'escape' => false ), __('Are you sure you want to delete # %s?', $typ['Typ']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $typ['Typ']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $typ['Typ']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
