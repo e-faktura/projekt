@@ -21,7 +21,7 @@
 			<tr>
 				<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
-				<td><?php echo date('d.m.Y', strtotime($faktura['Faktura']['data_wystawienia'])); ?>&nbsp;</td>
+				<td><?php echo h($faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Typ']['nazwa']); ?>&nbsp;</td>
 				<td><span class="label" style="background-color: <?php echo $faktura['Status']['kolor']; ?>"><?php echo h($faktura['Status']['nazwa']); ?></span>&nbsp;</td>
 				<td><?php echo h($faktura['Klient']['nazwa']); ?>&nbsp;</td>
