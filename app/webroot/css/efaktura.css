@@ -152,3 +152,19 @@ th a.desc:after {
 	font-size: 18px;
 	font-weight: bold;
 }
+
+.nav-tabs > li > a {
+	font-weight: bold;
+}
+
+label{
+	font-weight: bold;
+}
+
+form > fieldset {
+	padding-top: 20px;
+}
+
+div.index > h2 + a {
+	margin-bottom: 10px;
+}
