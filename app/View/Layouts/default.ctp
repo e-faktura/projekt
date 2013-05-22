@@ -42,7 +42,7 @@ $cakeDescription = __d('cake_dev', '-faktura');
 	?>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container">
 				
 		<div class="row-fluid">
 			
@@ -124,15 +124,32 @@ $cakeDescription = __d('cake_dev', '-faktura');
 		<?php
 			}
 		?>
-			
-	
 		
 		<?php
 			echo $this->Session->flash('flash', array( 'params' => array( 'class' => 'alert') ));
 			echo $this->Session->flash('auth', array( 'params' => array( 'class' => 'alert alert-error') ));
 		?>
 		
-	
+		
+		<!--
+		<div class="row-fluid">
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+			<div class="span1"></div>
+		</div>
+		
+		<style type="text/css">.span1{background-color: gray;}</style>
+	 	-->
+		
 		<div class="row-fluid">
 			<div class="span12">
 				<?php echo $this->fetch('content'); ?>
