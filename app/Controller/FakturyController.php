@@ -53,11 +53,12 @@ class FakturyController extends AppController {
 		$produkty = $this->Produkt->find('list');
 		
 		$this->loadModel('Jednostka');
-		$jednostki = $this->Jednostka->find('list');
+		$jednostki = $this->Jednostka->find('list', $this->Jednostka->options);
+		$jednostki_json = json_encode($jednostki);
 		
 		$this->loadModel('Vat');
-		$vat = $this->Vat->find('list');
-		
+		$vat = $this->Vat->find('list', $this->Vat->options);
+		$vat_json = json_encode($vat);
 		
 		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
 		$typy = $this->Faktura->Typ->find('list');
@@ -67,7 +68,7 @@ class FakturyController extends AppController {
 		// pr($klienci);
 		
 		$sposobyPlatnosci = $this->Faktura->SposobPlatnosci->find('list');
-		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci', 'numer', 'produkty', 'jednostki', 'vat'));
+		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci', 'numer', 'produkty', 'jednostki', 'vat', 'vat_json', 'jednostki_json'));
 	}
 
 /**

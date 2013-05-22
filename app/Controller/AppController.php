@@ -37,6 +37,7 @@ class AppController extends Controller {
 	
 	public $components = array(
 		'Session',
+		'RequestHandler',
 		'Acl',
 		'Auth' => array(
 			'loginAction' => array(
