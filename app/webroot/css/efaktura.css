@@ -147,3 +147,8 @@ th a.asc:after {
 th a.desc:after {
 	content: ' ⇡';
 }
+
+.alert{
+	font-size: 18px;
+	font-weight: bold;
+}

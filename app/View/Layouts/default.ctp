@@ -37,6 +37,7 @@ $cakeDescription = __d('cake_dev', '-faktura');
 		echo $this->Html->script('jquery');
 		echo $this->Html->script('bootstrap-transition');
 		echo $this->Html->script('bootstrap-carousel');
+		echo $this->Html->script('bootstrap-alert');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -113,8 +114,8 @@ $cakeDescription = __d('cake_dev', '-faktura');
 				}
 			?>
 			<?php
-				echo $this->Session->flash();
-				echo $this->Session->flash('auth');
+				echo $this->Session->flash('flash', array( 'params' => array( 'class' => 'alert') ));
+				echo $this->Session->flash('auth', array( 'params' => array( 'class' => 'alert alert-error') ));
 			?>
 
 			<?php echo $this->fetch('content'); ?>

@@ -28,10 +28,10 @@ class TypyController extends AppController {
 			$this->Typ->create();
 			if ($this->Typ->save($this->request->data)) {
 				if($this->Typ->saveField('parent_id', $this->Typ->id)){
-					$this->Session->setFlash('Typ został dodany');
+					$this->Session->setFlash('Typ został dodany', 'success');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash('Typ nie mógł zostać dodany. Spróbuj ponownie.');
+					$this->Session->setFlash('Typ nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 				}
 			}
 		}
@@ -48,7 +48,7 @@ class TypyController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Typ->exists($id)) {
-			$this->Session->setFlash('Taki typ nie istnieje.');
+			$this->Session->setFlash('Taki typ nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -63,10 +63,10 @@ class TypyController extends AppController {
 			}
 			
 			if ($this->Typ->save($this->request->data)) {
-				$this->Session->setFlash('Typ został zapisany');
+				$this->Session->setFlash('Typ został zapisany', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Typ nie mógł zostać zapisany. Spróbuj ponownie.');
+				$this->Session->setFlash('Typ nie mógł zostać zapisany. Spróbuj ponownie.', 'error');
 			}
 		} else {
 			$options = array('conditions' => array('Typ.' . $this->Typ->primaryKey => $id));
@@ -87,7 +87,7 @@ class TypyController extends AppController {
 	public function delete($id = null) {
 		$this->Typ->id = $id;
 		if (!$this->Typ->exists()) {
-			$this->Session->setFlash('Taki typ nie istnieje.');
+			$this->Session->setFlash('Taki typ nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->request->onlyAllow('post', 'delete');
@@ -95,11 +95,11 @@ class TypyController extends AppController {
 		$typ = $this->Typ->findById($id);
 		
 		if ( $this->Typ->updateAll( array('Typ.deleted' => true), array('Typ.parent_id' => $typ['Typ']['parent_id']) )) {
-			$this->Session->setFlash('Typ został usunięty');
+			$this->Session->setFlash('Typ został usunięty', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->Session->setFlash('Typ nie został usunięty');
+		$this->Session->setFlash('Typ nie został usunięty', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

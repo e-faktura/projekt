@@ -28,10 +28,10 @@ class JednostkiController extends AppController {
 			$this->Jednostka->create();
 			if ($this->Jednostka->save($this->request->data)) {
 				if($this->Jednostka->saveField('parent_id', $this->Jednostka->id)){
-					$this->Session->setFlash('Jednostka miary została dodana');
+					$this->Session->setFlash('Jednostka miary została dodana', 'success');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash('Jednostka miary nie mogła zostać dodana. Spróbuj ponownie.');
+					$this->Session->setFlash('Jednostka miary nie mogła zostać dodana. Spróbuj ponownie.', 'error');
 				}
 			}
 		}
@@ -48,7 +48,7 @@ class JednostkiController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Jednostka->exists($id)) {
-			$this->Session->setFlash('Taka jednostka miary nie istnieje.');
+			$this->Session->setFlash('Taka jednostka miary nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -62,10 +62,10 @@ class JednostkiController extends AppController {
 			}
 			
 			if ($this->Jednostka->save($this->request->data)) {
-				$this->Session->setFlash('Jednostka miary została zapisana.');
+				$this->Session->setFlash('Jednostka miary została zapisana.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Jednostka miary nie mogła zostać zapisana. Spróbuj ponownie.');
+				$this->Session->setFlash('Jednostka miary nie mogła zostać zapisana. Spróbuj ponownie.', 'error');
 			}
 		} else {
 			$options = array('conditions' => array('Jednostka.' . $this->Jednostka->primaryKey => $id));
@@ -86,7 +86,7 @@ class JednostkiController extends AppController {
 	public function delete($id = null) {
 		$this->Jednostka->id = $id;
 		if (!$this->Jednostka->exists()) {
-			$this->Session->setFlash('Taka jednostka miary nie istnieje.');
+			$this->Session->setFlash('Taka jednostka miary nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->request->onlyAllow('post', 'delete');
@@ -94,11 +94,11 @@ class JednostkiController extends AppController {
 		$jednostka = $this->Jednostka->findById($id);
 		
 		if ( $this->Jednostka->updateAll( array('Jednostka.deleted' => true), array('Jednostka.parent_id' => $jednostka['Jednostka']['parent_id']) )) {
-			$this->Session->setFlash('Jednostka miary została usunięta');
+			$this->Session->setFlash('Jednostka miary została usunięta', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->Session->setFlash('Jednostka miary nie została usunięta');
+		$this->Session->setFlash('Jednostka miary nie została usunięta', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

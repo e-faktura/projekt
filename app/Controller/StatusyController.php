@@ -30,10 +30,10 @@ class StatusyController extends AppController {
 			
 			if ($this->Status->save($this->request->data)) {
 				if($this->Status->saveField('parent_id', $this->Status->id)){
-					$this->Session->setFlash('Status został dodany');
+					$this->Session->setFlash('Status został dodany', 'success');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash('Status nie mógł zostać dodany. Spróbuj ponownie.');
+					$this->Session->setFlash('Status nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 				}
 			}
 		}
@@ -50,7 +50,7 @@ class StatusyController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Status->exists($id)) {
-			$this->Session->setFlash('Taki status nie istnieje.');
+			$this->Session->setFlash('Taki status nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -65,10 +65,10 @@ class StatusyController extends AppController {
 			
 			
 			if ($this->Status->save($this->request->data)) {
-				$this->Session->setFlash('Status został zapisany');
+				$this->Session->setFlash('Status został zapisany', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Status nie mógł zostać zapisany. Spróbuj ponownie.');
+				$this->Session->setFlash('Status nie mógł zostać zapisany. Spróbuj ponownie.', 'error');
 			}
 		} else {
 			$options = array('conditions' => array('Status.' . $this->Status->primaryKey => $id));
@@ -89,7 +89,7 @@ class StatusyController extends AppController {
 	public function delete($id = null) {
 		$this->Status->id = $id;
 		if (!$this->Status->exists()) {
-			$this->Session->setFlash('Taki status nie istnieje.');
+			$this->Session->setFlash('Taki status nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -98,11 +98,11 @@ class StatusyController extends AppController {
 		$status = $this->Status->findById($id);
 		
 		if ( $this->Status->updateAll( array('Status.deleted' => true), array('Status.parent_id' => $status['Status']['parent_id']) )) {
-			$this->Session->setFlash('Status został usunięty');
+			$this->Session->setFlash('Status został usunięty', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->Session->setFlash('Status nie został usunięty');
+		$this->Session->setFlash('Status nie został usunięty', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

@@ -37,10 +37,10 @@ class KlienciController extends AppController {
 						
 			if ($this->Klient->save($this->request->data)) {
 				if($this->Klient->saveField('parent_id', $this->Klient->id)){
-					$this->Session->setFlash('Klient został dodany');
+					$this->Session->setFlash('Klient został dodany', 'success');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash('Klient nie mógł zostać dodany. Spróbuj ponownie.');
+					$this->Session->setFlash('Klient nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 				}
 			}
 		}
@@ -57,7 +57,7 @@ class KlienciController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Klient->exists($id)) {
-			$this->Session->setFlash('Taki klient nie istnieje.');
+			$this->Session->setFlash('Taki klient nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -72,10 +72,10 @@ class KlienciController extends AppController {
 			}
 			
 			if ($this->Klient->save($this->request->data)) {
-				$this->Session->setFlash('Dane klienta zostały zachowane.');
+				$this->Session->setFlash('Dane klienta zostały zachowane.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Dane klienta nie mogły zostać zachowane. Spróbuj ponownie.');
+				$this->Session->setFlash('Dane klienta nie mogły zostać zachowane. Spróbuj ponownie.', 'error');
 			}
 		} else {
 			$options = array('conditions' => array('Klient.' . $this->Klient->primaryKey => $id));
@@ -96,7 +96,7 @@ class KlienciController extends AppController {
 	public function delete($id = null) {
 		$this->Klient->id = $id;
 		if (!$this->Klient->exists()) {
-			$this->Session->setFlash('Taki klient nie istnieje.');
+			$this->Session->setFlash('Taki klient nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -105,11 +105,11 @@ class KlienciController extends AppController {
 		$klient = $this->Klient->findById($id);
 		
 		if ( $this->Klient->updateAll( array('Klient.deleted' => true), array('Klient.parent_id' => $klient['Klient']['parent_id']) )) {
-			$this->Session->setFlash('Klient został usunięty');
+			$this->Session->setFlash('Klient został usunięty', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->Session->setFlash('Klient nie został usunięty');
+		$this->Session->setFlash('Klient nie został usunięty', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

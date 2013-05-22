@@ -30,13 +30,13 @@ class ProduktyController extends AppController {
 			
 			if ($this->Produkt->save($this->request->data)) {
 				if($this->Produkt->saveField('parent_id', $this->Produkt->id)){
-					$this->Session->setFlash('Produkt został dodany');
+					$this->Session->setFlash('Produkt został dodany', 'success');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash('Produkt nie mógł zostać dodany. Spróbuj ponownie.');
+					$this->Session->setFlash('Produkt nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 				}
 			} else {
-				$this->Session->setFlash('Produkt nie mógł zostać dodany. Spróbuj ponownie.');
+				$this->Session->setFlash('Produkt nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 			}
 		}
 		// $parentProdukts = $this->Produkt->ParentProdukt->find('list');
@@ -62,7 +62,7 @@ class ProduktyController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Produkt->exists($id)) {
-			$this->Session->setFlash('Taki produkt nie istnieje.');
+			$this->Session->setFlash('Taki produkt nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -77,10 +77,10 @@ class ProduktyController extends AppController {
 			}
 						
 			if ($this->Produkt->save($this->request->data)) {
-				$this->Session->setFlash('Dane produktu zostały zachowane.');
+				$this->Session->setFlash('Dane produktu zostały zachowane.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Dane produktu nie mogły zostać zachowane. Spróbuj ponownie.');
+				$this->Session->setFlash('Dane produktu nie mogły zostać zachowane. Spróbuj ponownie.', 'error');
 			}
 			
 		} else {
@@ -110,7 +110,7 @@ class ProduktyController extends AppController {
 	public function delete($id = null) {
 		$this->Produkt->id = $id;
 		if (!$this->Produkt->exists()) {
-			$this->Session->setFlash('Taki produkt nie istnieje.');
+			$this->Session->setFlash('Taki produkt nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->request->onlyAllow('post', 'delete');
@@ -118,10 +118,10 @@ class ProduktyController extends AppController {
 		$produkt = $this->Produkt->findById($id);
 		
 		if ( $this->Produkt->updateAll( array('Produkt.deleted' => true), array('Produkt.parent_id' => $produkt['Produkt']['parent_id']) )) {
-			$this->Session->setFlash('Produkt został usunięty.');
+			$this->Session->setFlash('Produkt został usunięty.', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash('Produkt nie został usunięty.');
+		$this->Session->setFlash('Produkt nie został usunięty.', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

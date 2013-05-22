@@ -17,10 +17,10 @@ class UstawieniaController extends AppController {
 			pr($this->request->data['Ustawienie']);
 			
 			if ($this->Ustawienie->saveAll($this->request->data['Ustawienie'])) {
-				$this->Session->setFlash('Ustawienia zostały zapisane.');
+				$this->Session->setFlash('Ustawienia zostały zapisane.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Ustawienia nie mogły zostać zapisane. Spróbuj ponownie.');
+				$this->Session->setFlash('Ustawienia nie mogły zostać zapisane. Spróbuj ponownie.', 'error');
 			}
 			
 			

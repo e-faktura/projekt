@@ -28,10 +28,10 @@ class SposobyplatnosciController extends AppController {
 			$this->Sposobplatnosci->create();
 			if ($this->Sposobplatnosci->save($this->request->data)) {
 				if($this->Sposobplatnosci->saveField('parent_id', $this->Sposobplatnosci->id)){
-					$this->Session->setFlash('Sposób płatności został dodany');
+					$this->Session->setFlash('Sposób płatności został dodany', 'success');
 					$this->redirect(array('action' => 'index'));
 				} else {
-					$this->Session->setFlash('Sposób płatności nie mógł zostać dodany. Spróbuj ponownie.');
+					$this->Session->setFlash('Sposób płatności nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 				}
 			}
 		}
@@ -48,7 +48,7 @@ class SposobyplatnosciController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Sposobplatnosci->exists($id)) {
-			$this->Session->setFlash('Taki sposób płatności nie istnieje.');
+			$this->Session->setFlash('Taki sposób płatności nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -62,10 +62,10 @@ class SposobyplatnosciController extends AppController {
 			}
 			
 			if ($this->Sposobplatnosci->save($this->request->data)) {
-				$this->Session->setFlash('Sposób płatności został zapisany.');
+				$this->Session->setFlash('Sposób płatności został zapisany.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Sposób płatności nie mógł zostać zapisany. Spróbuj ponownie.');
+				$this->Session->setFlash('Sposób płatności nie mógł zostać zapisany. Spróbuj ponownie.', 'error');
 			}
 		} else {
 			$options = array('conditions' => array('Sposobplatnosci.' . $this->Sposobplatnosci->primaryKey => $id));
@@ -86,7 +86,7 @@ class SposobyplatnosciController extends AppController {
 	public function delete($id = null) {
 		$this->Sposobplatnosci->id = $id;
 		if (!$this->Sposobplatnosci->exists()) {
-			$this->Session->setFlash('Taki sposób płatności nie istnieje.');
+			$this->Session->setFlash('Taki sposób płatności nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->request->onlyAllow('post', 'delete');
@@ -94,11 +94,11 @@ class SposobyplatnosciController extends AppController {
 		$sposobplatnosci = $this->Sposobplatnosci->findById($id);
 		
 		if ( $this->Sposobplatnosci->updateAll( array('Sposobplatnosci.deleted' => true), array('Sposobplatnosci.parent_id' => $sposobplatnosci['Sposobplatnosci']['parent_id']) )) {
-			$this->Session->setFlash('Sposób płatności został usunięty');
+			$this->Session->setFlash('Sposób płatności został usunięty', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
 		
-		$this->Session->setFlash('Sposób płatności nie został usunięty');
+		$this->Session->setFlash('Sposób płatności nie został usunięty', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 }

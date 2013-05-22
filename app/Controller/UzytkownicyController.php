@@ -12,16 +12,16 @@ class UzytkownicyController extends AppController {
 	public function login() {
 		 if ($this->request->is('post')) {
 			  if ($this->Auth->login()) {
-					$this->Session->setFlash('Zalogowano');
+					$this->Session->setFlash('Zalogowano', 'success');
 					$this->redirect($this->Auth->redirect());
 			  } else {
-					$this->Session->setFlash('Login lub hasło jest nieprawidłowe. Spróbuj jeszcze raz.');
+					$this->Session->setFlash('Login lub hasło jest nieprawidłowe. Spróbuj jeszcze raz.', 'error');
 			  }
 		 }
 	}
 	
 	public function logout() {
-		$this->Session->setFlash('Wylogowano');
+		$this->Session->setFlash('Wylogowano', 'success');
 		$this->redirect($this->Auth->logout());
 	}
 
@@ -44,10 +44,10 @@ class UzytkownicyController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Uzytkownik->create();
 			if ($this->Uzytkownik->save($this->request->data)) {
-				$this->Session->setFlash('Użytkownik został dodany.');
+				$this->Session->setFlash('Użytkownik został dodany.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Użytkownik nie mógł zostać dodany. Spróbuj ponownie.');
+				$this->Session->setFlash('Użytkownik nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 			}
 		}
 		$role = $this->Uzytkownik->Rola->find('list');
@@ -63,15 +63,15 @@ class UzytkownicyController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Uzytkownik->exists($id)) {
-			$this->Session->setFlash('Taki użytkownik nie istnieje.');
+			$this->Session->setFlash('Taki użytkownik nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Uzytkownik->save($this->request->data)) {
-				$this->Session->setFlash('Użytkownik został zapisany.');
+				$this->Session->setFlash('Użytkownik został zapisany.', 'success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash('Użytkownik nie mógł zostać zachowany. Spróbuj ponownie.');
+				$this->Session->setFlash('Użytkownik nie mógł zostać zachowany. Spróbuj ponownie.', 'error');
 			}
 		} else {
 			$options = array('conditions' => array('Uzytkownik.' . $this->Uzytkownik->primaryKey => $id));
@@ -92,15 +92,15 @@ class UzytkownicyController extends AppController {
 	public function delete($id = null) {
 		$this->Uzytkownik->id = $id;
 		if (!$this->Uzytkownik->exists()) {
-			$this->Session->setFlash('Taki użytkownik nie istnieje.');
+			$this->Session->setFlash('Taki użytkownik nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		$this->request->onlyAllow('post', 'delete');
 		if ($this->Uzytkownik->delete()) {
-			$this->Session->setFlash('Użytkownik został usunięty.');
+			$this->Session->setFlash('Użytkownik został usunięty.', 'success');
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->Session->setFlash('Użytkownik nie został usunięty.');
+		$this->Session->setFlash('Użytkownik nie został usunięty.', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
 
