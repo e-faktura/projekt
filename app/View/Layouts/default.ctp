@@ -30,15 +30,11 @@ $cakeDescription = __d('cake_dev', '-faktura');
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php
 		echo $this->Html->meta('icon');
-		// echo $this->Html->css('cake.generic');
-		echo $this->Html->css('bootstrap');
-		// echo $this->Html->css('bootstrap-responsive');
+		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('efaktura');
 		
 		echo $this->Html->script('jquery');
-		echo $this->Html->script('bootstrap-transition');
-		echo $this->Html->script('bootstrap-carousel');
-		echo $this->Html->script('bootstrap-alert');
+		echo $this->Html->script('bootstrap.min');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
