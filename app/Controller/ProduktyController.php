@@ -7,15 +7,72 @@ App::uses('AppController', 'Controller');
  */
 class ProduktyController extends AppController {
 
+
 /**
  * index method
  *
  * @return void
  */
-	public function index() {
-		$this->Produkt->recursive = 0;
-		$this->paginate = array_merge($this->paginate, $this->Produkt->options);
-		$this->set('produkty', $this->paginate());
+	public function index( $test = null ) {
+		
+		if( $test ){
+			$this->Produkt->recursive = -1;
+			$options = array_merge($this->Produkt->options, array( 'fields' => array('Produkt.nazwa'), 'conditions' => array('Produkt.nazwa LIKE ' => '%produkt%' ) ));
+			$produkty = $this->Produkt->find('list', $options);
+			$this->autoRender = false;
+			
+			$prod = array();
+			foreach( $produkty as $id => $produkt ){
+				$prod[] = array('label' => $produkt, 'value' => $id);
+			}
+							
+			pr($produkty);
+			pr($prod);
+			pr(json_encode($prod));
+			
+		} else if( $this->request->is('ajax') ){
+			$this->Produkt->recursive = -1;
+			$options = array_merge($this->Produkt->options, array( 'conditions' => array('Produkt.nazwa LIKE ' => '%'. $this->request->query['term'] .'%' ) ));
+			$produkty = $this->Produkt->find('list', $options);
+			
+			$prod = array();
+			foreach( $produkty as $id => $produkt ){
+				$prod[] = array('label' => $produkt, 'value' => $produkt, 'id' => $id );
+			}
+			
+			$this->set('produkty', $prod);
+			$this->set('_serialize', 'produkty' );
+		} else{
+			$this->Produkt->recursive = 0;
+			$this->paginate = array_merge($this->paginate, $this->Produkt->options);
+			$this->set('produkty', $this->paginate());
+		}
+	}
+
+	public function ajax_list( $q = null ){
+		$this->Produkt->recursive = -1;
+		// if( $this->request->is('ajax') ){
+			
+			$produkty = $this->Produkt->find('list', array(
+				// 'conditions' => array('Produkt.nazwa LIKE ' => '%'. $this->request->query['q'] .'%' )
+				'conditions' => array('Produkt.nazwa LIKE ' => '%'. $q .'%' )
+			));
+			$this->set('_serialize', array('produkty'));
+		// }
+		
+	}
+
+	public function view( $id = null ){
+		if( $this->request->is('ajax') ){
+			$this->Produkt->recursive = -1;
+			$this->Produkt->id = $id;
+			if ($this->Produkt->exists()) {
+				$this->Produkt->Behaviors->load('Containable');
+				$options = array_merge($this->Produkt->options, array('contain'=> array('Vat'), 'conditions' => array('Produkt.' . $this->Produkt->primaryKey => $id)));
+				$this->set('produkt', $this->Produkt->find('first', $options));
+				$this->set('_serialize', 'produkt' );
+			}
+		}
 	}
 
 /**
