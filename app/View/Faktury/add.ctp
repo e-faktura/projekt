@@ -139,10 +139,15 @@
 
 <script type="text/javascript">
 var i = 1;
+var i = 1;
 $("#b1").click(function() {
-    $("tbody tr:first").clone().find("input").each(function() {
+    $("tbody tr:first").clone(true)
+	.find("input").each(function() {
         $(this).val('').attr('id', function(_, id) { return id + i });
-    }).end().appendTo("table");
+    	})
+	.end()
+	.appendTo("table")
+	.find(".lp").empty().append(i+1+'.');
     i++;
 });
 </script>
