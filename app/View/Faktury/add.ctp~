@@ -139,6 +139,7 @@
 
 <script type="text/javascript">
 var i = 1;
+var i = 1;
 $("#b1").click(function() {
     $("tbody tr:first").clone(true)
 	.find("input").each(function() {
