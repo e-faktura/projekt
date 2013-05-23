@@ -1,5 +1,5 @@
 <?php
-	// pr($this->request);
+	// pr($vat);
 ?>
 <div class="row-fluid">
 	<div class="span12">
@@ -58,6 +58,39 @@
 									<th class="usun">Usuń</th>
 								</tr>
 							</thead>
+							
+							<tfoot>
+								<tr>
+									<td colspan="10"></td>
+								</tr>
+								<tr>
+									<td colspan="6" style="font-weight:bold;text-align:right;">Razem:</td>
+									<td><input type="text" disabled="disabled" value="0.00" id="suma_netto"></td>
+									<td><input type="text" disabled="disabled" value="0.00" id="suma_vat"></td>
+									<td><input type="text" disabled="disabled" value="0.00" id="suma_brutto"></td>
+									<td>&nbsp;</td>
+								</tr>
+								
+								<?php
+									
+									foreach( $vat as $v ){
+								?>
+										<tr style="display: none;" id="suma_vat_<?php echo $v['Vat']['id']; ?>">
+											<td colspan="6" style="font-weight:bold;text-align:right;">VAT <?php echo $v['Vat']['nazwa']; ?></td>
+											<td><input type="text" disabled="disabled" value="0.00" class="suma_netto"></td>
+											<td><input type="text" disabled="disabled" value="0.00" class="suma_vat"></td>
+											<td><input type="text" disabled="disabled" value="0.00" class="suma_brutto"></td>
+											<td>&nbsp;</td>
+										</tr>
+								
+								<?php
+									}
+									
+								?>
+								
+								
+							</tfoot>
+							
 							<tbody>
 								<?php
 									/* echo '<tr style="display:none">
@@ -89,7 +122,11 @@
 				</div>
 				
 				<div class="row-fluid">
-					<div class="span4 offset8">
+					<div class="span6">
+						<h3>Do zapłaty: <span id="do_zaplaty">0.00</span> zł</h3>
+					</div>
+					
+					<div class="span4 offset2">
 						<?php echo $this->Form->input('termin_platnosci', array( 'label' => 'Termin płatności', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '', 'orderYear' => 'asc', 'minYear' => (((int)date('Y')) - 5 ), 'maxYear' => (((int)date('Y')) + 5 ) )); ?>
 					</div>
 				</div>
@@ -142,27 +179,124 @@
 		width: 215px !important;
 	}
 	
+	.ui-autocomplete-loading {
+		background: white url('/projekt/img/ajax-loader.gif') right center no-repeat;
+	}
+	
+	table.pozycje input, table.pozycje select{
+		margin: 0;
+	}
+	
 </style>
 
 <script type="text/javascript">
 
 	$(document).ready(function() {
 		
-		var vat = <?php echo $vat_json; ?>;
-		var jednostki = <?php echo $jednostki_json; ?>;
-		var Pozycje = { 'lp': 1 };
+		var vat_json = <?php echo $vat_json; ?>;
+		var jednostki_json = <?php echo $jednostki_json; ?>;
+		var Pozycje = { 'lp': 1, 'nast': 1, 'pz': {}, 'sumy': {} };
 	
+	
+		function update_wyliczenia(pozycja){
+						
+			var kwota_netto = parseFloat($('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val()) * parseFloat($('#FakturaPozycja'+ pozycja +'Ilosc').val());
+			$('#FakturaIgnore'+ pozycja +'KwotaNetto').val(kwota_netto.toFixed(2));
+			
+			var kwota_vat = parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()]) * kwota_netto;
+			$('#FakturaIgnore'+ pozycja +'KwotaVat').val(kwota_vat.toFixed(2));
+			
+			var kwota_brutto = (parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()])+1) * kwota_netto;
+			$('#FakturaIgnore'+ pozycja +'KwotaBrutto').val(kwota_brutto.toFixed(2));
+			
+			Pozycje.pz[pozycja]['kwota_netto'] = kwota_netto;
+			Pozycje.pz[pozycja]['kwota_vat'] = kwota_vat;
+			Pozycje.pz[pozycja]['kwota_brutto'] = kwota_brutto;
+			
+			update_sumy();
+			
+			console.log(Pozycje);
+			
+		}
 		
-		function update_values(id){
-			$.getJSON('/projekt/produkty/view/'+id, function(response){
-				console.log(response);
+		
+		function update_sumy(){
+			
+			var suma = { 'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0, 'vat' : {}};
+			
+			for( i in Pozycje.pz ){
+				suma.kwota_netto = suma.kwota_netto + Pozycje.pz[i].kwota_netto;
+				suma.kwota_vat = suma.kwota_vat + Pozycje.pz[i].kwota_vat;
+				suma.kwota_brutto = suma.kwota_brutto + Pozycje.pz[i].kwota_brutto;
+				
+				var vat_id = Pozycje.pz[i].vat_id;
+				
+				if( suma.vat.hasOwnProperty(Pozycje.pz[i].vat_id) == false ) suma.vat[vat_id] = {'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0,};
+				
+				suma.vat[vat_id].kwota_netto = suma.vat[vat_id].kwota_netto + Pozycje.pz[i].kwota_netto;
+				suma.vat[vat_id].kwota_vat = suma.vat[vat_id].kwota_vat + Pozycje.pz[i].kwota_vat;
+				suma.vat[vat_id].kwota_brutto = suma.vat[vat_id].kwota_brutto + Pozycje.pz[i].kwota_brutto;
+				
+			}
+			
+			$('#suma_netto').val(suma.kwota_netto.toFixed(2));
+			$('#suma_vat').val(suma.kwota_vat.toFixed(2));
+			$('#suma_brutto').val(suma.kwota_brutto.toFixed(2));
+			
+			for( i in suma.vat ){
+				var $row = $('#suma_vat_'+ i);
+				
+				$row.find('.suma_netto').val(suma.vat[i].kwota_netto.toFixed(2));
+				$row.find('.suma_vat').val(suma.vat[i].kwota_vat.toFixed(2));
+				$row.find('.suma_brutto').val(suma.vat[i].kwota_brutto.toFixed(2));
+								
+			}
+			
+			for( i in vat_json.wartosci ){
+				var $row = $('#suma_vat_'+ i);
+				if( suma.vat.hasOwnProperty(i) ) {
+					$row.show();
+				}
+				else {
+					$row.hide();
+				}
+			}
+			
+			$('#do_zaplaty').html(suma.kwota_brutto.toFixed(2));
+			
+			Pozycje.sumy = suma;
+			
+		}
+		
+		
+		function update_values(id, pozycja){
+			$.getJSON('/projekt/produkty/view/'+id, function(prod){
+				// console.log(prod);
+				
+				var vat = prod.Vat;
+				var produkt = prod.Produkt;
+				
+				// var $poz = $('#poz_'+ pozycja);
+				
+				Pozycje.pz[pozycja] = produkt;
+								
+				$('#FakturaPozycja'+ pozycja +'ProduktId').val(id);
+								
+				$('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val(produkt.cena_netto);
+				
+				$('#FakturaPozycja'+ pozycja +'ProduktVatId').val(produkt.vat_id);
+				
+				update_wyliczenia(pozycja);
+				
+				
+				
 			});
 		}
 		
 		function dodaj_pozycje(){
 			
-			var html ='<tr class="poz_'+ Pozycje.lp +'">'+
-				'<td class="lp">'+ Pozycje.lp +'.</td>'+
+			var html ='<tr id="poz_'+ Pozycje.lp +'">'+
+				'<td class="lp">'+ Pozycje.nast +'.</td>'+
 				'<td class="nazwa_produktu">'+
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][produkt_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktId"/>'+
 				'	<div class="input search">'+
@@ -171,13 +305,13 @@
 				'</td>'+
 				'<td class="ilosc">'+
 				'	<div class="input number">'+
-				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][ilosc]" step="any" type="number" id="FakturaPozycja'+ Pozycje.lp +'Ilosc"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][ilosc]" step="any" type="number" id="FakturaPozycja'+ Pozycje.lp +'Ilosc" value="1"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="jednostka">'+
 				'	<div class="input select">'+
 				'		<select name="data[Faktura][Pozycja]['+ Pozycje.lp +'][jednostka]" id="FakturaPozycja'+ Pozycje.lp +'Jednostka">'+
-				'			'+ gen_options( jednostki ) +''+
+				'			'+ gen_options( jednostki_json ) +''+
 				'		</select>'+
 				'	</div>'+
 				'</td>'+
@@ -189,23 +323,23 @@
 				'<td class="stawka_vat">'+
 				'	<div class="input select">'+
 				'		<select name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][vat_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktVatId">'+
-				'			'+ gen_options( vat ) +''+
+				'			'+ gen_options( vat_json.nazwy ) +''+
 				'		</select>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="kwota_netto">'+
 				'	<div class="input text">'+
-				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][kwota_netto]" type="text" id="FakturaIgnore'+ Pozycje.lp +'KwotaNetto"/>'+
+				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][kwota_netto]" type="text" id="FakturaIgnore'+ Pozycje.lp +'KwotaNetto" value="0.00" disabled="disabled"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="kwota_vat">'+
 				'	<div class="input text">'+
-				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][kwota_vat]" type="text" id="FakturaIgnore'+ Pozycje.lp +'KwotaVat"/>'+
+				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][kwota_vat]" type="text" id="FakturaIgnore'+ Pozycje.lp +'KwotaVat" value="0.00" disabled="disabled"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="kwota_brutto">'+
 				'	<div class="input text">'+
-				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][kwota_brutto]" type="text" id="FakturaIgnore'+ Pozycje.lp +'KwotaBrutto"/>'+
+				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][kwota_brutto]" type="text" id="FakturaIgnore'+ Pozycje.lp +'KwotaBrutto" value="0.00" disabled="disabled"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="usun">'+
@@ -213,7 +347,7 @@
 				'</td>'+
 				'</tr>';
 			
-			$(html).appendTo('table > tbody');
+			$(html).data('pozycja', Pozycje.lp).appendTo('table > tbody');
 			
 			
 			$('#FakturaIgnore'+ Pozycje.lp +'NazwaProduktu').autocomplete({
@@ -221,12 +355,27 @@
 				minLength: 2,
 				autoFocus: true,
 				select: function( event, data ) {
-					console.log(data);
-					return false;
+					// console.log(data);
+					// console.log(event);
+					// console.log($(event.target).data('pozycja'));
+					var pozycja = $(event.target).parent().parent().parent().data('pozycja');
+					update_values(data.item.id, pozycja);
+					
+					dodaj_pozycje();
+					
+					// return false;
 				}
 			});
 			
+			$('#FakturaPozycja'+ Pozycje.lp +'Ilosc, #FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto, #FakturaPozycja'+ Pozycje.lp +'ProduktVatId').off('input').on('input',null, {'pozycja': Pozycje.lp }, function(e){
+				
+					update_wyliczenia(e.data.pozycja);
+				
+			});
+			
+			
 			Pozycje.lp = Pozycje.lp + 1;
+			Pozycje.nast = Pozycje.nast + 1;
 		}
 		
 		dodaj_pozycje();
@@ -242,10 +391,29 @@
 		
 		
 		
-		$('table.pozycje > tbody').on('click', 'tr > td.usun > a', function(e){
+		$('table.pozycje > tbody').off('click').on('click', 'tr > td.usun > a', function(e){
 			e.preventDefault();
-			$(this).parent().parent().remove();
-			Pozycje.lp = Pozycje.lp - 1;
+			var $tr = $(this).parent().parent();
+			var pozycja = $tr.data('pozycja');
+			
+			$tr.remove();
+			
+			
+			// Pozycje.lp = Pozycje.lp - 1;
+			Pozycje.nast = Pozycje.nast - 1;
+			
+			// console.log(Pozycje);
+			
+			delete Pozycje.pz[pozycja];
+			
+			update_sumy();
+			
+			$('table.pozycje > tbody > tr').each(function(i, e){
+				$(e).find('.lp').html((i+1)+'.');
+				
+			});
+			
+			console.log(Pozycje);
 			
 		});
 		

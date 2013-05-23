@@ -57,8 +57,14 @@ class FakturyController extends AppController {
 		$jednostki_json = json_encode($jednostki);
 		
 		$this->loadModel('Vat');
-		$vat = $this->Vat->find('list', $this->Vat->options);
-		$vat_json = json_encode($vat);
+		$this->Vat->recursive = -1;
+		$vat = $this->Vat->find('all', array_merge($this->Vat->options, array('order' => array('Vat.wartosc'=>'DESC'))));
+		$vaty = array();
+		foreach( $vat as $v){
+			$vaty['wartosci'][$v['Vat']['id']] = $v['Vat']['wartosc'];
+			$vaty['nazwy'][$v['Vat']['id']] = $v['Vat']['nazwa'];
+		}
+		$vat_json = json_encode($vaty);
 		
 		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
 		$typy = $this->Faktura->Typ->find('list');

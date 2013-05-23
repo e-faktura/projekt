@@ -32,7 +32,8 @@ $cakeDescription = __d('cake_dev', '-faktura');
 		echo $this->Html->meta('icon');
 		echo $this->Html->css('bootstrap.min');
 		echo $this->Html->css('efaktura');
-		echo $this->Html->css('themes/base/jquery.ui.all');
+		// echo $this->Html->css('themes/base/jquery.ui.all');
+		echo $this->Html->css('themes/bootstrap/jquery-ui-1.10.0.custom');
 		
 		echo $this->Html->script('jquery');
 		echo $this->Html->script('jquery-ui.min');
