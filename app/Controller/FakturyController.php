@@ -17,6 +17,56 @@ class FakturyController extends AppController {
 		$this->set('faktury', $this->paginate());
 	}
 
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function view($id = null, $engine = 'dompdf') {
+		// if (!$this->Faktura->exists($id)) {
+		// 	throw new NotFoundException(__('Invalid faktura'));
+		// }
+		// $this->Faktura->recursive = 1;
+		// $options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
+		// $this->set('faktura', $this->Faktura->find('first', $options));
+		
+		
+		
+		
+		
+		$this->loadModel('Ustawienie');
+		$this->Ustawienie->recursive = 0;
+		$sprzedawca = $this->Ustawienie->find('first', array('conditions' => array('Ustawienie.' . $this->Ustawienie->primaryKey => 1)));
+		
+		$this->Faktura->recursive = 2;
+		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
+		$this->set('faktura', $this->Faktura->find('first', $options));
+		$this->set('sprzedawca', $sprzedawca);
+		
+		
+		
+		
+		if( !isset($this->request->params['ext']) ){
+			$this->layout = 'empty';
+			$this->render('/Faktury/pdf/view');
+		} else {
+			if( $engine == 'dompdf' ){
+				$this->layout = 'dompdf';
+				$this->render('/Faktury/pdf/view');
+			}
+			else if( $engine == 'mpdf'){
+				$this->layout = 'mpdf';
+				$this->render('/Faktury/pdf/view');
+			}
+		}
+		
+		
+	}
+
+
 /**
  * add method
  *

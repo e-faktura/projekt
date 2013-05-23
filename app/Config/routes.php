@@ -33,7 +33,7 @@
 	Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 	
-	Router::parseExtensions('json');
+	Router::parseExtensions('json', 'pdf');
 
 
 /**

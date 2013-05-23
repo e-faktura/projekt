@@ -92,22 +92,7 @@
 							</tfoot>
 							
 							<tbody>
-								<?php
-									/* echo '<tr style="display:none">
-													<td class="lp"></td>
-													<td class="nazwa_produktu">
-														<?php echo $this->Form->input('Faktura.Pozycja.0.produkt_id', array( 'type' => 'hidden' )); ?>
-														<?php echo $this->Form->input('Faktura.Ignore.nazwa_produktu', array('type' => 'search', 'label' => false, 'id' => 'autocomplete', 'class' => 'typeahead', 'autocomplete' => 'off', 'data-provide' => 'typeahead') ); ?>
-													</td>
-													<td class="ilosc"><?php echo $this->Form->input('Faktura.Pozycja.0.ilosc', array( 'label' => false )); ?></td>
-													<td class="jednostka"><?php echo $this->Form->input('Faktura.Pozycja.0.jednostka', array( 'label' => false )); ?></td>
-													<td class="cena_netto"><?php echo $this->Form->input('Faktura.Ignore.cena_netto', array( 'label' => false )); ?></td>
-													<td class="stawka_vat"><?php echo $this->Form->input('Faktura.Ignore.vat', array( 'label' => false )); ?></td>
-													<td class="kwota_netto"><?php echo $this->Form->input('Faktura.Ignore.kwota_netto', array( 'label' => false )); ?></td>
-													<td class="kwota_vat"><?php echo $this->Form->input('Faktura.Ignore.kwota_vat', array( 'label' => false )); ?></td>
-													<td class="kwota_brutto"><?php echo $this->Form->input('Faktura.Ignore.kwota_brutto', array( 'label' => false )); ?></td>
-												</tr>'; */
-								?>
+								
 							</tbody>
 						</table>
 					</div>
@@ -270,7 +255,7 @@
 		
 		
 		function update_values(id, pozycja){
-			$.getJSON('/projekt/produkty/view/'+id, function(prod){
+			$.getJSON('<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'view')); ?>/'+id,function(prod){
 				
 				var produkt = prod.Produkt;
 				
@@ -351,7 +336,7 @@
 			
 			
 			$('#FakturaIgnore'+ Pozycje.lp +'NazwaProduktu').autocomplete({
-				source: "/projekt/produkty/index",
+				source: "<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'index')); ?>",
 				minLength: 2,
 				autoFocus: true,
 				select: function( event, data ) {
@@ -370,6 +355,12 @@
 			$('#FakturaPozycja'+ Pozycje.lp +'Ilosc, #FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto, #FakturaPozycja'+ Pozycje.lp +'ProduktVatId').off('input').on('input', null, {'pozycja': Pozycje.lp }, function(e){
 				
 					update_wyliczenia(e.data.pozycja);
+				
+			});
+			
+			$('#FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto').off('blur.efaktura').on('blur.efaktura', null, {'pozycja': Pozycje.lp }, function(e){
+				
+				$(this).val( parseFloat($(this).val()).toFixed(2) );
 				
 			});
 			
@@ -392,19 +383,7 @@
 			
 			// console.log(Pozycje);
 		}
-		
-		dodaj_pozycje();
-		
-		
-		function gen_options( src ){
-			var out = '';
-			for( i in src ){
-				out+='<option value="'+ i +'">'+ src[i] +'</option>';
-			}
-			return out;
-		}
-		
-		
+				
 		function usun_pozycje(pozycja){
 			
 			$('#poz_'+pozycja).remove();
@@ -449,6 +428,17 @@
 			// })
 			
 		});
+		
+		function gen_options( src ){
+			var out = '';
+			for( i in src ){
+				out+='<option value="'+ i +'">'+ src[i] +'</option>';
+			}
+			return out;
+		}
+		
+		
+		dodaj_pozycje();
 		
 	});
 </script>
