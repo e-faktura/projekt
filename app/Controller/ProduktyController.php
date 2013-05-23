@@ -67,8 +67,8 @@ class ProduktyController extends AppController {
 			$this->Produkt->recursive = -1;
 			$this->Produkt->id = $id;
 			if ($this->Produkt->exists()) {
-				$this->Produkt->Behaviors->load('Containable');
-				$options = array_merge($this->Produkt->options, array('contain'=> array('Vat'), 'conditions' => array('Produkt.' . $this->Produkt->primaryKey => $id)));
+				
+				$options = array_merge($this->Produkt->options, array( 'conditions' => array('Produkt.' . $this->Produkt->primaryKey => $id)));
 				$this->set('produkt', $this->Produkt->find('first', $options));
 				$this->set('_serialize', 'produkt' );
 			}

@@ -271,17 +271,16 @@
 		
 		function update_values(id, pozycja){
 			$.getJSON('/projekt/produkty/view/'+id, function(prod){
-				// console.log(prod);
 				
-				var vat = prod.Vat;
 				var produkt = prod.Produkt;
-				
-				// var $poz = $('#poz_'+ pozycja);
 				
 				Pozycje.pz[pozycja] = produkt;
 								
 				$('#FakturaPozycja'+ pozycja +'ProduktId').val(id);
-								
+				
+				$('#FakturaPozycja'+ pozycja +'ProduktParentId').val(produkt.parent_id);
+				
+				
 				$('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val(produkt.cena_netto);
 				
 				$('#FakturaPozycja'+ pozycja +'ProduktVatId').val(produkt.vat_id);
@@ -298,9 +297,10 @@
 			var html ='<tr id="poz_'+ Pozycje.lp +'">'+
 				'<td class="lp">'+ Pozycje.nast +'.</td>'+
 				'<td class="nazwa_produktu">'+
-				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][produkt_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktId"/>'+
+				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][parent_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktParentId"/>'+
+				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktId"/>'+
 				'	<div class="input search">'+
-				'		<input name="data[Faktura][Ignore]['+ Pozycje.lp +'][nazwa_produktu]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="ilosc">'+
@@ -310,14 +310,14 @@
 				'</td>'+
 				'<td class="jednostka">'+
 				'	<div class="input select">'+
-				'		<select name="data[Faktura][Pozycja]['+ Pozycje.lp +'][jednostka]" id="FakturaPozycja'+ Pozycje.lp +'Jednostka">'+
+				'		<select name="data[Faktura][Pozycja]['+ Pozycje.lp +'][jednostka_id]" id="FakturaPozycja'+ Pozycje.lp +'Jednostka">'+
 				'			'+ gen_options( jednostki_json ) +''+
 				'		</select>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="cena_netto">'+
 				'	<div class="input text">'+
-				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][cena_netto]" type="text" id="FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][cena_netto]" type="text" id="FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto" value="0.00"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="stawka_vat">'+
@@ -367,15 +367,30 @@
 				}
 			});
 			
-			$('#FakturaPozycja'+ Pozycje.lp +'Ilosc, #FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto, #FakturaPozycja'+ Pozycje.lp +'ProduktVatId').off('input').on('input',null, {'pozycja': Pozycje.lp }, function(e){
+			$('#FakturaPozycja'+ Pozycje.lp +'Ilosc, #FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto, #FakturaPozycja'+ Pozycje.lp +'ProduktVatId').off('input').on('input', null, {'pozycja': Pozycje.lp }, function(e){
 				
 					update_wyliczenia(e.data.pozycja);
 				
 			});
 			
+			// $('#FakturaIgnore'+ Pozycje.lp +'NazwaProduktu').off('blur.efaktura').on('blur.efaktura', null, {'pozycja': Pozycje.lp }, function(e){
+				
+			// 	var $poz = $('#poz_'+ (Pozycje.lp));
+				
+			// 	if( $poz.length == 0 && $(this).val() != '' ){
+			// 		dodaj_pozycje();
+			// 	}
+			// 	else if($poz.length > 0 && $(this).val() != '' && $poz.val() == ''){
+			// 		usun_pozycje(Pozycje.lp);
+			// 	}
+			// });
+			
 			
 			Pozycje.lp = Pozycje.lp + 1;
 			Pozycje.nast = Pozycje.nast + 1;
+			
+			
+			// console.log(Pozycje);
 		}
 		
 		dodaj_pozycje();
@@ -390,15 +405,10 @@
 		}
 		
 		
-		
-		$('table.pozycje > tbody').off('click').on('click', 'tr > td.usun > a', function(e){
-			e.preventDefault();
-			var $tr = $(this).parent().parent();
-			var pozycja = $tr.data('pozycja');
+		function usun_pozycje(pozycja){
 			
-			$tr.remove();
-			
-			
+			$('#poz_'+pozycja).remove();
+						
 			// Pozycje.lp = Pozycje.lp - 1;
 			Pozycje.nast = Pozycje.nast - 1;
 			
@@ -414,6 +424,16 @@
 			});
 			
 			console.log(Pozycje);
+			
+		}
+		
+		
+		$('table.pozycje > tbody').off('click').on('click', 'tr > td.usun > a', function(e){
+			e.preventDefault();
+			var $tr = $(this).parent().parent();
+			var pozycja = $tr.data('pozycja');
+			
+			usun_pozycje(pozycja);
 			
 		});
 		
