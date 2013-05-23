@@ -41,7 +41,7 @@ class FakturyController extends AppController {
 		$this->Ustawienie->recursive = 0;
 		$sprzedawca = $this->Ustawienie->find('first', array('conditions' => array('Ustawienie.' . $this->Ustawienie->primaryKey => 1)));
 		
-		$this->Faktura->recursive = 2;
+		$this->Faktura->recursive = 3;
 		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
 		$this->set('faktura', $this->Faktura->find('first', $options));
 		$this->set('sprzedawca', $sprzedawca);
@@ -76,7 +76,7 @@ class FakturyController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Faktura->create();
 			
-			pr($this->request->data);
+			// pr($this->request->data);
 			$errors = array();
 			
 			$pozycje = $this->request->data['Faktura']['Pozycja'];
@@ -159,23 +159,20 @@ class FakturyController extends AppController {
 				$this->Session->setFlash('Faktura nie mogła zostać zapisana. Spróbuj ponownie.');
 			}
 			
+								
 			
-			
-			
-			
-			
-			
-			
-			
-			foreach( $errors as $error ){
-				$this->Session->setFlash($error);
+			if( empty($errors) ){
+				$this->Session->setFlash('Faktura została dodana.', 'success');
+				$this->redirect(array('action' => 'index'));
 			}
-			// if ($this->Faktura->save($this->request->data)) {
-			// 	$this->Session->setFlash(__('The faktura has been saved'));
-			// 	$this->redirect(array('action' => 'index'));
-			// } else {
-			// 	$this->Session->setFlash(__('The faktura could not be saved. Please, try again.'));
-			// }
+			else{
+				
+				$out = '';
+				foreach( $errors as $error ){
+					$out.= $error.'<br>';
+				}
+				$this->Session->setFlash($out);
+			}
 			
 			
 			

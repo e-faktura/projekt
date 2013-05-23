@@ -63,13 +63,6 @@
 								<tr>
 									<td colspan="10"></td>
 								</tr>
-								<tr>
-									<td colspan="6" style="font-weight:bold;text-align:right;">Razem:</td>
-									<td><input type="text" disabled="disabled" value="0.00" id="suma_netto"></td>
-									<td><input type="text" disabled="disabled" value="0.00" id="suma_vat"></td>
-									<td><input type="text" disabled="disabled" value="0.00" id="suma_brutto"></td>
-									<td>&nbsp;</td>
-								</tr>
 								
 								<?php
 									
@@ -85,9 +78,19 @@
 								
 								<?php
 									}
-									
 								?>
 								
+								<tr>
+									<td colspan="10"></td>
+								</tr>
+								
+								<tr>
+									<td colspan="6" style="font-weight:bold;text-align:right;">Razem:</td>
+									<td><input type="text" disabled="disabled" value="0.00" id="suma_netto"></td>
+									<td><input type="text" disabled="disabled" value="0.00" id="suma_vat"></td>
+									<td><input type="text" disabled="disabled" value="0.00" id="suma_brutto"></td>
+									<td>&nbsp;</td>
+								</tr>
 								
 							</tfoot>
 							

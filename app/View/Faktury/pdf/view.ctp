@@ -18,6 +18,16 @@
 		td{
 			vertical-align: top;
 		}
+		th {
+			background-color: #F9F9F9;
+		}
+		.cena{
+			text-align: right !important;
+		}
+		
+		h1,h2,h3{
+			font-family: 'dejavu serif'
+		}
 		
 	</style>
 	
@@ -64,7 +74,7 @@
 				
 				<hr>
 				
-				<table class="table table-striped table-bordered table-hover table-condensed" >
+				<table class="table table-bordered table-condensed" >
 					<thead>
 						<tr>
 							<th>Lp.</th>
@@ -78,27 +88,105 @@
 							<th>Kwota brutto</th>
 						</tr>
 					</thead>
-					
+					<tbody>
+						<?php
+							$i = 1;
+							$suma = array('kwota_netto' => 0, 'kwota_vat' => 0, 'kwota_brutto' => 0);
+							$vat = array();
+							$total = 0;
+							
+							foreach( $faktura['Pozycja'] as $pozycja ){
+								
+								if( !isset( $vat[$pozycja['Produkt']['vat_id']] ) ) $vat[$pozycja['Produkt']['vat_id']] = array('kwota_netto' => 0, 'kwota_vat' => 0, 'kwota_brutto' => 0, 'nazwa' => $pozycja['Produkt']['Vat']['nazwa'] );
+								
+						?>
+							<tr>
+								<td><?php echo $i++; ?>.</td>
+								<td><?php echo $pozycja['Produkt']['nazwa'] ?></td>
+								<td><?php echo $pozycja['ilosc']; ?></td>
+								<td><?php echo $pozycja['Jednostka']['nazwa']; ?></td>
+								<td class="cena"><?php echo $pozycja['Produkt']['cena_netto'].' zł'; ?></td>
+								<td><?php echo $pozycja['Produkt']['Vat']['nazwa']; ?></td>
+								<td class="cena">
+									<?php
+										$kwota_netto = ((float)$pozycja['Produkt']['cena_netto'])*((float)$pozycja['ilosc']);
+										echo number_format($kwota_netto, 2, '.', ' ').' zł';
+										$suma['kwota_netto'] = $suma['kwota_netto'] + $kwota_netto;
+										$vat[$pozycja['Produkt']['vat_id']]['kwota_netto'] = $vat[$pozycja['Produkt']['vat_id']]['kwota_netto'] + $kwota_netto;
+									?>
+								</td>
+								<td class="cena">
+									<?php
+										$kwota_vat = $kwota_netto * ((float)$pozycja['Produkt']['Vat']['wartosc']);
+										echo number_format($kwota_vat, 2, '.', ' ').' zł';
+										$suma['kwota_vat'] = $suma['kwota_vat'] + $kwota_vat;
+										$vat[$pozycja['Produkt']['vat_id']]['kwota_vat'] = $vat[$pozycja['Produkt']['vat_id']]['kwota_vat'] + $kwota_vat;
+									?>
+								</td>
+								<td class="cena">
+									<?php
+										$kwota_brutto = $kwota_netto * (((float)$pozycja['Produkt']['Vat']['wartosc'])+1);
+										echo number_format($kwota_brutto, 2, '.', ' ').' zł';
+										$suma['kwota_brutto'] = $suma['kwota_brutto'] + $kwota_brutto;
+										$vat[$pozycja['Produkt']['vat_id']]['kwota_brutto'] = $vat[$pozycja['Produkt']['vat_id']]['kwota_brutto'] + $kwota_brutto;
+										
+										$total = $total + $kwota_brutto;
+									?>
+								</td>
+							</tr>
+						<?php
+							}
+						?>
+					</tbody>
 					<tfoot>
 						<tr>
 							<td colspan="10"></td>
 						</tr>
+						<?php
+							foreach( $vat as $v ){
+						?>
+								<tr>
+									<td colspan="6" style="font-weight:bold;text-align:right;">VAT <?php echo $v['nazwa']; ?></td>
+									<td class="cena"><?php echo number_format($v['kwota_netto'], 2, '.', ' ').' zł'; ?></td>
+									<td class="cena"><?php echo number_format($v['kwota_vat'], 2, '.', ' ').' zł'; ?></td>
+									<td class="cena"><?php echo number_format($v['kwota_brutto'], 2, '.', ' ').' zł'; ?></td>
+								</tr>
+						<?php
+							}
+						?>
+						
+						<tr>
+							<td colspan="10"></td>
+						</tr>
+						
 						<tr>
 							<td colspan="6" style="font-weight:bold;text-align:right;">Razem:</td>
-							<td>0.00</td>
-							<td>0.00</td>
-							<td>0.00</td>
-							
+							<td class="cena"><?php echo number_format($suma['kwota_netto'], 2, '.', ' ').' zł'; ?></td>
+							<td class="cena"><?php echo number_format($suma['kwota_vat'], 2, '.', ' ').' zł'; ?></td>
+							<td class="cena"><?php echo number_format($suma['kwota_brutto'], 2, '.', ' ').' zł'; ?></td>
 						</tr>
 					</tfoot>
-					
-					<tbody>
-						
-					</tbody>
-					
 				</table>
 				
+				<br>
 				
+				<table style="width: 100%">
+					<tr>
+						<td style="width: 25%">&nbsp;</td>
+						<td style="width: 25%">&nbsp;</td>
+						<td style="width: 25%">
+							Sposób płatności: <?php echo $this->Time->format('d-m-Y', $faktura['SposobPlatnosci']['nazwa']); ?>
+						</td>
+						<td style="width: 25%">
+							Termin płatności: <?php echo $this->Time->format('d-m-Y', $faktura['Faktura']['termin_platnosci']); ?>
+						</td>
+					</tr>
+				</table>
+				
+				<br>
+				<br>
+				
+				<h2>Do zapłaty: <?php echo number_format($total, 2, '.', ' '); ?> zł</h2>
 				
 			</div>
 		</div>
