@@ -112,7 +112,7 @@
 				<div class="row-fluid">
 					<div class="span6">
 						<h3>Do zapłaty: <span id="do_zaplaty">0.00</span> zł</h3>
-						<h3>Słownie: <span id="do_zaplaty_słownie">przy pomocy php czy jQuery?</span></h3>
+						<h3>   Słownie: <span id="do_zaplaty">0.00</span> zł</h3>
 					</div>
 					
 					<div class="span4 offset2">
