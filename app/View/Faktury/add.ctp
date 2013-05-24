@@ -110,14 +110,17 @@
 				</div>
 				
 				<div class="row-fluid">
-					<div class="span6">
-						<h3>Do zapłaty: <span id="do_zaplaty">0.00</span> zł</h3>
-						<h3>Słownie: <span id="do_zaplaty_słownie">przy pomocy php czy jQuery?</span></h3>
-					</div>
+					<div class="span2" style="text-align:right"><h3>Do zapłaty:</h3></div>
+					<div class="span4"><h3><span id="do_zaplaty">0.00</span> zł</h3></div>
 					
 					<div class="span4 offset2">
 						<?php echo $this->Form->input('termin_platnosci', array( 'label' => 'Termin płatności', 'type' => 'date', 'dateFormat' => 'DMY', 'separator' => '', 'orderYear' => 'asc', 'minYear' => (((int)date('Y')) - 5 ), 'maxYear' => (((int)date('Y')) + 5 ) )); ?>
 					</div>
+				</div>
+				
+				<div class="row-fluid">
+					<div class="span2" style="text-align:right"><h3>Słownie:</h3></div>
+					<div class="span10"><h3><span id="do_zaplaty_slownie">zero zł 00/100</span></h3></div>
 				</div>
 		
 				
@@ -169,7 +172,7 @@
 	}
 	
 	.ui-autocomplete-loading {
-		background: white url('/projekt/img/ajax-loader.gif') right center no-repeat;
+		background: white url('<?php echo $this->Html->url('/img/ajax-loader.gif'); ?>') right center no-repeat;
 	}
 	
 	table.pozycje input, table.pozycje select{
@@ -252,6 +255,8 @@
 			}
 			
 			$('#do_zaplaty').html(suma.kwota_brutto.toFixed(2));
+			$('#do_zaplaty_slownie').html( kwota_slownie(suma.kwota_brutto) );
+			
 			
 			Pozycje.sumy = suma;
 			
@@ -289,12 +294,12 @@
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][parent_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktParentId"/>'+
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktId"/>'+
 				'	<div class="input search">'+
-				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search" placeholder="Wpisz nazwę produktu"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="ilosc">'+
 				'	<div class="input number">'+
-				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][ilosc]" step="any" type="number" id="FakturaPozycja'+ Pozycje.lp +'Ilosc" value="1"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][ilosc]" step="any" type="number" min="0.0", id="FakturaPozycja'+ Pozycje.lp +'Ilosc" value="1"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="jednostka">'+
@@ -443,6 +448,75 @@
 		
 		
 		dodaj_pozycje();
+		
+		
+		function kwota_slownie( kwota ){
+			
+			if( !kwota ) kwota = 0.0;
+			
+			kwota = (parseFloat(kwota)).toFixed(2);
+			kwota = kwota.split('.');
+			
+			return slowa(kwota[0]) +' zł '+ kwota[1] +'/100';
+		}
+		
+		
+		function slowa( liczba ){
+		   
+		   var jednosci = ["", " jeden", " dwa", " trzy", " cztery", " pięć", " sześć", " siedem", " osiem", " dziewięć"];
+		   var nascie = ["", " jedenaście", " dwanaście", " trzynaście", " czternaście", " piętnaście", " szesnaście", " siedemnaście", " osiemnaście", " dziewietnaście"];
+		   var dziesiatki = ["", " dziesięć", " dwadzieścia", " trzydzieści", " czterdzieści", " pięćdziesiąt", " sześćdziesiąt", " siedemdziesiąt", " osiemdziesiąt", " dziewięćdziesiąt"];
+		   var setki = ["", " sto", " dwieście", " trzysta", " czterysta", " pięćset", " sześćset", " siedemset", " osiemset", " dziewięćset"];
+		   var grupy = [
+		      ["" ,"" ,""],
+		      [" tysiąc" ," tysiące" ," tysięcy"],
+		      [" milion" ," miliony" ," milionów"],
+		      [" miliard"," miliardy"," miliardów"],
+		      [" bilion" ," biliony" ," bilionów"],
+		      [" biliard"," biliardy"," biliardów"],
+		      [" trylion"," tryliony"," tryliardów"]];
+		    
+		   if (!isNaN(liczba)){
+		   	
+		      var wynik = '';
+		      var znak = '';
+		      if (liczba == 0)
+		         wynik = "zero";
+		      if (liczba < 0) {
+		         znak = "minus";
+		         liczba = liczba;
+		      }
+		      
+		      var g = 0;
+		      while (liczba > 0) {
+		         var s = Math.floor((liczba % 1000)/100);
+		         var n = 0;
+		         var d = Math.floor((liczba % 100)/10);
+		         var j = Math.floor(liczba % 10);
+		         if (d == 1 && j>0) {
+		            n = j;
+		            d = 0;
+		            j = 0;
+		         }
+
+		         var k = 2;
+		         if (j == 1 && s+d+n == 0)
+		            k = 0;
+		         if (j == 2 || j == 3 || j == 4)
+		            k = 1;
+		         if (s+d+n+j > 0)
+		            wynik = setki[s]+dziesiatki[d]+nascie[n]+jednosci[j]+grupy[g][k]+wynik;
+
+		         g++;
+		         liczba = Math.floor(liczba/1000);
+		      }
+		      return znak + wynik;
+		   }
+		   else  {
+		     
+		  }
+		  return false;
+		}
 		
 	});
 </script>

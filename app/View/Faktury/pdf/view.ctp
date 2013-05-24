@@ -1,6 +1,6 @@
 <?php
 	// pr($faktura);
-	
+	App::import('Vendor', 'kwota_slownie/kwota_slownie');
 	$r = '<br>';
 ?>
 <!DOCTYPE html>
@@ -186,7 +186,16 @@
 				<br>
 				<br>
 				
-				<h2>Do zapłaty: <?php echo number_format($total, 2, '.', ' '); ?> zł</h2>
+				<table>
+					<tr>
+						<td style="text-align:right;"><h3>Do zapłaty:&nbsp;</h3></td>
+						<td><h3><?php echo number_format($total, 2, '.', ' '); ?> zł</h3></td>
+					</tr>
+					<tr>
+						<td style="text-align:right;"><h3>Słownie do zapłaty:&nbsp;</h3></td>
+						<td><h3><?php echo KwotaSlownie::get(round($total,2)); ?></h3></td>
+					</tr>
+				</table>
 				
 			</div>
 		</div>
