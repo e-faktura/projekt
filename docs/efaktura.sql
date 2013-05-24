@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2013 at 03:02 PM
+-- Generation Time: May 24, 2013 at 03:01 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.4.7
 
@@ -186,6 +186,7 @@ INSERT INTO `aros_acos` (`id`, `aro_id`, `aco_id`, `_create`, `_read`, `_update`
 (5, 2, 28, '1', '1', '1', '1');
 
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `faktury`
 --
@@ -207,15 +208,15 @@ CREATE TABLE IF NOT EXISTS `faktury` (
   KEY `status_id` (`status_id`),
   KEY `klient_id` (`klient_id`),
   KEY `sposob_platnosci_id` (`sposob_platnosci_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `faktury`
 --
 
 INSERT INTO `faktury` (`id`, `parent_id`, `numer`, `data_wystawienia`, `data_sprzedazy`, `typ_id`, `status_id`, `klient_id`, `sposob_platnosci_id`, `termin_platnosci`) VALUES
-(2, 0, '1/05/2013', '2013-05-10 00:00:00', '2013-05-10 00:00:00', 1, 1, 1, 1, '2013-05-10 00:00:00'),
-(3, 0, '2/05/2013', '2013-05-10 00:00:00', '2013-05-10 00:00:00', 1, 1, 1, 1, '2013-05-10 00:00:00');
+(1, 0, '1/05/2013', '2013-05-24 00:00:00', '2013-05-24 00:00:00', 1, 1, 1, 1, '2013-05-24 00:00:00'),
+(2, 0, '2/05/2013', '2013-05-24 00:00:00', '2013-05-24 00:00:00', 1, 2, 2, 2, '2013-05-30 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -292,7 +293,17 @@ CREATE TABLE IF NOT EXISTS `pozycje` (
   KEY `faktura_id` (`faktura_id`),
   KEY `produkt_id` (`produkt_id`),
   KEY `jednostka_id` (`jednostka_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `pozycje`
+--
+
+INSERT INTO `pozycje` (`id`, `faktura_id`, `produkt_id`, `ilosc`, `jednostka_id`) VALUES
+(1, 1, 1, 4, 1),
+(2, 1, 2, 1, 1),
+(3, 2, 2, 3, 1),
+(4, 2, 1, 3, 1);
 
 -- --------------------------------------------------------
 
