@@ -15,7 +15,8 @@ class FakturyController extends AppController {
 	public function index() {
 		$this->Faktura->recursive = 0;
 		$this->loadModel('Status');
-		$statusy = $this->Status->find('list', array_merge($this->Faktura->Status->options, array('order' => array('id' => 'ASC'))));
+		$this->Status->recursive = -1;
+		$statusy = $this->Status->find('all', array_merge($this->Faktura->Status->options, array('order' => array('id' => 'ASC'))));
 		$this->set('faktury', $this->paginate());
 		$this->set('statusy', $statusy);
 	}
