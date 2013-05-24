@@ -6,103 +6,6 @@
 		var jednostki_json = <?php echo $jednostki_json; ?>;
 		var Pozycje = { 'lp': 1, 'nast': 1, 'pz': {}, 'sumy': {} };
 	
-	
-		function update_wyliczenia(pozycja){
-						
-			var kwota_netto = parseFloat($('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val()) * parseFloat($('#FakturaPozycja'+ pozycja +'Ilosc').val());
-			$('#FakturaIgnore'+ pozycja +'KwotaNetto').val(kwota_netto.toFixed(2));
-			
-			var kwota_vat = parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()]) * kwota_netto;
-			$('#FakturaIgnore'+ pozycja +'KwotaVat').val(kwota_vat.toFixed(2));
-			
-			var kwota_brutto = (parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()])+1) * kwota_netto;
-			$('#FakturaIgnore'+ pozycja +'KwotaBrutto').val(kwota_brutto.toFixed(2));
-			
-			Pozycje.pz[pozycja]['kwota_netto'] = kwota_netto;
-			Pozycje.pz[pozycja]['kwota_vat'] = kwota_vat;
-			Pozycje.pz[pozycja]['kwota_brutto'] = kwota_brutto;
-			
-			update_sumy();
-			
-			console.log(Pozycje);
-			
-		}
-		
-		
-		function update_sumy(){
-			
-			var suma = { 'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0, 'vat' : {}};
-			
-			for( i in Pozycje.pz ){
-				suma.kwota_netto = suma.kwota_netto + Pozycje.pz[i].kwota_netto;
-				suma.kwota_vat = suma.kwota_vat + Pozycje.pz[i].kwota_vat;
-				suma.kwota_brutto = suma.kwota_brutto + Pozycje.pz[i].kwota_brutto;
-				
-				var vat_id = Pozycje.pz[i].vat_id;
-				
-				if( suma.vat.hasOwnProperty(Pozycje.pz[i].vat_id) == false ) suma.vat[vat_id] = {'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0,};
-				
-				suma.vat[vat_id].kwota_netto = suma.vat[vat_id].kwota_netto + Pozycje.pz[i].kwota_netto;
-				suma.vat[vat_id].kwota_vat = suma.vat[vat_id].kwota_vat + Pozycje.pz[i].kwota_vat;
-				suma.vat[vat_id].kwota_brutto = suma.vat[vat_id].kwota_brutto + Pozycje.pz[i].kwota_brutto;
-				
-			}
-			
-			$('#suma_netto').val(suma.kwota_netto.toFixed(2));
-			$('#suma_vat').val(suma.kwota_vat.toFixed(2));
-			$('#suma_brutto').val(suma.kwota_brutto.toFixed(2));
-			
-			for( i in suma.vat ){
-				var $row = $('#suma_vat_'+ i);
-				
-				$row.find('.suma_netto').val(suma.vat[i].kwota_netto.toFixed(2));
-				$row.find('.suma_vat').val(suma.vat[i].kwota_vat.toFixed(2));
-				$row.find('.suma_brutto').val(suma.vat[i].kwota_brutto.toFixed(2));
-								
-			}
-			
-			for( i in vat_json.wartosci ){
-				var $row = $('#suma_vat_'+ i);
-				if( suma.vat.hasOwnProperty(i) ) {
-					$row.show();
-				}
-				else {
-					$row.hide();
-				}
-			}
-			
-			$('#do_zaplaty').html(suma.kwota_brutto.toFixed(2));
-			$('#do_zaplaty_slownie').html( kwota_slownie(suma.kwota_brutto) );
-			
-			
-			Pozycje.sumy = suma;
-			
-		}
-		
-		
-		function update_values(id, pozycja){
-			$.getJSON('<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'view')); ?>/'+id,function(prod){
-				
-				var produkt = prod.Produkt;
-				
-				Pozycje.pz[pozycja] = produkt;
-								
-				$('#FakturaPozycja'+ pozycja +'ProduktId').val(id);
-				
-				$('#FakturaPozycja'+ pozycja +'ProduktParentId').val(produkt.parent_id);
-				
-				
-				$('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val(produkt.cena_netto);
-				
-				$('#FakturaPozycja'+ pozycja +'ProduktVatId').val(produkt.vat_id);
-				
-				update_wyliczenia(pozycja);
-				
-				
-				
-			});
-		}
-		
 		function dodaj_pozycje(){
 			
 			var html ='<tr id="poz_'+ Pozycje.lp +'">'+
@@ -166,50 +69,126 @@
 				minLength: 2,
 				autoFocus: true,
 				select: function( event, data ) {
-					// console.log(data);
-					// console.log(event);
-					// console.log($(event.target).data('pozycja'));
+					
 					var pozycja = $(event.target).parent().parent().parent().data('pozycja');
+					$(event.target).data({'z_bazy': true});
 					update_values(data.item.id, pozycja);
 					
 					dodaj_pozycje();
 					
-					// return false;
 				}
 			});
-			
-			$('#FakturaPozycja'+ Pozycje.lp +'Ilosc, #FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto, #FakturaPozycja'+ Pozycje.lp +'ProduktVatId').off('input').on('input', null, {'pozycja': Pozycje.lp }, function(e){
-				
-					update_wyliczenia(e.data.pozycja);
-				
-			});
-			
-			$('#FakturaPozycja'+ Pozycje.lp +'ProduktCenaNetto').off('blur.efaktura').on('blur.efaktura', null, {'pozycja': Pozycje.lp }, function(e){
-				
-				$(this).val( parseFloat($(this).val()).toFixed(2) );
-				
-			});
-			
-			// $('#FakturaIgnore'+ Pozycje.lp +'NazwaProduktu').off('blur.efaktura').on('blur.efaktura', null, {'pozycja': Pozycje.lp }, function(e){
-				
-			// 	var $poz = $('#poz_'+ (Pozycje.lp));
-				
-			// 	if( $poz.length == 0 && $(this).val() != '' ){
-			// 		dodaj_pozycje();
-			// 	}
-			// 	else if($poz.length > 0 && $(this).val() != '' && $poz.val() == ''){
-			// 		usun_pozycje(Pozycje.lp);
-			// 	}
-			// });
-			
-			
+						
 			Pozycje.lp = Pozycje.lp + 1;
 			Pozycje.nast = Pozycje.nast + 1;
 			
-			
-			// console.log(Pozycje);
 		}
+		
+		function update_values(id, pozycja){
+			$.getJSON('<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'view')); ?>/'+id,function(prod){
 				
+				var produkt = prod.Produkt;
+				
+				Pozycje.pz[pozycja] = produkt;
+				
+				$('#FakturaPozycja'+ pozycja +'ProduktId').val(id);
+				
+				$('#FakturaPozycja'+ pozycja +'ProduktParentId').val(produkt.parent_id);
+				
+				
+				$('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val(produkt.cena_netto);
+				
+				$('#FakturaPozycja'+ pozycja +'ProduktVatId').val(produkt.vat_id);
+				
+				update_wyliczenia(pozycja);
+				
+				
+				
+			});
+		}
+		
+		function update_wyliczenia(pozycja){
+			
+			var cena_netto = parseFloat($('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val());
+			Pozycje.pz[pozycja]['cena_netto'] = cena_netto;
+			
+			var vat_id = $('#FakturaPozycja'+ pozycja +'ProduktVatId').val();
+			Pozycje.pz[pozycja]['vat_id'] = vat_id;
+			
+			var ilosc = parseFloat($('#FakturaPozycja'+ pozycja +'Ilosc').val());
+			Pozycje.pz[pozycja]['ilosc'] = ilosc;
+			
+			
+			var kwota_netto = parseFloat($('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val()) * parseFloat($('#FakturaPozycja'+ pozycja +'Ilosc').val());
+			$('#FakturaIgnore'+ pozycja +'KwotaNetto').val(kwota_netto.toFixed(2));
+			
+			var kwota_vat = parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()]) * kwota_netto;
+			$('#FakturaIgnore'+ pozycja +'KwotaVat').val(kwota_vat.toFixed(2));
+			
+			var kwota_brutto = (parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()])+1) * kwota_netto;
+			$('#FakturaIgnore'+ pozycja +'KwotaBrutto').val(kwota_brutto.toFixed(2));
+			
+			Pozycje.pz[pozycja]['kwota_netto'] = kwota_netto;
+			Pozycje.pz[pozycja]['kwota_vat'] = kwota_vat;
+			Pozycje.pz[pozycja]['kwota_brutto'] = kwota_brutto;
+			
+			update_sumy();
+			
+			console.log(Pozycje);
+			
+		}
+		
+		function update_sumy(){
+			
+			var suma = { 'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0, 'vat' : {}};
+			
+			for( i in Pozycje.pz ){
+				suma.kwota_netto = suma.kwota_netto + Pozycje.pz[i].kwota_netto;
+				suma.kwota_vat = suma.kwota_vat + Pozycje.pz[i].kwota_vat;
+				suma.kwota_brutto = suma.kwota_brutto + Pozycje.pz[i].kwota_brutto;
+				
+				var vat_id = Pozycje.pz[i].vat_id;
+				
+				if( suma.vat.hasOwnProperty(Pozycje.pz[i].vat_id) == false ) suma.vat[vat_id] = {'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0,};
+				
+				suma.vat[vat_id].kwota_netto = suma.vat[vat_id].kwota_netto + Pozycje.pz[i].kwota_netto;
+				suma.vat[vat_id].kwota_vat = suma.vat[vat_id].kwota_vat + Pozycje.pz[i].kwota_vat;
+				suma.vat[vat_id].kwota_brutto = suma.vat[vat_id].kwota_brutto + Pozycje.pz[i].kwota_brutto;
+				
+			}
+			
+			$('#suma_netto').val(suma.kwota_netto.toFixed(2));
+			$('#suma_vat').val(suma.kwota_vat.toFixed(2));
+			$('#suma_brutto').val(suma.kwota_brutto.toFixed(2));
+			
+			for( i in suma.vat ){
+				var $row = $('#suma_vat_'+ i);
+				
+				$row.find('.suma_netto').val(suma.vat[i].kwota_netto.toFixed(2));
+				$row.find('.suma_vat').val(suma.vat[i].kwota_vat.toFixed(2));
+				$row.find('.suma_brutto').val(suma.vat[i].kwota_brutto.toFixed(2));
+								
+			}
+			
+			for( i in vat_json.wartosci ){
+				var $row = $('#suma_vat_'+ i);
+				if( suma.vat.hasOwnProperty(i) ) {
+					$row.show();
+				}
+				else {
+					$row.hide();
+				}
+			}
+			
+			$('#do_zaplaty').html(suma.kwota_brutto.toFixed(2));
+			$('#do_zaplaty_slownie').html( kwota_slownie(suma.kwota_brutto) );
+			
+			
+			Pozycje.sumy = suma;
+			
+		}
+		
+			
 		function usun_pozycje(pozycja){
 			
 			$('#poz_'+pozycja).remove();
@@ -227,12 +206,86 @@
 				$(e).find('.lp').html((i+1)+'.');
 				
 			});
-			
-			console.log(Pozycje);
+						
+			if( !sa_wolne_pozycje() ){
+				dodaj_pozycje();
+			}
 			
 		}
 		
+		function sa_wolne_pozycje(){
+			var trs = $('table.pozycje > tbody > tr');
+			
+			if( trs.length > 0 ){
+				
+				var wolne_poz = false;
+				for( i = 0; i < trs.length; i++ ){
+					var pozycja = $(trs[i]).data('pozycja');
+					
+					var $input = $('#FakturaIgnore'+ pozycja +'NazwaProduktu');
+					
+					if( $input.val() == '' ){
+						if( !wolne_poz ) wolne_poz = [];
+						wolne_poz.push(pozycja);
+					}
+				}
+				return wolne_poz;
+			}
+			
+			return false;
+		}
 		
+		
+		//=========================================================================================================================
+		// Bindowanie eventów
+		
+		// zejście fokusu z pola nazwy produktu -> jeśli nie ma wolnych pozycji to dodaj
+		$('table.pozycje > tbody').off('blur.efaktura').on('blur.efaktura', 'input[id$="NazwaProduktu"]', function(e){
+			
+			var wolne_poz = sa_wolne_pozycje();
+			
+			if( wolne_poz == false ){
+				dodaj_pozycje();
+			}
+			else if( $(this).val() == '' ){
+				for( i in wolne_poz ){
+					usun_pozycje( wolne_poz[i] );
+				}
+			}
+			
+			if( !$(this).data('z_bazy') ){
+				var $tr = $(this).parent().parent().parent();
+				var pozycja = $tr.data('pozycja');
+								
+				Pozycje.pz[pozycja] = { 'ilosc': 0, 'cena_netto': 0, 'nazwa': $(this).val(), 'vat_id': $tr.find('.stawka_vat select').val()};
+				
+				update_wyliczenia(pozycja);
+			}
+			
+			
+			
+		});
+		
+		// zejście fokusu z pola ceny netto -> sformatuj jak float
+		$('table.pozycje > tbody').off('blur.efaktura').on('blur.efaktura', 'input[id$="ProduktCenaNetto"]', function(e){
+			var $val = $(this).val();
+			if( !isNaN( $val ) && $val != '' ){
+					$(this).val( parseFloat($(this).val()).toFixed(2) );
+			}
+		});
+		
+		// zmiana wartości pola ilość, cena netto lub stawki vat -> update wyliczonych kwot i sum
+		$('table.pozycje > tbody').off('input').on('input', 'input[id$="Ilosc"], input[id$="ProduktCenaNetto"], select[id$="ProduktVatId"]', function(e){
+			var $val = $(this).val();
+			var $tr = $(this).parent().parent().parent();
+			var pozycja = $tr.data('pozycja');
+							
+			if( !isNaN( $val ) && $val != '' ){
+				update_wyliczenia(pozycja);
+			}
+		});
+		
+		// usunięcie pozycji z faktury
 		$('table.pozycje > tbody').off('click').on('click', 'tr > td.usun > a', function(e){
 			e.preventDefault();
 			var $tr = $(this).parent().parent();
@@ -240,12 +293,23 @@
 			
 			usun_pozycje(pozycja);
 			
+			if( $('table.pozycje > tbody > tr').length == 0 ){
+				dodaj_pozycje();
+			}
+			
 		});
+		
+		dodaj_pozycje();
+		
+		//=========================================================================================================================
+		// Funkcje pomocnicze
+		
 		
 		$('#test').on('click', function(e){
 			e.preventDefault();
 			
 			dodaj_pozycje();
+			// sa_wolne_pozycje();
 			
 			// $.getJSON('/projekt/produkty/index', {'term': 'prod'}, function(response){
 				
@@ -262,11 +326,7 @@
 			}
 			return out;
 		}
-		
-		
-		dodaj_pozycje();
-		
-		
+				
 		function kwota_slownie( kwota ){
 			
 			if( !kwota ) kwota = 0.0;
