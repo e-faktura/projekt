@@ -14,7 +14,10 @@ class FakturyController extends AppController {
  */
 	public function index() {
 		$this->Faktura->recursive = 0;
+		$this->loadModel('Status');
+		$statusy = $this->Status->find('list', array_merge($this->Faktura->Status->options, array('order' => array('id' => 'ASC'))));
 		$this->set('faktury', $this->paginate());
+		$this->set('statusy', $statusy);
 	}
 
 
@@ -213,7 +216,7 @@ class FakturyController extends AppController {
 		
 		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
 		$typy = $this->Faktura->Typ->find('list');
-		$statusy = $this->Faktura->Status->find('list');
+		$statusy = $this->Faktura->Status->find('list', array_merge($this->Faktura->Status->options, array('order' => array('id' => 'ASC'))));
 		$klienci = $this->Faktura->Klient->find('list', $this->Faktura->Klient->options);
 		
 		// pr($klienci);
@@ -229,27 +232,33 @@ class FakturyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edit( $id = null, $status = null ) {
 		if (!$this->Faktura->exists($id)) {
-			throw new NotFoundException(__('Invalid faktura'));
+			$this->Session->setFlash('Taka faktura nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
+		if (!$this->Faktura->Status->exists($status)) {
+			$this->Session->setFlash('Taki status nie istnieje.');
+			$this->redirect(array('action' => 'index'));
+		}
+		
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Faktura->save($this->request->data)) {
-				$this->Session->setFlash(__('The faktura has been saved'));
+			
+			$this->Faktura->id = $id;
+			
+			if ($this->Faktura->saveField('status_id', $status)) {
+			
+				$this->Session->setFlash('Status faktury został zmieniony.');
 				$this->redirect(array('action' => 'index'));
+			
 			} else {
-				$this->Session->setFlash(__('The faktura could not be saved. Please, try again.'));
+			
+				$this->Session->setFlash('Nie można było zmienić statusu faktury. Spróbuj jeszcze raz.');
 			}
+		
 		} else {
-			$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
-			$this->request->data = $this->Faktura->find('first', $options);
+			$this->redirect(array('action' => 'index'));
 		}
-		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
-		$typy = $this->Faktura->Typ->find('list');
-		$statusy = $this->Faktura->Status->find('list');
-		$klienci = $this->Faktura->Klient->find('list');
-		$sposobyPlatnosci = $this->Faktura->SposobPlatnosci->find('list');
-		$this->set(compact('parentFakturas', 'typy', 'statusy', 'klienci', 'sposobyPlatnosci'));
 	}
 
 /**
