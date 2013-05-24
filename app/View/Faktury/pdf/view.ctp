@@ -28,7 +28,8 @@
 		}
 		
 		h1,h2,h3{
-			font-family: 'dejavu serif'
+			font-family: 'dejavu serif';
+			color: black;
 		}
 		
 	</style>
