@@ -30,17 +30,12 @@ class FakturyController extends AppController {
  * @return void
  */
 	public function view($id = null, $engine = 'dompdf') {
-		// if (!$this->Faktura->exists($id)) {
-		// 	throw new NotFoundException(__('Invalid faktura'));
-		// }
-		// $this->Faktura->recursive = 1;
-		// $options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
-		// $this->set('faktura', $this->Faktura->find('first', $options));
 		
-		
-		
-		
-		
+		if (!$this->Faktura->exists($id)) {
+			$this->Session->setFlash('Taka faktura nie istnieje.');
+			$this->redirect(array('action' => 'index'));
+		}
+				
 		$this->loadModel('Ustawienie');
 		$this->Ustawienie->recursive = 0;
 		$sprzedawca = $this->Ustawienie->find('first', array('conditions' => array('Ustawienie.' . $this->Ustawienie->primaryKey => 1)));
@@ -49,10 +44,7 @@ class FakturyController extends AppController {
 		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
 		$this->set('faktura', $this->Faktura->find('first', $options));
 		$this->set('sprzedawca', $sprzedawca);
-		
-		
-		
-		
+				
 		if( !isset($this->request->params['ext']) ){
 			// $this->layout = 'empty';
 			$this->render('/Faktury/pdf/view');
@@ -66,7 +58,6 @@ class FakturyController extends AppController {
 				$this->render('/Faktury/pdf/view');
 			}
 		}
-		
 		
 	}
 
@@ -90,9 +81,7 @@ class FakturyController extends AppController {
 			
 			if ($this->Faktura->save($this->request->data)) {
 				$faktura_id = $this->Faktura->id;
-				
-				
-				
+								
 				// pr($pozycje);
 				// lecimy przez wszysktkie pozycje na fakturze
 				foreach( $pozycje as $pozycja ){
@@ -262,25 +251,5 @@ class FakturyController extends AppController {
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @throws MethodNotAllowedException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		$this->Faktura->id = $id;
-		if (!$this->Faktura->exists()) {
-			throw new NotFoundException(__('Invalid faktura'));
-		}
-		$this->request->onlyAllow('post', 'delete');
-		if ($this->Faktura->delete()) {
-			$this->Session->setFlash(__('Faktura deleted'));
-			$this->redirect(array('action' => 'index'));
-		}
-		$this->Session->setFlash(__('Faktura was not deleted'));
-		$this->redirect(array('action' => 'index'));
-	}
+
 }

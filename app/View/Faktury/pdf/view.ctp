@@ -1,9 +1,8 @@
 <?php
-	// pr($faktura);
 	App::import('Vendor', 'kwota_slownie/kwota_slownie');
 	$r = '<br>';
-	// pr($this->request);
 ?>
+
 <?php if( isset($this->request->params['ext']) ){ ?>
 <!DOCTYPE html>
 <html>

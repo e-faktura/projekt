@@ -134,7 +134,7 @@
 			
 			update_sumy();
 			
-			console.log(Pozycje);
+			// console.log(Pozycje);
 			
 		}
 		

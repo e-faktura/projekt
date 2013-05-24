@@ -1,6 +1,3 @@
-<?php
-	// pr($vat);
-?>
 <div class="row-fluid">
 	<div class="span12">
 		<?php echo $this->Form->create('Faktura'); ?>
@@ -134,8 +131,6 @@
 		<?php echo $this->Form->end(); ?>
 	</div>
 </div>
-
-<button id="test">Nowa pozycja</button>
 
 <?php echo $this->element('FakturaAdd.css'); ?>
 
