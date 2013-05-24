@@ -2,7 +2,9 @@
 	// pr($faktura);
 	App::import('Vendor', 'kwota_slownie/kwota_slownie');
 	$r = '<br>';
+	// pr($this->request);
 ?>
+<?php if( isset($this->request->params['ext']) ){ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +37,7 @@
 </head>
 <body>
 	<div class="container-fluid">
-		
+<?php } ?>
 		<div class="row-fluid">
 			<div class="span12">
 				<h1><?php echo $faktura['Typ']['nazwa'].' nr: '.$faktura['Faktura']['numer'];	?></h1>
@@ -137,8 +139,8 @@
 						<?php
 							}
 						?>
-					</tbody>
-					<tfoot>
+					
+					
 						<tr>
 							<td colspan="10"></td>
 						</tr>
@@ -165,7 +167,7 @@
 							<td class="cena"><?php echo number_format($suma['kwota_vat'], 2, '.', ' ').' zł'; ?></td>
 							<td class="cena"><?php echo number_format($suma['kwota_brutto'], 2, '.', ' ').' zł'; ?></td>
 						</tr>
-					</tfoot>
+					</tbody>
 				</table>
 				
 				<br>
@@ -203,9 +205,10 @@
 		
 	
 	
-	
+<?php if( isset($this->request->params['ext']) ){ ?>
 	</div>
 	
 
 </body>
 </html>
+<?php } ?>

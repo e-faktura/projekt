@@ -50,7 +50,7 @@ class FakturyController extends AppController {
 		
 		
 		if( !isset($this->request->params['ext']) ){
-			$this->layout = 'empty';
+			// $this->layout = 'empty';
 			$this->render('/Faktury/pdf/view');
 		} else {
 			if( $engine == 'dompdf' ){

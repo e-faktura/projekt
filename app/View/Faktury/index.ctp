@@ -26,7 +26,7 @@
 				<td><span class="label" style="background-color: <?php echo $faktura['Status']['kolor']; ?>"><?php echo h($faktura['Status']['nazwa']); ?></span>&nbsp;</td>
 				<td><?php echo h($faktura['Klient']['nazwa']); ?>&nbsp;</td>
 				<td class="actions">
-					<?php //echo $this->Html->link(__('View'), array('action' => 'view', $faktura['Faktura']['id'])); ?>
+					<?php echo $this->Html->link('<i class="icon-eye-open"></i> Podgląd', array('action' => 'view', $faktura['Faktura']['id']), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
 					<?php //echo $this->Html->link('<i class="icon-edit"></i> Edytuj', array('action' => 'edit', $faktura['Faktura']['id']), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
 					<?php echo $this->Html->link('<i class="icon-file"></i> PDF', array('action' => 'view', 'ext' => 'pdf', $faktura['Faktura']['id'], 'dompdf', 'faktura-'.str_replace('/', '-', $faktura['Faktura']['numer'])), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
 					<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $faktura['Faktura']['id']), null, __('Are you sure you want to delete # %s?', $faktura['Faktura']['id'])); ?>
