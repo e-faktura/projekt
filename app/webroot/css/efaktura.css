@@ -145,3 +145,9 @@ div.index > h2 + a {
 select{
 	/*width: auto;*/
 }
+
+form .required label:after {
+	color: #e32;
+	content: ' *';
+	display:inline;
+}

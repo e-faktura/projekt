@@ -1,0 +1,1 @@
+<p class="muted" style="font-style: italic">Pola oznaczone gwiazdką (<span style="color: #e32">*</span>) są wymagane</p>

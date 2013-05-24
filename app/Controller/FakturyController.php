@@ -205,7 +205,7 @@ class FakturyController extends AppController {
 		$vat_json = json_encode($vaty);
 		
 		// $parentFakturas = $this->Faktura->ParentFaktura->find('list');
-		$typy = $this->Faktura->Typ->find('list');
+		$typy = $this->Faktura->Typ->find('list', array_merge($this->Faktura->Typ->options, array('order' => array('id' => 'ASC'))));
 		$statusy = $this->Faktura->Status->find('list', array_merge($this->Faktura->Status->options, array('order' => array('id' => 'ASC'))));
 		$klienci = $this->Faktura->Klient->find('list', $this->Faktura->Klient->options);
 		
@@ -224,11 +224,11 @@ class FakturyController extends AppController {
  */
 	public function edit( $id = null, $status = null ) {
 		if (!$this->Faktura->exists($id)) {
-			$this->Session->setFlash('Taka faktura nie istnieje.');
+			$this->Session->setFlash('Taka faktura nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!$this->Faktura->Status->exists($status)) {
-			$this->Session->setFlash('Taki status nie istnieje.');
+			$this->Session->setFlash('Taki status nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
 		}
 		
@@ -238,12 +238,12 @@ class FakturyController extends AppController {
 			
 			if ($this->Faktura->saveField('status_id', $status)) {
 			
-				$this->Session->setFlash('Status faktury został zmieniony.');
+				$this->Session->setFlash('Status faktury został zmieniony.', 'success');
 				$this->redirect(array('action' => 'index'));
 			
 			} else {
 			
-				$this->Session->setFlash('Nie można było zmienić statusu faktury. Spróbuj jeszcze raz.');
+				$this->Session->setFlash('Nie można było zmienić statusu faktury. Spróbuj jeszcze raz.', 'error');
 			}
 		
 		} else {

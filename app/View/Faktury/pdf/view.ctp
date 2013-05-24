@@ -15,25 +15,6 @@
 	<?php
 		echo $this->Html->css('bootstrap.pdf', null, array('fullBase' => true) );
 	?>
-	<style type="text/css">
-		td{
-			vertical-align: top;
-		}
-		th {
-			background-color: #F9F9F9;
-		}
-		.cena{
-			text-align: right !important;
-		}
-		
-		h1,h2,h3{
-			font-family: 'dejavu serif';
-			color: black;
-		}
-		
-	</style>
-	
-	
 </head>
 <body>
 	<div class="container-fluid">
@@ -202,7 +183,23 @@
 			</div>
 		</div>
 		
-		
+		<style type="text/css">
+			td{
+				vertical-align: top;
+			}
+			th {
+				background-color: #F9F9F9;
+			}
+			.cena{
+				text-align: right !important;
+			}
+			
+			h1,h2,h3{
+				font-family: 'dejavu serif';
+				color: black;
+			}
+			
+		</style>
 	
 	
 <?php if( isset($this->request->params['ext']) ){ ?>
