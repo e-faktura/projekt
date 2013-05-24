@@ -5,14 +5,14 @@
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			
 			<th><?php echo $this->Paginator->sort('nazwa', 'Stawka'); ?></th>
 			<th><?php echo $this->Paginator->sort('wartosc', 'Wartość'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($vat as $vat): ?>
 	<tr>
-		<td><?php echo h($vat['Vat']['id']); ?>&nbsp;</td>
+		
 		<td><?php echo $this->Html->link(h($vat['Vat']['nazwa']), array('action' => 'edit', $vat['Vat']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($vat['Vat']['wartosc']); ?>&nbsp;</td>
 		<td class="actions">

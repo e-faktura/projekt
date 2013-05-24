@@ -10,7 +10,7 @@
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
-				<th><?php echo $this->Paginator->sort('id'); ?></th>
+				
 				<th><?php echo $this->Paginator->sort('numer'); ?></th>
 				<th><?php echo $this->Paginator->sort('data_wystawienia'); ?></th>
 				<th><?php echo $this->Paginator->sort('typ_id'); ?></th>
@@ -21,7 +21,7 @@
 		</thead>
 		<?php foreach ($faktury as $faktura): ?>
 			<tr>
-				<td><?php echo h($faktura['Faktura']['id']); ?>&nbsp;</td>
+				
 				<td><?php echo h($faktura['Faktura']['numer']); ?>&nbsp;</td>
 				<td><?php echo $this->Time->format('d-m-Y', $faktura['Faktura']['data_wystawienia']); ?>&nbsp;</td>
 				<td><?php echo h($faktura['Typ']['nazwa']); ?>&nbsp;</td>

@@ -5,13 +5,13 @@
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($typy as $typ): ?>
 	<tr>
-		<td><?php echo h($typ['Typ']['id']); ?>&nbsp;</td>
+		
 		<td><?php echo $this->Html->link(h($typ['Typ']['nazwa']), array('action' => 'edit', $typ['Typ']['id'])); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $typ['Typ']['id'])); ?>

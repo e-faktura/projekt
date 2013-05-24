@@ -157,6 +157,13 @@ $cakeDescription = __d('cake_dev', '-faktura');
 		<div class="row-fluid">
 			<div class="span12">
 				<?php echo $this->fetch('content'); ?>
+				
+				<?php
+					if( $this->params['action'] == 'edit' || $this->params['action'] == 'add' || $this->params['login'] == 'add' ){
+						echo $this->element('required');
+					}
+				?>
+				
 			</div>
 		</div>
 		

@@ -5,14 +5,14 @@
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th>Podgląd</th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php foreach ($statusy as $status): ?>
 	<tr>
-		<td><?php echo h($status['Status']['id']); ?>&nbsp;</td>
+		
 		<td><?php echo $this->Html->link(h($status['Status']['nazwa']), array('action' => 'edit', $status['Status']['id'])); ?>&nbsp;</td>
 		<td><span class="label" style="background-color: <?php echo $status['Status']['kolor']; ?>"><?php echo h($status['Status']['nazwa']); ?></span>&nbsp;</td>
 		<td class="actions">

@@ -5,7 +5,7 @@
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
+			
 			<th><?php echo $this->Paginator->sort('nazwa'); ?></th>
 			<th><?php echo $this->Paginator->sort('login'); ?></th>
 			<th><?php echo $this->Paginator->sort('email'); ?></th>
@@ -14,7 +14,7 @@
 	</tr>
 	<?php foreach ($uzytkownicy as $uzytkownik): ?>
 	<tr>
-		<td><?php echo h($uzytkownik['Uzytkownik']['id']); ?>&nbsp;</td>
+		
 		<td><?php echo $this->Html->link(h($uzytkownik['Uzytkownik']['nazwa']), array('action' => 'edit', $uzytkownik['Uzytkownik']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($uzytkownik['Uzytkownik']['login']); ?>&nbsp;</td>
 		<td><?php echo h($uzytkownik['Uzytkownik']['email']); ?>&nbsp;</td>
