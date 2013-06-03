@@ -10,17 +10,17 @@
 			<div class="carousel-inner">
 				<div class="active item">
 					<?php echo $this->Html->image('slider_1.jpg'); ?>
-					<p class="lead" id="napis">Bezpieczeństwo</p>
+					<p class="lead napis">Bezpieczeństwo</p>
 				</div>
 
 				<div class="item">
 					<?php echo $this->Html->image('slider_2.jpg'); ?>
-					<p class="lead" id="napis">Innowacja</p>
+					<p class="lead napis">Innowacja</p>
 				</div>
 
 				<div class="item">
 					<?php echo $this->Html->image('slider_3.jpg'); ?>
-					<p class="lead" id="napis">Rzetelność</p>
+					<p class="lead napis">Rzetelność</p>
 				</div>
 			</div>
 			<!-- Carousel nav -->
@@ -32,7 +32,7 @@
 
 <hr>
 
-<div class="row-fluid">
+<div class="row-fluid" style="display:none">
 	<div class="span4">
 		<h2 class="muted">Srebrny</h2>
 		<p><span class="label">POPULAR</span></p>
