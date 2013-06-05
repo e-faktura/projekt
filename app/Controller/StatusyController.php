@@ -23,7 +23,7 @@ class StatusyController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowy() {
 		if ($this->request->is('post')) {
 			
 			$this->Status->create();
@@ -37,8 +37,6 @@ class StatusyController extends AppController {
 				}
 			}
 		}
-		// $parentStatuses = $this->Status->ParentStatus->find('list');
-		$this->set(compact('parentStatuses'));
 	}
 
 /**
@@ -48,7 +46,7 @@ class StatusyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Status->exists($id)) {
 			$this->Session->setFlash('Taki status nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -74,8 +72,6 @@ class StatusyController extends AppController {
 			$options = array('conditions' => array('Status.' . $this->Status->primaryKey => $id));
 			$this->request->data = $this->Status->find('first', $options);
 		}
-		// $parentStatuses = $this->Status->ParentStatus->find('list');
-		$this->set(compact('parentStatuses'));
 	}
 
 /**
@@ -86,7 +82,7 @@ class StatusyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Status->id = $id;
 		if (!$this->Status->exists()) {
 			$this->Session->setFlash('Taki status nie istnieje.', 'error');

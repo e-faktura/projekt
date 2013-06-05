@@ -1,7 +1,7 @@
 <div class="statusy index">
 	<h2><?php echo __('Statusy'); ?></h2>
 	
-	<?php echo $this->Html->link('Nowy status', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowy status', array('action' => 'nowy'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
@@ -13,12 +13,12 @@
 	<?php foreach ($statusy as $status): ?>
 	<tr>
 		
-		<td><?php echo $this->Html->link(h($status['Status']['nazwa']), array('action' => 'edit', $status['Status']['id'])); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($status['Status']['nazwa']), array('action' => 'edycja', $status['Status']['id'])); ?>&nbsp;</td>
 		<td><span class="label" style="background-color: <?php echo $status['Status']['kolor']; ?>"><?php echo h($status['Status']['nazwa']); ?></span>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $status['Status']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $status['Status']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $status['Status']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $status['Status']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edycja', $status['Status']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'usuniecie', $status['Status']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $status['Status']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

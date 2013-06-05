@@ -23,7 +23,7 @@ class VatController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowa() {
 		if ($this->request->is('post')) {
 			$this->Vat->create();
 			if ($this->Vat->save($this->request->data)) {
@@ -35,8 +35,6 @@ class VatController extends AppController {
 				}
 			}
 		}
-		// $parentVats = $this->Vat->ParentVat->find('list');
-		$this->set(compact('parentVats'));
 	}
 
 /**
@@ -46,7 +44,7 @@ class VatController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Vat->exists($id)) {
 			$this->Session->setFlash('Taka stawka VAT nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -71,8 +69,6 @@ class VatController extends AppController {
 			$options = array('conditions' => array('Vat.' . $this->Vat->primaryKey => $id));
 			$this->request->data = $this->Vat->find('first', $options);
 		}
-		// $parentVats = $this->Vat->ParentVat->find('list');
-		$this->set(compact('parentVats'));
 	}
 
 /**
@@ -83,7 +79,7 @@ class VatController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Vat->id = $id;
 		if (!$this->Vat->exists()) {
 			$this->Session->setFlash('Taka stawka VAT nie istnieje.', 'error');

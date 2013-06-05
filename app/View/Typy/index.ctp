@@ -1,7 +1,7 @@
 <div class="typy index">
 	<h2><?php echo __('Typy'); ?></h2>
 	
-	<?php echo $this->Html->link('Nowy typ', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowy typ', array('action' => 'nowy'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
@@ -12,11 +12,11 @@
 	<?php foreach ($typy as $typ): ?>
 	<tr>
 		
-		<td><?php echo $this->Html->link(h($typ['Typ']['nazwa']), array('action' => 'edit', $typ['Typ']['id'])); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($typ['Typ']['nazwa']), array('action' => 'edycja', $typ['Typ']['id'])); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $typ['Typ']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $typ['Typ']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $typ['Typ']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $typ['Typ']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edycja', $typ['Typ']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'usuniecie', $typ['Typ']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $typ['Typ']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

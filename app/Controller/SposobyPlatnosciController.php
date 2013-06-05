@@ -25,7 +25,7 @@ class SposobyPlatnosciController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowy() {
 		if ($this->request->is('post')) {
 			$this->SposobPlatnosci->create();
 			if ($this->SposobPlatnosci->save($this->request->data)) {
@@ -37,8 +37,6 @@ class SposobyPlatnosciController extends AppController {
 				}
 			}
 		}
-		// $parentSposobPlatnoscis = $this->SposobPlatnosci->ParentSposobPlatnosci->find('list');
-		$this->set(compact('parentSposobPlatnoscis'));
 	}
 
 /**
@@ -48,7 +46,7 @@ class SposobyPlatnosciController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->SposobPlatnosci->exists($id)) {
 			$this->Session->setFlash('Taki sposób płatności nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -73,8 +71,6 @@ class SposobyPlatnosciController extends AppController {
 			$options = array('conditions' => array('SposobPlatnosci.' . $this->SposobPlatnosci->primaryKey => $id));
 			$this->request->data = $this->SposobPlatnosci->find('first', $options);
 		}
-		// $parentSposobPlatnoscis = $this->SposobPlatnosci->ParentSposobPlatnosci->find('list');
-		$this->set(compact('parentSposobPlatnoscis'));
 	}
 
 /**
@@ -85,7 +81,7 @@ class SposobyPlatnosciController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->SposobPlatnosci->id = $id;
 		if (!$this->SposobPlatnosci->exists()) {
 			$this->Session->setFlash('Taki sposób płatności nie istnieje.', 'error');

@@ -3,7 +3,7 @@
 	
 	<h2><?php echo __('Faktury'); ?></h2>
 	
-	<?php echo $this->Html->link('Nowa faktura', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowa faktura', array('action' => 'nowa'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 		 
 
@@ -35,7 +35,7 @@
 						<ul class="dropdown-menu">
 							<?php
 								foreach( $statusy as $status ){
-									echo '<li>'.$this->Form->postLink($status['Status']['nazwa'], array('action' => 'edit', $faktura['Faktura']['id'], $status['Status']['id'] )).'</li>';
+									echo '<li>'.$this->Form->postLink($status['Status']['nazwa'], array('action' => 'edycja', $faktura['Faktura']['id'], $status['Status']['id'] )).'</li>';
 								}
 							?>
 						</ul>
@@ -44,10 +44,8 @@
 				
 				<td><?php echo h($faktura['Klient']['nazwa']); ?>&nbsp;</td>
 				<td class="actions">
-					<?php echo $this->Html->link('<i class="icon-eye-open"></i> Podgląd', array('action' => 'view', $faktura['Faktura']['id']), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
-					<?php //echo $this->Html->link('<i class="icon-edit"></i> Edytuj', array('action' => 'edit', $faktura['Faktura']['id']), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
-					<?php echo $this->Html->link('<i class="icon-file"></i> PDF', array('action' => 'view', 'ext' => 'pdf', $faktura['Faktura']['id'], 'dompdf', 'faktura-'.str_replace('/', '-', $faktura['Faktura']['numer'])), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
-					<?php //echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $faktura['Faktura']['id']), null, __('Are you sure you want to delete # %s?', $faktura['Faktura']['id'])); ?>
+					<?php echo $this->Html->link('<i class="icon-eye-open"></i> Podgląd', array('action' => 'podglad', $faktura['Faktura']['id']), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
+					<?php echo $this->Html->link('<i class="icon-file"></i> PDF', array('action' => 'pdf', 'ext' => 'pdf', $faktura['Faktura']['id'], 'faktura-'.str_replace('/', '-', $faktura['Faktura']['numer'])), array( 'escape' => false, 'class' => 'btn btn-primary btn-small' )); ?>
 				</td>
 			</tr>
 		<?php endforeach; ?>

@@ -23,7 +23,7 @@ class TypyController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowy() {
 		if ($this->request->is('post')) {
 			$this->Typ->create();
 			if ($this->Typ->save($this->request->data)) {
@@ -35,8 +35,6 @@ class TypyController extends AppController {
 				}
 			}
 		}
-		// $parentTyps = $this->Typ->ParentTyp->find('list');
-		$this->set(compact('parentTyps'));
 	}
 
 /**
@@ -46,7 +44,7 @@ class TypyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Typ->exists($id)) {
 			$this->Session->setFlash('Taki typ nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -72,8 +70,6 @@ class TypyController extends AppController {
 			$options = array('conditions' => array('Typ.' . $this->Typ->primaryKey => $id));
 			$this->request->data = $this->Typ->find('first', $options);
 		}
-		// $parentTyps = $this->Typ->ParentTyp->find('list');
-		$this->set(compact('parentTyps'));
 	}
 
 /**
@@ -84,7 +80,7 @@ class TypyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Typ->id = $id;
 		if (!$this->Typ->exists()) {
 			$this->Session->setFlash('Taki typ nie istnieje.', 'error');

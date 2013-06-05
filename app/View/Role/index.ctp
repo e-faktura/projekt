@@ -12,8 +12,8 @@
 		<td><?php echo h($rola['Rola']['nazwa']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $rola['Rola']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $rola['Rola']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $rola['Rola']['id']), null, __('Are you sure you want to delete # %s?', $rola['Rola']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edycja', $rola['Rola']['id'])); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'usuniecie', $rola['Rola']['id']), null, __('Are you sure you want to delete # %s?', $rola['Rola']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

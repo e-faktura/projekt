@@ -70,7 +70,7 @@
      
         public static function getGr($amount)
         {
-            $gr = ( $amount - floor($amount) ) * 100;
+            $gr = floor(( $amount - floor($amount) ) * 100);
             return $gr;
         }
      

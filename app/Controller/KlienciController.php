@@ -7,13 +7,6 @@ App::uses('AppController', 'Controller');
  */
 class KlienciController extends AppController {
 
-	// public $paginate = array(
-	// 	'page' => 1,
-	// 	'limit' => 20,
-	// 	'maxLimit' => 100,
-	// 	'paramType' => 'named'
-	// );
-
 /**
  * index method
  *
@@ -30,7 +23,7 @@ class KlienciController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowy() {
 		if ($this->request->is('post')) {
 			
 			$this->Klient->create();
@@ -44,8 +37,6 @@ class KlienciController extends AppController {
 				}
 			}
 		}
-		// $parentKlients = $this->Klient->ParentKlient->find('list');
-		$this->set(compact('parentKlients'));
 	}
 
 /**
@@ -55,7 +46,7 @@ class KlienciController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Klient->exists($id)) {
 			$this->Session->setFlash('Taki klient nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -81,8 +72,6 @@ class KlienciController extends AppController {
 			$options = array('conditions' => array('Klient.' . $this->Klient->primaryKey => $id));
 			$this->request->data = $this->Klient->find('first', $options);
 		}
-		// $parentKlients = $this->Klient->ParentKlient->find('list');
-		$this->set(compact('parentKlients'));
 	}
 
 /**
@@ -93,7 +82,7 @@ class KlienciController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Klient->id = $id;
 		if (!$this->Klient->exists()) {
 			$this->Session->setFlash('Taki klient nie istnieje.', 'error');

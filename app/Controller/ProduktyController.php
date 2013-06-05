@@ -13,24 +13,9 @@ class ProduktyController extends AppController {
  *
  * @return void
  */
-	public function index( $test = null ) {
+	public function index() {
 		
-		if( $test ){
-			$this->Produkt->recursive = -1;
-			$options = array_merge($this->Produkt->options, array( 'fields' => array('Produkt.nazwa'), 'conditions' => array('Produkt.nazwa LIKE ' => '%produkt%' ) ));
-			$produkty = $this->Produkt->find('list', $options);
-			$this->autoRender = false;
-			
-			$prod = array();
-			foreach( $produkty as $id => $produkt ){
-				$prod[] = array('label' => $produkt, 'value' => $id);
-			}
-							
-			pr($produkty);
-			pr($prod);
-			pr(json_encode($prod));
-			
-		} else if( $this->request->is('ajax') ){
+		if( $this->request->is('ajax') ){
 			$this->Produkt->recursive = -1;
 			$options = array_merge($this->Produkt->options, array( 'conditions' => array('Produkt.nazwa LIKE ' => '%'. $this->request->query['term'] .'%' ) ));
 			$produkty = $this->Produkt->find('list', $options);
@@ -49,20 +34,7 @@ class ProduktyController extends AppController {
 		}
 	}
 
-	public function ajax_list( $q = null ){
-		$this->Produkt->recursive = -1;
-		// if( $this->request->is('ajax') ){
-			
-			$produkty = $this->Produkt->find('list', array(
-				// 'conditions' => array('Produkt.nazwa LIKE ' => '%'. $this->request->query['q'] .'%' )
-				'conditions' => array('Produkt.nazwa LIKE ' => '%'. $q .'%' )
-			));
-			$this->set('_serialize', array('produkty'));
-		// }
-		
-	}
-
-	public function view( $id = null ){
+	public function ajax_view( $id = null ){
 		if( $this->request->is('ajax') ){
 			$this->Produkt->recursive = -1;
 			$this->Produkt->id = $id;
@@ -80,7 +52,7 @@ class ProduktyController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowy() {
 		if ($this->request->is('post')) {
 			
 			$this->Produkt->create();
@@ -96,8 +68,7 @@ class ProduktyController extends AppController {
 				$this->Session->setFlash('Produkt nie mógł zostać dodany. Spróbuj ponownie.', 'error');
 			}
 		}
-		// $parentProdukts = $this->Produkt->ParentProdukt->find('list');
-		
+				
 		$options = array_merge($this->Produkt->Vat->options, array( 'order' => 'Vat.id ASC' ));
 		$vat = $this->Produkt->Vat->find('list', $options);
 		
@@ -107,7 +78,7 @@ class ProduktyController extends AppController {
 		));
 		$vat_json = json_encode($this->Produkt->Vat->find('list', $options));
 		
-		$this->set(compact('parentProdukts', 'vat', 'vat_json'));
+		$this->set(compact('vat', 'vat_json'));
 	}
 
 /**
@@ -117,7 +88,7 @@ class ProduktyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Produkt->exists($id)) {
 			$this->Session->setFlash('Taki produkt nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -144,7 +115,7 @@ class ProduktyController extends AppController {
 			$options = array('conditions' => array('Produkt.' . $this->Produkt->primaryKey => $id));
 			$this->request->data = $this->Produkt->find('first', $options);
 		}
-		// $parentProdukts = $this->Produkt->ParentProdukt->find('list');
+		
 		$vat = $this->Produkt->Vat->find('list');
 		
 		$this->Produkt->Vat->recursive = 0;
@@ -153,7 +124,7 @@ class ProduktyController extends AppController {
 		));
 		$vat_json = json_encode($this->Produkt->Vat->find('list', $options));
 		
-		$this->set(compact('parentProdukts', 'vat', 'vat_json'));
+		$this->set(compact('vat', 'vat_json'));
 	}
 
 /**
@@ -164,7 +135,7 @@ class ProduktyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Produkt->id = $id;
 		if (!$this->Produkt->exists()) {
 			$this->Session->setFlash('Taki produkt nie istnieje.', 'error');

@@ -21,15 +21,7 @@ class FakturyController extends AppController {
 		$this->set('statusy', $statusy);
 	}
 
-
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null, $engine = 'dompdf') {
+	public function pdf($id = null) {
 		
 		if (!$this->Faktura->exists($id)) {
 			$this->Session->setFlash('Taka faktura nie istnieje.');
@@ -44,20 +36,39 @@ class FakturyController extends AppController {
 		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
 		$this->set('faktura', $this->Faktura->find('first', $options));
 		$this->set('sprzedawca', $sprzedawca);
+		
+		$this->layout = 'dompdf';
+		$this->render('/Faktury/pdf/view');
 				
-		if( !isset($this->request->params['ext']) ){
-			// $this->layout = 'empty';
-			$this->render('/Faktury/pdf/view');
-		} else {
-			if( $engine == 'dompdf' ){
-				$this->layout = 'dompdf';
-				$this->render('/Faktury/pdf/view');
-			}
-			else if( $engine == 'mpdf'){
-				$this->layout = 'mpdf';
-				$this->render('/Faktury/pdf/view');
-			}
+	}
+
+
+
+/**
+ * view method
+ *
+ * @throws NotFoundException
+ * @param string $id
+ * @return void
+ */
+	public function podglad($id = null) {
+		
+		if (!$this->Faktura->exists($id)) {
+			$this->Session->setFlash('Taka faktura nie istnieje.');
+			$this->redirect(array('action' => 'index'));
 		}
+				
+		$this->loadModel('Ustawienie');
+		$this->Ustawienie->recursive = 0;
+		$sprzedawca = $this->Ustawienie->find('first', array('conditions' => array('Ustawienie.' . $this->Ustawienie->primaryKey => 1)));
+		
+		$this->Faktura->recursive = 3;
+		$options = array('conditions' => array('Faktura.' . $this->Faktura->primaryKey => $id));
+		$this->set('faktura', $this->Faktura->find('first', $options));
+		$this->set('sprzedawca', $sprzedawca);
+		
+		$this->render('/Faktury/pdf/view');
+		
 		
 	}
 
@@ -67,7 +78,7 @@ class FakturyController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowa() {
 		if ($this->request->is('post')) {
 			$this->Faktura->create();
 			
@@ -145,9 +156,6 @@ class FakturyController extends AppController {
 					}
 				}
 				
-				
-				// $this->Session->setFlash(__('The faktura has been saved'));
-				// $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash('Faktura nie mogła zostać zapisana. Spróbuj ponownie.');
 			}
@@ -222,7 +230,7 @@ class FakturyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit( $id = null, $status = null ) {
+	public function edycja( $id = null, $status = null ) {
 		if (!$this->Faktura->exists($id)) {
 			$this->Session->setFlash('Taka faktura nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));

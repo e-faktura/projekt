@@ -1,7 +1,7 @@
 <div class="vat index">
 	<h2>Stawki VAT</h2>
 	
-	<?php echo $this->Html->link('Nowa stawka VAT', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowa stawka VAT', array('action' => 'nowa'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
@@ -13,12 +13,12 @@
 	<?php foreach ($vat as $vat): ?>
 	<tr>
 		
-		<td><?php echo $this->Html->link(h($vat['Vat']['nazwa']), array('action' => 'edit', $vat['Vat']['id'])); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($vat['Vat']['nazwa']), array('action' => 'edycja', $vat['Vat']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($vat['Vat']['wartosc']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $vat['Vat']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $vat['Vat']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $vat['Vat']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $vat['Vat']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edycja', $vat['Vat']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'usuniecie', $vat['Vat']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $vat['Vat']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

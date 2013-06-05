@@ -1,7 +1,7 @@
 <div class="klienci index">
 	<h2><?php echo __('Klienci'); ?></h2>
 	
-	<?php echo $this->Html->link('Nowy klient', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowy klient', array('action' => 'nowy'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 
 	
@@ -21,15 +21,15 @@
 	<?php foreach ($klienci as $klient): ?>
 	<tr>
 		
-		<td><?php echo $this->Html->link($klient['Klient']['nazwa'], array('action' => 'edit', $klient['Klient']['id'])); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link($klient['Klient']['nazwa'], array('action' => 'edycja', $klient['Klient']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['adres']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['nip']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['email']); ?>&nbsp;</td>
 		<td><?php echo h($klient['Klient']['telefon']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $klient['Klient']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $klient['Klient']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $klient['Klient']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $klient['Klient']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edycja', $klient['Klient']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'usuniecie', $klient['Klient']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $klient['Klient']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

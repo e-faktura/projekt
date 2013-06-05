@@ -1,7 +1,7 @@
 <div class="produkty index">
 	<h2><?php echo __('Produkty'); ?></h2>
 	
-	<?php echo $this->Html->link('Nowy produkt', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowy produkt', array('action' => 'nowy'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 		<thead>
@@ -17,14 +17,14 @@
 	<?php foreach ($produkty as $produkt): ?>
 	<tr>
 		
-		<td><?php echo $this->Html->link($produkt['Produkt']['nazwa'], array('action' => 'edit', $produkt['Produkt']['id'])); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link($produkt['Produkt']['nazwa'], array('action' => 'edycja', $produkt['Produkt']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['cena_netto']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Produkt']['cena_brutto']); ?>&nbsp;</td>
 		<td><?php echo h($produkt['Vat']['nazwa']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $produkt['Produkt']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $produkt['Produkt']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $produkt['Produkt']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $produkt['Produkt']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edycja', $produkt['Produkt']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'usuniecie', $produkt['Produkt']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $produkt['Produkt']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

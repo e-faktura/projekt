@@ -23,7 +23,7 @@ class JednostkiController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowa() {
 		if ($this->request->is('post')) {
 			$this->Jednostka->create();
 			if ($this->Jednostka->save($this->request->data)) {
@@ -35,8 +35,7 @@ class JednostkiController extends AppController {
 				}
 			}
 		}
-		// $parentJednostkas = $this->Jednostka->ParentJednostka->find('list');
-		$this->set(compact('parentJednostkas'));
+		
 	}
 
 /**
@@ -46,7 +45,7 @@ class JednostkiController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Jednostka->exists($id)) {
 			$this->Session->setFlash('Taka jednostka miary nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -71,8 +70,7 @@ class JednostkiController extends AppController {
 			$options = array('conditions' => array('Jednostka.' . $this->Jednostka->primaryKey => $id));
 			$this->request->data = $this->Jednostka->find('first', $options);
 		}
-		// $parentJednostkas = $this->Jednostka->ParentJednostka->find('list');
-		$this->set(compact('parentJednostkas'));
+		
 	}
 
 /**
@@ -83,7 +81,7 @@ class JednostkiController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Jednostka->id = $id;
 		if (!$this->Jednostka->exists()) {
 			$this->Session->setFlash('Taka jednostka miary nie istnieje.', 'error');

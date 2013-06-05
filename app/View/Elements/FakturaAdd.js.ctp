@@ -14,7 +14,7 @@
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][parent_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktParentId"/>'+
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktId"/>'+
 				'	<div class="input search">'+
-				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search" placeholder="Wpisz nazwę produktu" required="required"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search" placeholder="Wpisz nazwę produktu" />'+
 				'	</div>'+
 				'</td>'+
 				'<td class="ilosc">'+
@@ -85,7 +85,7 @@
 		}
 		
 		function update_values(id, pozycja){
-			$.getJSON('<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'view')); ?>/'+id,function(prod){
+			$.getJSON('<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'ajax_view')); ?>/'+id,function(prod){
 				
 				var produkt = prod.Produkt;
 								

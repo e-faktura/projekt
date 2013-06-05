@@ -1,7 +1,7 @@
 <div class="uzytkownicy index">
 	<h2>Użytkownicy</h2>
 	
-	<?php echo $this->Html->link('Nowy użytkownik', array('action' => 'add'), array( 'class' => 'btn btn-primary btn-large' )); ?>
+	<?php echo $this->Html->link('Nowy użytkownik', array('action' => 'nowy'), array( 'class' => 'btn btn-primary btn-large' )); ?>
 	
 	<table class="table table-striped table-bordered table-hover table-condensed" cellpadding="0" cellspacing="0">
 	<tr>
@@ -15,14 +15,14 @@
 	<?php foreach ($uzytkownicy as $uzytkownik): ?>
 	<tr>
 		
-		<td><?php echo $this->Html->link(h($uzytkownik['Uzytkownik']['nazwa']), array('action' => 'edit', $uzytkownik['Uzytkownik']['id'])); ?>&nbsp;</td>
+		<td><?php echo $this->Html->link(h($uzytkownik['Uzytkownik']['nazwa']), array('action' => 'edycja', $uzytkownik['Uzytkownik']['id'])); ?>&nbsp;</td>
 		<td><?php echo h($uzytkownik['Uzytkownik']['login']); ?>&nbsp;</td>
 		<td><?php echo h($uzytkownik['Uzytkownik']['email']); ?>&nbsp;</td>
 		<td><?php echo h($uzytkownik['Rola']['nazwa']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php //echo $this->Html->link(__('View'), array('action' => 'view', $uzytkownik['Uzytkownik']['id'])); ?>
-			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edit', $uzytkownik['Uzytkownik']['id'])); ?>
-			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'delete', $uzytkownik['Uzytkownik']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $uzytkownik['Uzytkownik']['id'])); ?>
+			<?php //echo $this->Html->link(__('Edit'), array('action' => 'edycja', $uzytkownik['Uzytkownik']['id'])); ?>
+			<?php echo $this->Form->postLink('<i class="icon-trash"></i> Usuń', array('action' => 'usuniecie', $uzytkownik['Uzytkownik']['id']), array( 'escape' => false, 'class' => 'btn btn-danger btn-small' ), __('Are you sure you want to delete # %s?', $uzytkownik['Uzytkownik']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

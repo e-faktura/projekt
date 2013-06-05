@@ -40,7 +40,7 @@ class UzytkownicyController extends AppController {
  *
  * @return void
  */
-	public function add() {
+	public function nowy() {
 		if ($this->request->is('post')) {
 			$this->Uzytkownik->create();
 			if ($this->Uzytkownik->save($this->request->data)) {
@@ -61,7 +61,7 @@ class UzytkownicyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function edit($id = null) {
+	public function edycja($id = null) {
 		if (!$this->Uzytkownik->exists($id)) {
 			$this->Session->setFlash('Taki użytkownik nie istnieje.', 'error');
 			$this->redirect(array('action' => 'index'));
@@ -89,7 +89,7 @@ class UzytkownicyController extends AppController {
  * @param string $id
  * @return void
  */
-	public function delete($id = null) {
+	public function usuniecie($id = null) {
 		$this->Uzytkownik->id = $id;
 		if (!$this->Uzytkownik->exists()) {
 			$this->Session->setFlash('Taki użytkownik nie istnieje.', 'error');
@@ -103,7 +103,6 @@ class UzytkownicyController extends AppController {
 		$this->Session->setFlash('Użytkownik nie został usunięty.', 'error');
 		$this->redirect(array('action' => 'index'));
 	}
-
 
 
 	public function initDb() {
