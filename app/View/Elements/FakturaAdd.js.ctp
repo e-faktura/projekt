@@ -4,7 +4,7 @@
 		
 		var vat_json = <?php echo $vat_json; ?>;
 		var jednostki_json = <?php echo $jednostki_json; ?>;
-		var Pozycje = { 'lp': 1, 'nast': 1, 'pz': {}, 'sumy': {} };
+		var Pozycje = { 'lp': 1, 'nast': 1 };
 	
 		function dodaj_pozycje(){
 			
@@ -14,7 +14,7 @@
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][parent_id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktParentId"/>'+
 				'	<input type="hidden" name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][id]" id="FakturaPozycja'+ Pozycje.lp +'ProduktId"/>'+
 				'	<div class="input search">'+
-				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search" placeholder="Wpisz nazwę produktu"/>'+
+				'		<input name="data[Faktura][Pozycja]['+ Pozycje.lp +'][Produkt][nazwa]" id="FakturaIgnore'+ Pozycje.lp +'NazwaProduktu" class="typeahead" autocomplete="off" data-provide="typeahead" type="search" placeholder="Wpisz nazwę produktu" required="required"/>'+
 				'	</div>'+
 				'</td>'+
 				'<td class="ilosc">'+
@@ -71,7 +71,7 @@
 				select: function( event, data ) {
 					
 					var pozycja = $(event.target).parent().parent().parent().data('pozycja');
-					$(event.target).data({'z_bazy': true});
+					
 					update_values(data.item.id, pozycja);
 					
 					dodaj_pozycje();
@@ -88,13 +88,10 @@
 			$.getJSON('<?php echo $this->Html->url(array('controller'=>'produkty', 'action'=>'view')); ?>/'+id,function(prod){
 				
 				var produkt = prod.Produkt;
-				
-				Pozycje.pz[pozycja] = produkt;
-				
+								
 				$('#FakturaPozycja'+ pozycja +'ProduktId').val(id);
 				
 				$('#FakturaPozycja'+ pozycja +'ProduktParentId').val(produkt.parent_id);
-				
 				
 				$('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val(produkt.cena_netto);
 				
@@ -102,60 +99,52 @@
 				
 				update_wyliczenia(pozycja);
 				
-				
-				
 			});
 		}
 		
 		function update_wyliczenia(pozycja){
 			
 			var cena_netto = parseFloat($('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val());
-			Pozycje.pz[pozycja]['cena_netto'] = cena_netto;
-			
 			var vat_id = $('#FakturaPozycja'+ pozycja +'ProduktVatId').val();
-			Pozycje.pz[pozycja]['vat_id'] = vat_id;
-			
 			var ilosc = parseFloat($('#FakturaPozycja'+ pozycja +'Ilosc').val());
-			Pozycje.pz[pozycja]['ilosc'] = ilosc;
 			
-			
-			var kwota_netto = parseFloat($('#FakturaPozycja'+ pozycja +'ProduktCenaNetto').val()) * parseFloat($('#FakturaPozycja'+ pozycja +'Ilosc').val());
+			var kwota_netto = cena_netto * ilosc;
 			$('#FakturaIgnore'+ pozycja +'KwotaNetto').val(kwota_netto.toFixed(2));
 			
-			var kwota_vat = parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()]) * kwota_netto;
+			var kwota_vat = parseFloat(vat_json.wartosci[vat_id]) * kwota_netto;
 			$('#FakturaIgnore'+ pozycja +'KwotaVat').val(kwota_vat.toFixed(2));
 			
-			var kwota_brutto = (parseFloat(vat_json.wartosci[$('#FakturaPozycja'+ pozycja +'ProduktVatId').val()])+1) * kwota_netto;
+			var kwota_brutto = (parseFloat(vat_json.wartosci[vat_id])+1) * kwota_netto;
 			$('#FakturaIgnore'+ pozycja +'KwotaBrutto').val(kwota_brutto.toFixed(2));
 			
-			Pozycje.pz[pozycja]['kwota_netto'] = kwota_netto;
-			Pozycje.pz[pozycja]['kwota_vat'] = kwota_vat;
-			Pozycje.pz[pozycja]['kwota_brutto'] = kwota_brutto;
-			
 			update_sumy();
-			
-			// console.log(Pozycje);
 			
 		}
 		
 		function update_sumy(){
 			
 			var suma = { 'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0, 'vat' : {}};
+			var $trs = $('table.pozycje > tbody > tr');
 			
-			for( i in Pozycje.pz ){
-				suma.kwota_netto = suma.kwota_netto + Pozycje.pz[i].kwota_netto;
-				suma.kwota_vat = suma.kwota_vat + Pozycje.pz[i].kwota_vat;
-				suma.kwota_brutto = suma.kwota_brutto + Pozycje.pz[i].kwota_brutto;
+			$trs.each( function(i,e){
 				
-				var vat_id = Pozycje.pz[i].vat_id;
+				var kwota_netto = parseFloat( $(e).find('.kwota_netto input').val() );
+				var kwota_vat = parseFloat( $(e).find('.kwota_vat input').val() );
+				var kwota_brutto = parseFloat( $(e).find('.kwota_brutto input').val() );
 				
-				if( suma.vat.hasOwnProperty(Pozycje.pz[i].vat_id) == false ) suma.vat[vat_id] = {'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0,};
+				suma.kwota_netto = suma.kwota_netto + kwota_netto;
+				suma.kwota_vat = suma.kwota_vat + kwota_vat;
+				suma.kwota_brutto = suma.kwota_brutto + kwota_brutto;
 				
-				suma.vat[vat_id].kwota_netto = suma.vat[vat_id].kwota_netto + Pozycje.pz[i].kwota_netto;
-				suma.vat[vat_id].kwota_vat = suma.vat[vat_id].kwota_vat + Pozycje.pz[i].kwota_vat;
-				suma.vat[vat_id].kwota_brutto = suma.vat[vat_id].kwota_brutto + Pozycje.pz[i].kwota_brutto;
+				var vat_id = $(e).find('.stawka_vat select').val();
 				
-			}
+				if( suma.vat.hasOwnProperty(vat_id) == false ) suma.vat[vat_id] = {'kwota_netto': 0, 'kwota_vat': 0, 'kwota_brutto': 0,};
+				
+				suma.vat[vat_id].kwota_netto = suma.vat[vat_id].kwota_netto + kwota_netto;
+				suma.vat[vat_id].kwota_vat = suma.vat[vat_id].kwota_vat + kwota_vat;
+				suma.vat[vat_id].kwota_brutto = suma.vat[vat_id].kwota_brutto + kwota_brutto;
+				
+			})
 			
 			$('#suma_netto').val(suma.kwota_netto.toFixed(2));
 			$('#suma_vat').val(suma.kwota_vat.toFixed(2));
@@ -172,7 +161,7 @@
 			
 			for( i in vat_json.wartosci ){
 				var $row = $('#suma_vat_'+ i);
-				if( suma.vat.hasOwnProperty(i) ) {
+				if( suma.vat.hasOwnProperty(i) && suma.vat[i].kwota_netto > 0 ) {
 					$row.show();
 				}
 				else {
@@ -182,24 +171,16 @@
 			
 			$('#do_zaplaty').html(suma.kwota_brutto.toFixed(2));
 			$('#do_zaplaty_slownie').html( kwota_slownie(suma.kwota_brutto) );
-			
-			
-			Pozycje.sumy = suma;
-			
+						
 		}
 		
 			
 		function usun_pozycje(pozycja){
 			
 			$('#poz_'+pozycja).remove();
-						
-			// Pozycje.lp = Pozycje.lp - 1;
+			
 			Pozycje.nast = Pozycje.nast - 1;
-			
-			// console.log(Pozycje);
-			
-			delete Pozycje.pz[pozycja];
-			
+						
 			update_sumy();
 			
 			$('table.pozycje > tbody > tr').each(function(i, e){
@@ -243,7 +224,7 @@
 		$('table.pozycje > tbody').off('blur.efaktura').on('blur.efaktura', 'input[id$="NazwaProduktu"]', function(e){
 			
 			var wolne_poz = sa_wolne_pozycje();
-			
+						
 			if( wolne_poz == false ){
 				dodaj_pozycje();
 			}
@@ -253,11 +234,9 @@
 				}
 			}
 			
-			if( !$(this).data('z_bazy') ){
+			if( $(this).val() != '' ){
 				var $tr = $(this).parent().parent().parent();
 				var pozycja = $tr.data('pozycja');
-								
-				Pozycje.pz[pozycja] = { 'ilosc': 0, 'cena_netto': 0, 'nazwa': $(this).val(), 'vat_id': $tr.find('.stawka_vat select').val()};
 				
 				update_wyliczenia(pozycja);
 			}
