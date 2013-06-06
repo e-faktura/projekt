@@ -50,7 +50,7 @@ msgstr "Nie znaleziono"
 
 #: Error/ExceptionRenderer.php:231
 msgid "An Internal Error Has Occurred."
-msgstr "Wystąpił błąd wewnętrzny."
+msgstr "Błąd wewnętrzny"
 
 #: Model/Validator/CakeValidationSet.php:287
 msgid "This field cannot be left blank"
