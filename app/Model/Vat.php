@@ -38,17 +38,17 @@ class Vat extends AppModel {
 			),
 		),
 		'wartosc' => array(
-			'decimal' => array(
-				'rule' => array('decimal',2),
-				'message' => 'Wartość jest niepoprawna.',
-				//'allowEmpty' => false,
-				'required' => true,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			// 'decimal' => array(
+			// 	'rule' => array('decimal',2),
+			// 	'message' => 'Wartość jest niepoprawna.',
+			// 	//'allowEmpty' => false,
+			// 	'required' => true,
+			// 	//'last' => false, // Stop validation after this rule
+			// 	//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			// ),
 			'mniejnizzero' => array(
 				'rule' => array('range',-0.01,1.01),
-				'message' => 'Wartość musi być pomiędzy 0 a 1.',
+				'message' => 'Wartość musi być pomiędzy 0.00 a 1.00.',
 				//'allowEmpty' => false,
 				'required' => true,
 				//'last' => false, // Stop validation after this rule

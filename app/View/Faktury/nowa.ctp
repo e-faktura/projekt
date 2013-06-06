@@ -18,7 +18,7 @@
 				<div class="row-fluid">
 					<div class="span4">
 						<?php
-							echo $this->Form->input('numer', array( 'default' => $numer, 'disabled' => true ));
+							echo $this->Form->input('numer', array( 'default' => $numer, 'disabled' => true, 'required' => false ));
 							echo $this->Form->input('numer', array( 'default' => $numer, 'type' => 'hidden' ));
 						?>
 					</div>

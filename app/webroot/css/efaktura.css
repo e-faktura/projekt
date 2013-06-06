@@ -154,3 +154,11 @@ form .required label:after {
 	content: ' *';
 	display:inline;
 }
+
+
+form .error,
+form .error-message {
+	color: #9E2424;
+
+}
+ 

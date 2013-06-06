@@ -19,6 +19,8 @@
 					var cena_brutto = ((parseFloat(vat[selcted_vat])+1) * parseFloat(cena_netto)).toFixed(2);
 					
 					$('#ProduktCenaBrutto').val(cena_brutto);
+				} else {
+					$('#ProduktCenaBrutto').val('0.00');
 				}
 			}
 			

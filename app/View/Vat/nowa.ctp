@@ -4,7 +4,7 @@
 		<legend>Dodawanie nowej stawki VAT</legend>
 	<?php
 		echo $this->Form->input('nazwa');
-		echo $this->Form->input('wartosc', array( 'label' => 'Wartość', 'default' => '0.00' ));
+		echo $this->Form->input('wartosc', array( 'label' => 'Wartość', 'default' => '0.00', 'min' => '0.00', 'max' => '1.00', 'step' => '0.01' ));
 	?>
 	</fieldset>
 	
